@@ -63,6 +63,7 @@ from wsrplib._datatypes import nameList
 
 
 class ServiceDescriptionAPI(DefinitionBase):
+    __namespace__ = 'http://schemas.xmlsoap.org/wsdl/'
 
     @rpc(RegistrationContext,
          desiredLocales,
@@ -76,6 +77,7 @@ class ServiceDescriptionAPI(DefinitionBase):
 
 
 class MarkupAPI(DefinitionBase):
+    __namespace__ = 'http://schemas.xmlsoap.org/wsdl/'
 
     @rpc(RegistrationContext,
          PortletContext,
@@ -131,6 +133,7 @@ class MarkupAPI(DefinitionBase):
 
 
 class RegistrationAPI(DefinitionBase):
+    __namespace__ = 'http://schemas.xmlsoap.org/wsdl/'
 
     @rpc(RegistrationData,
          _returns=RegistrationContext,
@@ -162,6 +165,7 @@ class RegistrationAPI(DefinitionBase):
 
 
 class PortletManagementAPI(ServiceDescription):
+    __namespace__ = 'http://schemas.xmlsoap.org/wsdl/'
 
     @rpc(RegistrationContext,
          PortletContext,
@@ -246,3 +250,10 @@ class PortletManagementAPI(ServiceDescription):
         ):
         # See WSRP 1.0 spec. 8.7
         pass
+
+if __name__=='__main__':
+        from wsgiref.simple_server import make_server
+        from soaplib.wsgi import Application
+        server = make_server('localhost', 7789,
+                              Application([ServiceDescriptionAPI], 'tns'))
+        server.serve_forever()

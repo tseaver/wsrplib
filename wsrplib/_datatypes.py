@@ -17,18 +17,35 @@ class QName(AnyUri):
     pass
 
 
-class Extension(ClassSerializer):
+
+class _WSRPSerializer(ClassSerializer):
+    __namespace__ = 'http://schemas.xmlsoap.org/wsdl/'
+
+class _WSRPString(String):
+    __namespace__ = 'http://schemas.xmlsoap.org/wsdl/'
+
+
+class Extension(_WSRPSerializer):
     # See WSRP 1.0 spec. 5.1.1
     any = Any
 
 
-Handle = String(255)        # See WSRP 1.0 spec. 5.1.2
+class Handle(_WSRPString):
+    # See WSRP 1.0 spec. 5.1.2
+    class Attributes(String.Attributes):
+        max_len = 255
 
 
-Key = String(255)           # See WSRP 1.0 spec. 5.1.3
+class Key(_WSRPString):
+    # See WSRP 1.0 spec. 5.1.3
+    class Attributes(String.Attributes):
+        max_len = 255
 
 
-ID = String(4096)           # See WSRP 1.0 spec. 5.1.4
+class ID(_WSRPString):
+    # See WSRP 1.0 spec. 5.1.4
+    class Attributes(String.Attributes):
+        max_len = 4096
 
 
 ##############################################################################
@@ -36,40 +53,40 @@ ID = String(4096)           # See WSRP 1.0 spec. 5.1.4
 ##############################################################################
 
 
-class LocalizedString(ClassSerializer):
+class LocalizedString(_WSRPSerializer):
     # See WSRP 1.0 spec. 5.1.5
     xmlLang = Mandatory.String
     value = Mandatory.String
     resourceName = String
 
 
-class ResourceValue(ClassSerializer):
+class ResourceValue(_WSRPSerializer):
     # See WSRP 1.0 spec. 5.1.6
     xmlLang = Mandatory.String
     value = Mandatory.String
     extensions = Array(Extension)
 
 
-class Resource(ClassSerializer):
+class Resource(_WSRPSerializer):
     # See WSRP 1.0 spec. 5.1.7
     resourceName = Mandatory.String
     values = Array(ResourceValue)
     extensions = Array(Extension)
 
 
-class ResourceList(ClassSerializer):
+class ResourceList(_WSRPSerializer):
     # See WSRP 1.0 spec. 5.1.8
     resources = Array(Resource)
     extensions = Array(Extension)
 
 
-class ItemDescription(ClassSerializer):
+class ItemDescription(_WSRPSerializer):
     # See WSRP 1.0 spec. 5.1.9
     itemName = Mandatory.String
     description = LocalizedString
     extensions = Array(Extension)
 
-class MarkupType(ClassSerializer):
+class MarkupType(_WSRPSerializer):
     # See WSRP 1.0 spec. 5.1.10
     mimeType = Mandatory.String
     modes = Array(String)
@@ -77,7 +94,7 @@ class MarkupType(ClassSerializer):
     locales = Array(String)
     extensions = Array(Extension)
 
-class PortletDescription(ClassSerializer):
+class PortletDescription(_WSRPSerializer):
     # See WSRP 1.0 spec. 5.1.11
     portletHandle = Handle
     markupTypes = Array(MarkupType)
@@ -99,26 +116,26 @@ class PortletDescription(ClassSerializer):
     extensions = Array(Extension)
 
 
-class Property(ClassSerializer):
+class Property(_WSRPSerializer):
     # See WSRP 1.0 spec. 5.1.12
     name = Mandatory.String
     xmlLang = String
     value = Array(Any)
 
 
-class ResetProperty(ClassSerializer):
+class ResetProperty(_WSRPSerializer):
     # See WSRP 1.0 spec. 5.1.13
     name = Mandatory.String
 
 
-class PropertyList(ClassSerializer):
+class PropertyList(_WSRPSerializer):
     # See WSRP 1.0 spec. 5.1.14
     properties = Array(Property)
     resetProperties = Array(ResetProperty)
     extensions = Array(Extension)
 
 
-class PropertyDescription(ClassSerializer):
+class PropertyDescription(_WSRPSerializer):
     # See WSRP 1.0 spec. 5.1.15
     name = Mandatory.String
     type = QName
@@ -127,24 +144,26 @@ class PropertyDescription(ClassSerializer):
     extensions = Array(Extension)
 
 
-class ModelTypes(ClassSerializer):
+class ModelTypes(_WSRPSerializer):
     # See WSRP 1.0 spec. 5.1.16
     any = Array(Any)
 
 
-class ModelDescription(ClassSerializer):
+class ModelDescription(_WSRPSerializer):
     # See WSRP 1.0 spec. 5.1.17
     propertyDescriptions = Array(PropertyDescription)
     modelTypes = ModelTypes
     extensions = Array(Extension)
 
 
-CookieProtocol = Enum('none', 'perUser', 'perGroup',
-                      type_name='String')   # See WSRP 1.0 spec. 5.1.18
+class CookieProtocol(Enum('none', 'perUser', 'perGroup',
+                          type_name='String')):
+    # See WSRP 1.0 spec. 5.1.18
+    __namespace__ = 'http://schemas.xmlsoap.org/wsdl/'
 
 
 
-class ServiceDescription(ClassSerializer):
+class ServiceDescription(_WSRPSerializer):
     # See WSRP 1.0 spec. 5.1.19
     requiresRegistration = Boolean
     offeredPortlets = Array(PortletDescription)
@@ -159,20 +178,22 @@ class ServiceDescription(ClassSerializer):
     extensions = Array(Extension)
 
 
-class RegistrationState(ClassSerializer):
+class RegistrationState(_WSRPSerializer):
     # See WSRP 1.0 spec. 5.1.20
     registrationState = Attachment
     extensions = Array(Extension)
 
 
-class RegistrationContext(ClassSerializer):
+class RegistrationContext(_WSRPSerializer):
     # See WSRP 1.0 spec. 5.1.21
     registrationHandle = Handle
     registrationState = Attachment
     extensions = Array(Extension)
 
 
-desiredLocales = Array(String)        # See WSRP 1.0 spec. 5.1.22
+class desiredLocales(Array(String)):
+    # See WSRP 1.0 spec. 5.1.22
+    __namespace__ = 'http://schemas.xmlsoap.org/wsdl/'
 
 
 
@@ -181,14 +202,14 @@ desiredLocales = Array(String)        # See WSRP 1.0 spec. 5.1.22
 ##############################################################################
 
 
-class SessionContext(ClassSerializer):
+class SessionContext(_WSRPSerializer):
     # See WSRP 1.0 spec. 6.1.1
     sessionID = ID
     expires = Integer
     extensions = Array(Extension)
 
 
-class Templates(ClassSerializer):
+class Templates(_WSRPSerializer):
     # See WSRP 1.0 spec. 6.1.6
     defaultTemplate = String
     blockingActionTemplate = String
@@ -201,7 +222,7 @@ class Templates(ClassSerializer):
     extensions = Array(Extension)
 
 
-class RuntimeContext(ClassSerializer):
+class RuntimeContext(_WSRPSerializer):
     # See WSRP 1.0 spec. 6.1.2
     userAuthentication = Mandatory.String
     portletInstanceKey = Key
@@ -211,7 +232,7 @@ class RuntimeContext(ClassSerializer):
     extensions = Array(Extension)
 
 
-class PortletContext(ClassSerializer):
+class PortletContext(_WSRPSerializer):
     # See WSRP 1.0 spec. 6.1.3
     portletHandle = Handle
     portletState = Attachment
@@ -221,7 +242,7 @@ class PortletContext(ClassSerializer):
 # standard user scopes, 6.1.4
 
 
-class CacheControl(ClassSerializer):
+class CacheControl(_WSRPSerializer):
     # See WSRP 1.0 spec. 6.1.6
     expires = Mandatory.Integer
     userScope = Mandatory.String
@@ -232,19 +253,19 @@ class CacheControl(ClassSerializer):
 # Templates, 6.1.6, defined out of order because used by RuntimeContext
 
 
-class ClientData(ClassSerializer):
+class ClientData(_WSRPSerializer):
     # See WSRP 1.0 spec. 6.1.7
     userAgent = String
     extensions = Array(Extension)
 
 
-class NamedString(ClassSerializer):
+class NamedString(_WSRPSerializer):
     # See WSRP 1.0 spec. 6.1.8
     name = Mandatory.String
     value = Mandatory.String
 
 
-class MarkupParams(ClassSerializer):
+class MarkupParams(_WSRPSerializer):
     # See WSRP 1.0 spec. 6.1.9
     secureClientCommunication = Boolean         # XXX required
     locales = Array(String)
@@ -260,7 +281,7 @@ class MarkupParams(ClassSerializer):
     extensions = Array(Extension)
 
 
-class MarkupContext(ClassSerializer):
+class MarkupContext(_WSRPSerializer):
     # See WSRP 1.0 spec. 6.1.10
     useCachedMarkup = Boolean
     mimeType = String
@@ -273,14 +294,14 @@ class MarkupContext(ClassSerializer):
     extensions = Array(Extension)
 
 
-class MarkupResponse(ClassSerializer):
+class MarkupResponse(_WSRPSerializer):
     # See WSRP 1.0 spec. 6.1.11
     markupContext = MarkupContext
     sessionContext = SessionContext
     extensions = Array(Extension)
 
 
-class UpdateResponse(ClassSerializer):
+class UpdateResponse(_WSRPSerializer):
     # See WSRP 1.0 spec. 6.1.12
     sessionContext = SessionContext
     portletContext = PortletContext
@@ -290,18 +311,20 @@ class UpdateResponse(ClassSerializer):
     newMode = String
 
 
-class BlockingInteractionResponse(ClassSerializer):
+class BlockingInteractionResponse(_WSRPSerializer):
     # See WSRP 1.0 spec. 6.1.13
     updateResponse = UpdateResponse
     redirectURL = String
     extensions = Array(Extension)
 
 
-StateChange = Enum('readWrite', 'cloneBeforeWrite', 'readOnly',
-                      type_name='String')   # See WSRP 1.0 spec. 6.1.14
+class StateChange(Enum('readWrite', 'cloneBeforeWrite', 'readOnly',
+                       type_name='String')):
+    # See WSRP 1.0 spec. 6.1.14
+    __namespace__ = 'http://schemas.xmlsoap.org/wsdl/'
 
 
-class UploadContext(ClassSerializer):
+class UploadContext(_WSRPSerializer):
     # See WSRP 1.0 spec. 6.1.15
     mimeType = Mandatory.String
     uploadData = Attachment
@@ -309,7 +332,7 @@ class UploadContext(ClassSerializer):
     extensions = Array(Extension)
 
 
-class InteractionParams(ClassSerializer):
+class InteractionParams(_WSRPSerializer):
     # See WSRP 1.0 spec. 6.1.16
     stateChange = StateChange                   # XXX required
     interactionState = String
@@ -318,7 +341,7 @@ class InteractionParams(ClassSerializer):
     extensions = Array(Extension)
 
 
-class PersonName(ClassSerializer):
+class PersonName(_WSRPSerializer):
     # See WSRP 1.0 spec. 6.1.17.1
     prefix = String
     given = String
@@ -329,7 +352,7 @@ class PersonName(ClassSerializer):
     extensions = Array(Extension)
 
 
-class EmployerInfo(ClassSerializer):
+class EmployerInfo(_WSRPSerializer):
     # See WSRP 1.0 spec. 6.1.17.2
     employer = String
     department = String
@@ -337,7 +360,7 @@ class EmployerInfo(ClassSerializer):
     extensions = Array(Extension)
 
 
-class TelephoneNum(ClassSerializer):
+class TelephoneNum(_WSRPSerializer):
     # See WSRP 1.0 spec. 6.1.17.3
     intcode = String
     loccode = String
@@ -347,7 +370,7 @@ class TelephoneNum(ClassSerializer):
     extensions = Array(Extension)
 
 
-class Telecom(ClassSerializer):
+class Telecom(_WSRPSerializer):
     # See WSRP 1.0 spec. 6.1.17.4
     telephone = TelephoneNum
     fax = TelephoneNum
@@ -356,14 +379,14 @@ class Telecom(ClassSerializer):
     extensions = Array(Extension)
 
 
-class Online(ClassSerializer):
+class Online(_WSRPSerializer):
     # See WSRP 1.0 spec. 6.1.17.5
     email = String
     uri = String
     extensions = Array(Extension)
 
 
-class Postal(ClassSerializer):
+class Postal(_WSRPSerializer):
     # See WSRP 1.0 spec. 6.1.17.6
     name = String
     steet = String
@@ -374,7 +397,7 @@ class Postal(ClassSerializer):
     extensions = Array(Extension)
 
 
-class Contact(ClassSerializer):
+class Contact(_WSRPSerializer):
     # See WSRP 1.0 spec. 6.1.17.7
     postal = Postal
     telecom = Telecom
@@ -382,7 +405,7 @@ class Contact(ClassSerializer):
     extensions = Array(Extension)
 
 
-class UserProfile(ClassSerializer):
+class UserProfile(_WSRPSerializer):
     # See WSRP 1.0 spec. 6.1.17
     name = PersonName
     bdate = Date
@@ -393,14 +416,17 @@ class UserProfile(ClassSerializer):
     extensions = Array(Extension)
 
 
-class UserContext(ClassSerializer):
+class UserContext(_WSRPSerializer):
     # See WSRP 1.0 spec. 6.1.18
     userContextKey = Key
     userCategories = Array(String)
     profile = UserProfile
     extensions = Array(Extension)
 
-sessionIDs = Array(ID)
+
+class sessionIDs(Array(ID)):
+    # Not named in API
+    __namespace__ = 'http://schemas.xmlsoap.org/wsdl/'
 
 
 ##############################################################################
@@ -408,7 +434,7 @@ sessionIDs = Array(ID)
 ##############################################################################
 
 
-class RegistrationData(ClassSerializer):
+class RegistrationData(_WSRPSerializer):
     # See WSRP 1.0 spec. 7.1.1
     consumerName = Mandatory.String
     consumerAgent = Mandatory.String
@@ -426,32 +452,37 @@ class RegistrationData(ClassSerializer):
 ##############################################################################
 
 
-class DestroyFailed(ClassSerializer):
+class DestroyFailed(_WSRPSerializer):
     # See WSRP 1.0 spec. 8.1.1
     portletHandle = Handle                  # XXX required
     reason = String                         # XXX required
 
 
-class DestroyPortletsResponse(ClassSerializer):
+class DestroyPortletsResponse(_WSRPSerializer):
     # See WSRP 1.0 spec. 8.1.2
     destroyFailed = Array(DestroyFailed)
     extensions = Array(Extension)
 
 
-class PortletDescriptionResponse(ClassSerializer):
+class PortletDescriptionResponse(_WSRPSerializer):
     # See WSRP 1.0 spec. 8.1.3
     portletDescription = PortletDescription
     resourceList = ResourceList
     extensions = Array(Extension)
 
 
-class PortletPropertyDescriptionResponse(ClassSerializer):
+class PortletPropertyDescriptionResponse(_WSRPSerializer):
     # See WSRP 1.0 spec. 8.1.4
     modelDescription = ModelDescription
     resourceList = ResourceList
     extensions = Array(Extension)
 
-handleList = Array(Handle)
+
+class handleList(Array(Handle)):
+    # Not named in API
+    __namespace__ = 'http://schemas.xmlsoap.org/wsdl/'
 
 
-nameList = Array(String)
+class nameList(Array(String)):
+    # Not named in API
+    __namespace__ = 'http://schemas.xmlsoap.org/wsdl/'
