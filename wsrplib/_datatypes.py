@@ -195,6 +195,9 @@ class desiredLocales(Array(String)):
     # See WSRP 1.0 spec. 5.1.22
     __namespace__ = 'http://schemas.xmlsoap.org/wsdl/'
 
+# XXX
+desiredLocales = Array(String)
+
 
 
 ##############################################################################
@@ -428,6 +431,8 @@ class sessionIDs(Array(ID)):
     # Not named in API
     __namespace__ = 'http://schemas.xmlsoap.org/wsdl/'
 
+# XXX
+sessionIDs = Array(ID)
 
 ##############################################################################
 # Registration API
@@ -482,7 +487,12 @@ class handleList(Array(Handle)):
     # Not named in API
     __namespace__ = 'http://schemas.xmlsoap.org/wsdl/'
 
+# XXX
+handleList = Array(ID)
 
 class nameList(Array(String)):
     # Not named in API
     __namespace__ = 'http://schemas.xmlsoap.org/wsdl/'
+
+# XXX
+nameList = Array(String)
