@@ -53,6 +53,7 @@ from wsrplib._datatypes import Contact
 from wsrplib._datatypes import UserProfile
 from wsrplib._datatypes import UserContext
 from wsrplib._datatypes import sessionIDs
+from wsrplib._datatypes import RegistrationData
 
 
 class ServiceDescriptionAPI(DefinitionBase):
@@ -120,4 +121,32 @@ class MarkupAPI(DefinitionBase):
         session_ids,
         ):
         # See WSRP 1.0 spec. 6.4
+        pass
+
+
+class RegistrationAPI(DefinitionBase):
+
+    @rpc(RegistrationData,
+         _returns=RegistrationContext,
+        )
+    def register(self,
+        registration_data,
+        ):
+        pass
+
+    @rpc(RegistrationContext,
+         RegistrationData,
+         _returns=RegistrationState,
+        )
+    def modifyRegistration(self,
+        registration_context,
+        registration_data,
+        ):
+        pass
+
+    @rpc(RegistrationContext,
+        )
+    def deregister(self,
+        registration_context,
+        ):
         pass

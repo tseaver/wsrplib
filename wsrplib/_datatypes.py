@@ -401,3 +401,20 @@ class UserContext(ClassSerializer):
     extensions = Array(Extension)
 
 sessionIDs = Array(ID)
+
+##############################################################################
+# Registration API
+##############################################################################
+
+
+class RegistrationData(ClassSerializer):
+    # See WSRP 1.0 spec. 7.1.1
+    consumerName = Mandatory.String
+    consumerAgent = Mandatory.String
+    methodGetSupported = Boolean # required
+    consumerModes = Array(String)
+    consumerWindowStates = Array(String)
+    consumerUserScopes = Array(String)
+    customUserProfileData = Array(String)
+    registrationProperties = Array(Property)
+    extensions = Array(Extension)
