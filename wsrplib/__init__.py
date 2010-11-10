@@ -54,6 +54,12 @@ from wsrplib._datatypes import UserProfile
 from wsrplib._datatypes import UserContext
 from wsrplib._datatypes import sessionIDs
 from wsrplib._datatypes import RegistrationData
+from wsrplib._datatypes import DestroyFailed
+from wsrplib._datatypes import DestroyPortletsResponse
+from wsrplib._datatypes import PortletDescriptionResponse
+from wsrplib._datatypes import PortletPropertyDescriptionResponse
+from wsrplib._datatypes import handleList
+from wsrplib._datatypes import nameList
 
 
 class ServiceDescriptionAPI(DefinitionBase):
@@ -132,6 +138,7 @@ class RegistrationAPI(DefinitionBase):
     def register(self,
         registration_data,
         ):
+        # See WSRP 1.0 spec. 7.2
         pass
 
     @rpc(RegistrationContext,
@@ -142,6 +149,7 @@ class RegistrationAPI(DefinitionBase):
         registration_context,
         registration_data,
         ):
+        # See WSRP 1.0 spec. 7.3
         pass
 
     @rpc(RegistrationContext,
@@ -149,4 +157,92 @@ class RegistrationAPI(DefinitionBase):
     def deregister(self,
         registration_context,
         ):
+        # See WSRP 1.0 spec. 7.4
+        pass
+
+
+class PortletManagementAPI(ServiceDescription):
+
+    @rpc(RegistrationContext,
+         PortletContext,
+         UserContext,
+         desiredLocales,
+         _returns=PortletDescriptionResponse,
+        )
+    def getPortletDescription(self,
+        registration_context,
+        portlet_context,
+        user_context,
+        desired_locales,
+        ):
+        # See WSRP 1.0 spec. 8.2
+        pass
+
+    @rpc(RegistrationContext,
+         PortletContext,
+         UserContext,
+         _returns=PortletContext,
+        )
+    def clonePortlet(self,
+        registration_context,
+        portlet_context,
+        user_context,
+        ):
+        # See WSRP 1.0 spec. 8.3
+        pass
+
+    @rpc(RegistrationContext,
+         handleList,
+         _returns=DestroyPortletsResponse,
+        )
+    def destroyPortlets(self,
+        registration_context,
+        portlet_handles,
+        ):
+        # See WSRP 1.0 spec. 8.4
+        pass
+
+    @rpc(RegistrationContext,
+         PortletContext,
+         UserContext,
+         PropertyList,
+         _returns=PortletContext,
+        )
+    def setPortletProperties(self,
+        registration_context,
+        portlet_context,
+        user_context,
+        property_list,
+        ):
+        # See WSRP 1.0 spec. 8.5
+        pass
+
+    @rpc(RegistrationContext,
+         PortletContext,
+         UserContext,
+         nameList,
+         _returns=PropertyList,
+        )
+    def getPortletProperties(self,
+        registration_context,
+        portlet_context,
+        user_context,
+        name_list,
+        ):
+        # See WSRP 1.0 spec. 8.6
+        pass
+
+    @rpc(RegistrationContext,
+         PortletContext,
+         UserContext,
+         desiredLocales,
+         _returns=PortletPropertyDescriptionResponse,
+        )
+    def getPortletPropertyDsecription(self,
+        registration_context,
+        portlet_context,
+        user_context,
+        desired_locales,
+        ):
+        # See WSRP 1.0 spec. 8.7
         pass

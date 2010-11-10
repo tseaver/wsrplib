@@ -246,7 +246,7 @@ class NamedString(ClassSerializer):
 
 class MarkupParams(ClassSerializer):
     # See WSRP 1.0 spec. 6.1.9
-    secureClientCommunication = Boolean # XXX required
+    secureClientCommunication = Boolean         # XXX required
     locales = Array(String)
     mimeTypes = Array(String)
     mode = Mandatory.String
@@ -311,7 +311,7 @@ class UploadContext(ClassSerializer):
 
 class InteractionParams(ClassSerializer):
     # See WSRP 1.0 spec. 6.1.16
-    stateChange = StateChange # required
+    stateChange = StateChange                   # XXX required
     interactionState = String
     formParameters = Array(NamedString)
     uploadContexts = Array(UploadContext)
@@ -402,6 +402,7 @@ class UserContext(ClassSerializer):
 
 sessionIDs = Array(ID)
 
+
 ##############################################################################
 # Registration API
 ##############################################################################
@@ -411,10 +412,46 @@ class RegistrationData(ClassSerializer):
     # See WSRP 1.0 spec. 7.1.1
     consumerName = Mandatory.String
     consumerAgent = Mandatory.String
-    methodGetSupported = Boolean # required
+    methodGetSupported = Boolean            # XXX required
     consumerModes = Array(String)
     consumerWindowStates = Array(String)
     consumerUserScopes = Array(String)
     customUserProfileData = Array(String)
     registrationProperties = Array(Property)
     extensions = Array(Extension)
+
+
+##############################################################################
+# PortletManagement API
+##############################################################################
+
+
+class DestroyFailed(ClassSerializer):
+    # See WSRP 1.0 spec. 8.1.1
+    portletHandle = Handle                  # XXX required
+    reason = String                         # XXX required
+
+
+class DestroyPortletsResponse(ClassSerializer):
+    # See WSRP 1.0 spec. 8.1.2
+    destroyFailed = Array(DestroyFailed)
+    extensions = Array(Extension)
+
+
+class PortletDescriptionResponse(ClassSerializer):
+    # See WSRP 1.0 spec. 8.1.3
+    portletDescription = PortletDescription
+    resourceList = ResourceList
+    extensions = Array(Extension)
+
+
+class PortletPropertyDescriptionResponse(ClassSerializer):
+    # See WSRP 1.0 spec. 8.1.4
+    modelDescription = ModelDescription
+    resourceList = ResourceList
+    extensions = Array(Extension)
+
+handleList = Array(Handle)
+
+
+nameList = Array(String)
