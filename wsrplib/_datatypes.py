@@ -12,17 +12,20 @@ from soaplib.serializers.primitive import Mandatory
 from soaplib.serializers.clazz import Array
 from soaplib.serializers.clazz import ClassSerializer
 
+from wsrplib._namespaces import WSDL_NAMESPACE
+from wsrplib._namespaces import WSRP_TYPES_NAMESPACE
+
 
 class QName(AnyUri):
-    pass
+    __namespace__ = WSDL_NAMESPACE
 
 
 
 class _WSRPSerializer(ClassSerializer):
-    __namespace__ = 'http://schemas.xmlsoap.org/wsdl/'
+    __namespace__ = WSRP_TYPES_NAMESPACE
 
 class _WSRPString(String):
-    __namespace__ = 'http://schemas.xmlsoap.org/wsdl/'
+    __namespace__ = WSRP_TYPES_NAMESPACE
 
 
 class Extension(_WSRPSerializer):
@@ -30,22 +33,19 @@ class Extension(_WSRPSerializer):
     any = Any
 
 
-class Handle(_WSRPString):
-    # See WSRP 1.0 spec. 5.1.2
-    class Attributes(String.Attributes):
-        max_len = 255
+# See WSRP 1.0 spec. 5.1.2
+Handle = String(255)
+Handle.__namespace__ = WSRP_TYPES_NAMESPACE
 
 
-class Key(_WSRPString):
-    # See WSRP 1.0 spec. 5.1.3
-    class Attributes(String.Attributes):
-        max_len = 255
+# See WSRP 1.0 spec. 5.1.3
+Key = String(255)
+Key.__namespace__ = WSRP_TYPES_NAMESPACE
 
 
-class ID(_WSRPString):
-    # See WSRP 1.0 spec. 5.1.4
-    class Attributes(String.Attributes):
-        max_len = 4096
+# See WSRP 1.0 spec. 5.1.4
+ID = String(4096)
+ID.__namespace__ = WSRP_TYPES_NAMESPACE
 
 
 ##############################################################################
@@ -156,10 +156,9 @@ class ModelDescription(_WSRPSerializer):
     extensions = Array(Extension)
 
 
-class CookieProtocol(Enum('none', 'perUser', 'perGroup',
-                          type_name='String')):
-    # See WSRP 1.0 spec. 5.1.18
-    __namespace__ = 'http://schemas.xmlsoap.org/wsdl/'
+# See WSRP 1.0 spec. 5.1.18
+CookieProtocol = Enum('none', 'perUser', 'perGroup', type_name='String')
+CookieProtocol__namespace__ = WSRP_TYPES_NAMESPACE
 
 
 
@@ -191,12 +190,9 @@ class RegistrationContext(_WSRPSerializer):
     extensions = Array(Extension)
 
 
-class desiredLocales(Array(String)):
-    # See WSRP 1.0 spec. 5.1.22
-    __namespace__ = 'http://schemas.xmlsoap.org/wsdl/'
-
-# XXX
+# See WSRP 1.0 spec. 5.1.22
 desiredLocales = Array(String)
+desiredLocales.__namespace__ = WSRP_TYPES_NAMESPACE
 
 
 
@@ -321,10 +317,10 @@ class BlockingInteractionResponse(_WSRPSerializer):
     extensions = Array(Extension)
 
 
-class StateChange(Enum('readWrite', 'cloneBeforeWrite', 'readOnly',
-                       type_name='String')):
-    # See WSRP 1.0 spec. 6.1.14
-    __namespace__ = 'http://schemas.xmlsoap.org/wsdl/'
+# See WSRP 1.0 spec. 6.1.14
+StateChange = Enum('readWrite', 'cloneBeforeWrite', 'readOnly',
+                   type_name='String')
+StateChange.__namespace__ = WSRP_TYPES_NAMESPACE
 
 
 class UploadContext(_WSRPSerializer):
@@ -427,12 +423,10 @@ class UserContext(_WSRPSerializer):
     extensions = Array(Extension)
 
 
-class sessionIDs(Array(ID)):
-    # Not named in API
-    __namespace__ = 'http://schemas.xmlsoap.org/wsdl/'
-
-# XXX
+# Not named in API
 sessionIDs = Array(ID)
+__namespace__ = WSRP_TYPES_NAMESPACE
+
 
 ##############################################################################
 # Registration API
@@ -483,16 +477,11 @@ class PortletPropertyDescriptionResponse(_WSRPSerializer):
     extensions = Array(Extension)
 
 
-class handleList(Array(Handle)):
-    # Not named in API
-    __namespace__ = 'http://schemas.xmlsoap.org/wsdl/'
-
-# XXX
+# Not named in API
 handleList = Array(ID)
+handleList.__namespace__ = WSRP_TYPES_NAMESPACE
 
-class nameList(Array(String)):
-    # Not named in API
-    __namespace__ = 'http://schemas.xmlsoap.org/wsdl/'
 
-# XXX
+# Not named in API
 nameList = Array(String)
+nameList.__namespace__ = WSRP_TYPES_NAMESPACE

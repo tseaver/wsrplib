@@ -4,7 +4,11 @@ from soaplib.service import DefinitionBase
 from soaplib.service import rpc
 
 # Utility type
+from wsrplib._namespaces import WSRP_TYPES_NAMESPACE
+from wsrplib._namespaces import WSRP_INTF_NAMESPACE
+
 from wsrplib._datatypes import QName
+
 
 from wsrplib._datatypes import Extension
 from wsrplib._datatypes import Handle
@@ -63,7 +67,7 @@ from wsrplib._datatypes import nameList
 
 
 class ServiceDescriptionAPI(DefinitionBase):
-    __namespace__ = 'http://schemas.xmlsoap.org/wsdl/'
+    __namespace__ = WSRP_INTF_NAMESPACE
 
     @rpc(RegistrationContext,
          desiredLocales,
@@ -77,7 +81,7 @@ class ServiceDescriptionAPI(DefinitionBase):
 
 
 class MarkupAPI(DefinitionBase):
-    __namespace__ = 'http://schemas.xmlsoap.org/wsdl/'
+    __namespace__ = WSRP_INTF_NAMESPACE
 
     @rpc(RegistrationContext,
          PortletContext,
@@ -133,7 +137,7 @@ class MarkupAPI(DefinitionBase):
 
 
 class RegistrationAPI(DefinitionBase):
-    __namespace__ = 'http://schemas.xmlsoap.org/wsdl/'
+    __namespace__ = WSRP_INTF_NAMESPACE
 
     @rpc(RegistrationData,
          _returns=RegistrationContext,
@@ -165,7 +169,7 @@ class RegistrationAPI(DefinitionBase):
 
 
 class PortletManagementAPI(ServiceDescription):
-    __namespace__ = 'http://schemas.xmlsoap.org/wsdl/'
+    __namespace__ = WSRP_INTF_NAMESPACE
 
     @rpc(RegistrationContext,
          PortletContext,
