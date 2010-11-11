@@ -20,7 +20,7 @@ setup(name='wsrplib',
       description='WSRP protocol',
       long_description='\n\n'.join([README, CHANGES]),
       install_requires=[
-        'soaplib >= 1.0.0-beta8, < 2.0dev',
+        'soaplib',
       ],
       packages=['wsrplib'],
       **extras

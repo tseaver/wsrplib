@@ -1,16 +1,16 @@
 # WSRP datatypes
 
-from soaplib.serializers.binary import Attachment
-from soaplib.serializers.enum import Enum
-from soaplib.serializers.primitive import Any  # AnyAsDict?
-from soaplib.serializers.primitive import AnyUri
-from soaplib.serializers.primitive import Boolean
-from soaplib.serializers.primitive import Date
-from soaplib.serializers.primitive import Integer
-from soaplib.serializers.primitive import String
-from soaplib.serializers.primitive import Mandatory
-from soaplib.serializers.clazz import Array
-from soaplib.serializers.clazz import ClassSerializer
+from soaplib.model.binary import Attachment
+from soaplib.model.enum import Enum
+from soaplib.model.primitive import Any  # AnyAsDict?
+from soaplib.model.primitive import AnyUri
+from soaplib.model.primitive import Boolean
+from soaplib.model.primitive import Date
+from soaplib.model.primitive import Integer
+from soaplib.model.primitive import String
+from soaplib.model.primitive import Mandatory
+from soaplib.model.clazz import Array
+from soaplib.model.clazz import ClassSerializer
 
 from wsrplib._namespaces import WSDL_NAMESPACE
 from wsrplib._namespaces import WSRP_TYPES_NAMESPACE
