@@ -1,7 +1,7 @@
 from wsrplib._service_description import ServiceDescriptionAPI
-from wsrplib._markup import MarkupAPI
-from wsrplib import RegistrationAPI
-from wsrplib import PortletManagementAPI
+#from wsrplib._markup import MarkupAPI
+#from wsrplib import RegistrationAPI
+#from wsrplib import PortletManagementAPI
 
 
 
@@ -11,9 +11,9 @@ if __name__=='__main__':
     from soaplib.server import wsgi
     soap_application = soaplib.Application(
                             [ServiceDescriptionAPI,
-                             MarkupAPI,
-                             RegistrationAPI,
-                             PortletManagementAPI,
+                             #MarkupAPI,
+                             #RegistrationAPI,
+                             #PortletManagementAPI,
                             ], None)
     wsgi_application = wsgi.Application(soap_application)
     server = make_server('localhost', 7789, wsgi_application)

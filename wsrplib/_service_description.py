@@ -18,4 +18,6 @@ class ServiceDescriptionAPI(DefinitionBase):
         desired_locales,
         ):
         # See WSRP 1.0 spec. 5.2
-        pass
+        result = ServiceDescription()
+        result.requiresRegistration = False
+        return result
