@@ -2,6 +2,7 @@ from suds.client import Client
 
 if __name__ == '__main__':
     client = Client('http://localhost:7789/?wsdl')
+    client.set_options(cache=None)
     sd =  client.service.getServiceDescription(None, [])
     print 'Service Description'
     print '==================='
@@ -14,3 +15,7 @@ if __name__ == '__main__':
         print '-------'
         print 'Handle:', portlet.portletHandle
         print 'Title:', portlet.title.value
+        print 'Short title:', portlet.shortTitle.value
+        print 'Display name:', portlet.displayName.value
+        print 'Dscription:', portlet.description.value
+        print 'Keywords:', ', '.join([x.value for x in portlet.keywords[0]])

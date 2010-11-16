@@ -21,6 +21,7 @@ setup(name='wsrplib',
       long_description='\n\n'.join([README, CHANGES]),
       install_requires=[
         'soaplib',
+        'zope.component',
       ],
       packages=['wsrplib'],
       **extras

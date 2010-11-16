@@ -1,6 +1,8 @@
 from soaplib.service import DefinitionBase
 from soaplib.service import rpc
+from zope.component import getUtilitiesFor
 
+from wsrplib.interfaces import IPortlet
 from wsrplib._datatypes import LocalizedString
 from wsrplib._datatypes import PortletDescription
 from wsrplib._datatypes import RegistrationContext
@@ -27,13 +29,20 @@ class ServiceDescriptionAPI(DefinitionBase):
         desired_locales,
         ):
         # See WSRP 1.0 spec. 5.2
-        # Dummy implementation for testing.
-        pd = PortletDescription()
-        pd.portletHandle = '0001'
-        pd.title = _localized('title', 'Some Portlet')
         result = ServiceDescription()
         result.requiresRegistration = False
         result.requiresInitCookie = 'none'
         result.locales = ['en-US']
-        result.offeredPortlets = [pd]
+        portlets = []
+        for name, portlet in getUtilitiesFor(IPortlet):
+            pd = PortletDescription()
+            pd.portletHandle = name
+            pd.groupID = portlet.groupID
+            pd.title = _localized('title', portlet.title)
+            pd.shortTitle = _localized('shortTitle', portlet.shortTitle)
+            pd.displayName = _localized('displayName', portlet.displayName)
+            pd.description = _localized('description', portlet.description)
+            pd.keywords = [_localized('keyword', x) for x in portlet.keywords]
+            portlets.append(pd)
+        result.offeredPortlets = portlets
         return result

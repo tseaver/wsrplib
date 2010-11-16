@@ -1,14 +1,32 @@
+from zope.interface import implements
+
+from wsrplib.interfaces import IPortlet
 from wsrplib._service_description import ServiceDescriptionAPI
 #from wsrplib._markup import MarkupAPI
 #from wsrplib import RegistrationAPI
 #from wsrplib import PortletManagementAPI
 
-
+class DummyPortlet(object):
+    implements(IPortlet)
+    groupID = 'Dummy Group'
+    title = shortTitle = displayName = 'Dummy Portlet'
+    description = 'Portlet registered to test portlet definition exchange.'
+    keywords = ('dummy', 'testing')
+    userCategories = userProfileItems = ()
+    usesMethodGet = False
+    defaultMarkupSecure = False
+    onlySecure = False
+    userContextStoredInSession = False
+    templatesStoredInSession = False
+    hasUserSpecificState = False
+    doesUrlTemplateProcessing = False
 
 if __name__=='__main__':
-    from wsgiref.simple_server import make_server
+    from zope.component import provideUtility
     import soaplib
     from soaplib.server import wsgi
+    from wsgiref.simple_server import make_server
+    provideUtility(DummyPortlet(), IPortlet, name='dummy')
     soap_application = soaplib.Application(
                             [ServiceDescriptionAPI,
                              #MarkupAPI,
