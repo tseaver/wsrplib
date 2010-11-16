@@ -43,6 +43,16 @@ class ServiceDescriptionAPI(DefinitionBase):
             pd.displayName = _localized('displayName', portlet.displayName)
             pd.description = _localized('description', portlet.description)
             pd.keywords = [_localized('keyword', x) for x in portlet.keywords]
+            pd.markupTypes = [] # XXX
+            pd.userCategories = list(portlet.userCategories)
+            pd.userProfileItems = list(portlet.userProfileItems)
+            pd.usesMethodGet = portlet.usesMethodGet
+            pd.defaultMarkupSecure = portlet.defaultMarkupSecure
+            pd.onlySecure = portlet.onlySecure
+            pd.userContextStoredInSession = portlet.userContextStoredInSession
+            pd.templatesStoredInSession = portlet.templatesStoredInSession
+            pd.hasUserSpecificState = portlet.hasUserSpecificState
+            pd.doesUrlTemplateProcessing = portlet.doesUrlTemplateProcessing
             portlets.append(pd)
         result.offeredPortlets = portlets
         return result
