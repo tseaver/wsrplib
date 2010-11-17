@@ -7,6 +7,7 @@ from soaplib.model.primitive import AnyUri
 from soaplib.model.primitive import Boolean
 from soaplib.model.primitive import Date
 from soaplib.model.primitive import Integer
+from soaplib.model.primitive import SimpleType
 from soaplib.model.primitive import String
 from soaplib.model.primitive import Mandatory
 from soaplib.model.clazz import Array
@@ -26,6 +27,7 @@ class _WSRPSerializer(ClassSerializer):
 
 class _WSRPString(String):
     __namespace__ = WSRP_TYPES_NAMESPACE
+    __base_type__ = String
 
 
 class Extension(_WSRPSerializer):
@@ -33,19 +35,25 @@ class Extension(_WSRPSerializer):
     any = Any
 
 
-# See WSRP 1.0 spec. 5.1.2
-Handle = String(255)
-Handle.__namespace__ = WSRP_TYPES_NAMESPACE
+class Handle(_WSRPString):
+    # See WSRP 1.0 spec. 5.1.2
+    class Attributes(String.Attributes):
+        min_len = 1
+        max_len = 255
 
 
-# See WSRP 1.0 spec. 5.1.3
-Key = String(255)
-Key.__namespace__ = WSRP_TYPES_NAMESPACE
+class Key(_WSRPString):
+    # See WSRP 1.0 spec. 5.1.3
+    class Attributes(String.Attributes):
+        min_len = 1
+        max_len = 255
 
 
-# See WSRP 1.0 spec. 5.1.4
-ID = String(4096)
-ID.__namespace__ = WSRP_TYPES_NAMESPACE
+class ID(_WSRPString):
+    # See WSRP 1.0 spec. 5.1.4
+    class Attributes(String.Attributes):
+        min_len = 1
+        max_len = 255
 
 
 ##############################################################################
