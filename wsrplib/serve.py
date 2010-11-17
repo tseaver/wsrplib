@@ -1,13 +1,22 @@
 from zope.interface import implements
 
 from wsrplib.interfaces import IPortlet
+from wsrplib.interfaces import IMarkupType
 from wsrplib._service_description import ServiceDescriptionAPI
-#from wsrplib._markup import MarkupAPI
+from wsrplib._markup import MarkupAPI
 #from wsrplib import RegistrationAPI
 #from wsrplib import PortletManagementAPI
 
+class DummyMarkupType(object):
+    implements(IMarkupType)
+    mimeType = 'text/html'
+    modes = ('view',)
+    windowStates = ()
+    locales = ('en',)
+
 class DummyPortlet(object):
     implements(IPortlet)
+    markupTypes = (DummyMarkupType(),)
     groupID = 'Dummy Group'
     title = shortTitle = displayName = 'Dummy Portlet'
     description = 'Portlet registered to test portlet definition exchange.'
@@ -29,7 +38,7 @@ if __name__=='__main__':
     provideUtility(DummyPortlet(), IPortlet, name='dummy')
     soap_application = soaplib.Application(
                             [ServiceDescriptionAPI,
-                             #MarkupAPI,
+                             MarkupAPI,
                              #RegistrationAPI,
                              #PortletManagementAPI,
                             ], None)

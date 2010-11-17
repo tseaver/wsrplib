@@ -4,6 +4,7 @@ from zope.component import getUtilitiesFor
 
 from wsrplib.interfaces import IPortlet
 from wsrplib._datatypes import LocalizedString
+from wsrplib._datatypes import MarkupType
 from wsrplib._datatypes import PortletDescription
 from wsrplib._datatypes import RegistrationContext
 from wsrplib._datatypes import ServiceDescription
@@ -43,7 +44,14 @@ class ServiceDescriptionAPI(DefinitionBase):
             pd.displayName = _localized('displayName', portlet.displayName)
             pd.description = _localized('description', portlet.description)
             pd.keywords = [_localized('keyword', x) for x in portlet.keywords]
-            pd.markupTypes = [] # XXX
+            m_types = pd.markupTypes = []
+            for m_type in portlet.markupTypes:
+                mt = MarkupType()
+                mt.mimeType = m_type.mimeType
+                mt.modes = list(m_type.modes)
+                mt.windowStates = list(m_type.windowStates)
+                mt.locales = list(m_type.locales)
+                m_types.append(mt)
             pd.userCategories = list(portlet.userCategories)
             pd.userProfileItems = list(portlet.userProfileItems)
             pd.usesMethodGet = portlet.usesMethodGet

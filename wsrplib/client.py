@@ -9,30 +9,44 @@ if __name__ == '__main__':
     client = Client('http://localhost:7789/?wsdl')
     client.set_options(cache=None)
     sd =  client.service.getServiceDescription(None, [])
+
+    print '###################'
     print 'Service Description'
-    print '==================='
+    print '###################'
     print 'Requires registration:', sd.requiresRegistration
     print 'Requires init cookie:', sd.requiresInitCookie
     print 'Locales:', ', '.join(_maybeEmpty(sd.locales))
-    for portlet in sd.offeredPortlets[0]:
+
+    for portlet in _maybeEmpty(sd.offeredPortlets):
         print
-        print 'Portlet'
-        print '-------'
-        print 'Handle:', portlet.portletHandle
-        print 'Group ID:', portlet.groupID
-        print 'Title:', portlet.title.value
-        print 'Short title:', portlet.shortTitle.value
-        print 'Display name:', portlet.displayName.value
-        print 'Dscription:', portlet.description.value
-        print 'Keywords:', ', '.join([
+        print ' Portlet'
+        print ' ======='
+        print ' Handle:', portlet.portletHandle
+        print ' Group ID:', portlet.groupID
+        print ' Title:', portlet.title.value
+        print ' Short title:', portlet.shortTitle.value
+        print ' Display name:', portlet.displayName.value
+        print ' Dscription:', portlet.description.value
+        print ' Keywords:', ', '.join([
                                 x.value for x in _maybeEmpty(portlet.keywords)])
-        print 'User categories:', ', '.join(_maybeEmpty(portlet.userCategories))
-        print 'User profile items:', ', '.join(
+        print ' User categories:', ', '.join(
+                                _maybeEmpty(portlet.userCategories))
+        print ' User profile items:', ', '.join(
                                 _maybeEmpty(portlet.userProfileItems))
-        print 'Uses GET method?', portlet.usesMethodGet
-        print 'Default markup secure?', portlet.defaultMarkupSecure
-        print 'All markup secure?', portlet.onlySecure
-        print 'User ctx in session?', portlet.userContextStoredInSession
-        print 'Templates in session?', portlet.templatesStoredInSession
-        print 'User-specific state?', portlet.hasUserSpecificState
-        print 'URL Template processing?', portlet.doesUrlTemplateProcessing
+        print ' Uses GET method?', portlet.usesMethodGet
+        print ' Default markup secure?', portlet.defaultMarkupSecure
+        print ' All markup secure?', portlet.onlySecure
+        print ' User ctx in session?', portlet.userContextStoredInSession
+        print ' Templates in session?', portlet.templatesStoredInSession
+        print ' User-specific state?', portlet.hasUserSpecificState
+        print ' URL Template processing?', portlet.doesUrlTemplateProcessing
+
+        for markupType in _maybeEmpty(portlet.markupTypes):
+            print
+            print '  Markup Type'
+            print '  -----------'
+            print '  MIME type:', markupType.mimeType
+            print '  Modes:', ', '.join(_maybeEmpty(markupType.modes))
+            print '  Window States:', ', '.join(
+                                    _maybeEmpty(markupType.windowStates))
+            print '  Locales:', ', '.join(_maybeEmpty(markupType.locales))
