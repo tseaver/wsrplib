@@ -1,7 +1,8 @@
 from zope.interface import implements
 
-from wsrplib.interfaces import IPortlet
 from wsrplib.interfaces import IMarkupType
+from wsrplib.interfaces import IPortlet
+from wsrplib.interfaces import IServiceDescriptionInfo
 from wsrplib._service_description import ServiceDescriptionAPI
 from wsrplib._markup import MarkupAPI
 #from wsrplib import RegistrationAPI
@@ -30,11 +31,18 @@ class DummyPortlet(object):
     hasUserSpecificState = False
     doesUrlTemplateProcessing = False
 
+class DummyServiceDescriptionInfo(object):
+    implements(IServiceDescriptionInfo)
+    requiresRegistration = False
+    requiresInitCookie = 'none'
+    locales = ['en-US']
+
 if __name__=='__main__':
     from zope.component import provideUtility
     import soaplib
     from soaplib.server import wsgi
     from wsgiref.simple_server import make_server
+    provideUtility(DummyServiceDescriptionInfo(), IServiceDescriptionInfo)
     provideUtility(DummyPortlet(), IPortlet, name='dummy')
     soap_application = soaplib.Application(
                             [ServiceDescriptionAPI,

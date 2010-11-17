@@ -1,6 +1,13 @@
 from zope.interface import Attribute
 from zope.interface import Interface
 
+class IServiceDescriptionInfo(Interface):
+    requiresRegistration = Attribute(u"Does the service require registration?")
+    requiresInitCookie = Attribute(u"Does the service require that "
+                                    "'initCookie' be called?")
+    locales = Attribute(u"List of locales supported by the service.")
+
+
 class IMarkupType(Interface):
     """ Define how portlet can be queried for markup.
     """
@@ -8,6 +15,7 @@ class IMarkupType(Interface):
     modes = Attribute(u'List of supported mode names')
     windowStates = Attribute(u'List of supported window state names')
     locales = Attribute(u'List of supported locale names')
+
 
 class IPortlet(Interface):
     """ Utility interface:  portlets are registered as named utilities.

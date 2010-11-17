@@ -1,8 +1,10 @@
 from soaplib.service import DefinitionBase
 from soaplib.service import rpc
 from zope.component import getUtilitiesFor
+from zope.component import getUtility
 
 from wsrplib.interfaces import IPortlet
+from wsrplib.interfaces import IServiceDescriptionInfo
 from wsrplib._datatypes import LocalizedString
 from wsrplib._datatypes import MarkupType
 from wsrplib._datatypes import PortletDescription
@@ -31,10 +33,11 @@ class ServiceDescriptionAPI(DefinitionBase):
         ):
         # See WSRP 1.0 spec. 5.2
         result = ServiceDescription()
-        result.requiresRegistration = False
-        result.requiresInitCookie = 'none'
-        result.locales = ['en-US']
-        portlets = []
+        info = getUtility(IServiceDescriptionInfo)
+        result.requiresRegistration = info.requiresRegistration
+        result.requiresInitCookie = info.requiresInitCookie
+        result.locales = list(info.locales)
+        result.offeredPortlets = portlets = []
         for name, portlet in getUtilitiesFor(IPortlet):
             pd = PortletDescription()
             pd.portletHandle = name
@@ -62,5 +65,4 @@ class ServiceDescriptionAPI(DefinitionBase):
             pd.hasUserSpecificState = portlet.hasUserSpecificState
             pd.doesUrlTemplateProcessing = portlet.doesUrlTemplateProcessing
             portlets.append(pd)
-        result.offeredPortlets = portlets
         return result
