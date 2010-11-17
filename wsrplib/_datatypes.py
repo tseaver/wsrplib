@@ -37,6 +37,7 @@ class Extension(_WSRPSerializer):
 
 class Handle(_WSRPString):
     # See WSRP 1.0 spec. 5.1.2
+    __type_name__ = 'Handle'
     class Attributes(String.Attributes):
         min_len = 1
         max_len = 255
@@ -44,6 +45,7 @@ class Handle(_WSRPString):
 
 class Key(_WSRPString):
     # See WSRP 1.0 spec. 5.1.3
+    __type_name__ = 'Key'
     class Attributes(String.Attributes):
         min_len = 1
         max_len = 255
@@ -51,9 +53,10 @@ class Key(_WSRPString):
 
 class ID(_WSRPString):
     # See WSRP 1.0 spec. 5.1.4
+    __type_name__ = 'ID'
     class Attributes(String.Attributes):
         min_len = 1
-        max_len = 255
+        max_len = 4096
 
 
 ##############################################################################
