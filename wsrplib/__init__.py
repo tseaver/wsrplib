@@ -58,6 +58,21 @@ from wsrplib._datatypes import PortletPropertyDescriptionResponse
 from wsrplib._datatypes import handleList
 from wsrplib._datatypes import nameList
 
+from wsrplib._faults import AccessDenied
+from wsrplib._faults import InvalidUserCategory
+from wsrplib._faults import InconsistentParameters
+from wsrplib._faults import InvalidRegistration
+from wsrplib._faults import MissingParameters
+from wsrplib._faults import OperationFailed
+from wsrplib._faults import InvalidHandle
+from wsrplib._faults import PortletStateChangeRequired
+from wsrplib._faults import InvalidCookie
+from wsrplib._faults import InvalidSession
+from wsrplib._faults import UnsupportedMode
+from wsrplib._faults import UnsupportedWindowState
+from wsrplib._faults import UnsupportedLocale
+from wsrplib._faults import UnsupportedMimeType
+
 from wsrplib._service_description import ServiceDescriptionAPI
 from wsrplib._markup import MarkupAPI
 from wsrplib._registration import RegistrationAPI
