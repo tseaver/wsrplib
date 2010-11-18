@@ -50,3 +50,20 @@ if __name__ == '__main__':
             print '  Window States:', ', '.join(
                                     _maybeEmpty(markupType.windowStates))
             print '  Locales:', ', '.join(_maybeEmpty(markupType.locales))
+
+        p_context = {'portletHandle': portlet.portletHandle}
+        response = client.service.getMarkup(None, p_context, None, None, None)
+        m_context = response.markupContext
+
+        print
+        print '  getMarkup'
+        print '  ---------'
+        print '  Use Cached?', m_context.useCachedMarkup
+        print '  MIME Type:', m_context.mimeType
+        print '  Markup:'
+        for line in response.markupContext.markupString.splitlines():
+            print '     ', line
+        print '  Locale:', m_context.locale
+        print '  Requires URL Rewriting?', m_context.requiresUrlRewriting
+        print '  Cache control:', m_context.cacheControl
+        print '  Preferred Title:', m_context.preferredTitle

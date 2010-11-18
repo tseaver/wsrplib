@@ -1,6 +1,8 @@
 from soaplib.service import DefinitionBase
 from soaplib.service import rpc
+from zope.component import queryUtility
 
+from wsrplib.interfaces import IPortlet
 from wsrplib._datatypes import BlockingInteractionResponse
 from wsrplib._datatypes import MarkupParams
 from wsrplib._datatypes import MarkupResponse
@@ -56,7 +58,23 @@ class MarkupAPI(DefinitionBase):
         markup_params,
         ):
         # See WSRP 1.0 spec. 6.2
-        pass
+        p_handle = portlet_context.portletHandle
+        portlet = queryUtility(IPortlet, name=p_handle)
+        if portlet is None:
+            return InvalidHandle('No such portlet: %s' % p_handle)
+        m_response = MarkupResponse()
+        try:
+            m_response.markupContext = portlet.GET(registration_context,
+                                                   portlet_context,
+                                                   runtime_context,
+                                                   user_context,
+                                                   markup_params,
+                                                  )
+            # XXX sessionContext in response?
+        except Exception, e:
+            return OperationFailed(str(e))
+        else:
+            return m_response
 
     @rpc(RegistrationContext,
          PortletContext,
@@ -89,7 +107,7 @@ class MarkupAPI(DefinitionBase):
         interaction_params,
         ):
         # See WSRP 1.0 spec. 6.3
-        pass
+        return OperationFailed()
 
     @rpc(RegistrationContext,
          _faults=[AccessDenied,
@@ -101,7 +119,7 @@ class MarkupAPI(DefinitionBase):
         registration_context,
         ):
         # See WSRP 1.0 spec. 6.4
-        pass
+        return OperationFailed()
 
     @rpc(RegistrationContext,
          sessionIDs,
@@ -116,4 +134,4 @@ class MarkupAPI(DefinitionBase):
         session_ids,
         ):
         # See WSRP 1.0 spec. 6.4
-        pass
+        return OperationFailed()

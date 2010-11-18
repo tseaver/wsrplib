@@ -42,3 +42,12 @@ class IPortlet(Interface):
                                      u'user-specific state?')
     doesUrlTemplateProcessing = Attribute(u'Does the portlet do its own '
                                           u'URL processing of templates?')
+
+    def GET(registration_context,
+            portlet_context,
+            runtime_context,
+            user_context,
+            markup_params,
+           ):
+        """ Return a MarkupResponse.
+        """
