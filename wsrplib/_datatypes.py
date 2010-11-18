@@ -7,7 +7,6 @@ from soaplib.model.primitive import AnyUri
 from soaplib.model.primitive import Boolean
 from soaplib.model.primitive import Date
 from soaplib.model.primitive import Integer
-from soaplib.model.primitive import SimpleType
 from soaplib.model.primitive import String
 from soaplib.model.primitive import Mandatory
 from soaplib.model.clazz import Array
