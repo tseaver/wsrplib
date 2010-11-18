@@ -11,6 +11,8 @@ from wsrplib._datatypes import PortletDescription
 from wsrplib._datatypes import RegistrationContext
 from wsrplib._datatypes import ServiceDescription
 from wsrplib._datatypes import desiredLocales
+from wsrplib._faults import InvalidRegistration
+from wsrplib._faults import OperationFailed
 from wsrplib._namespaces import WSRP_INTF_NAMESPACE
 
 
@@ -26,6 +28,9 @@ class ServiceDescriptionAPI(DefinitionBase):
 
     @rpc(RegistrationContext,
          desiredLocales,
+         _faults=[InvalidRegistration,
+                  OperationFailed,
+                 ],
          _returns=ServiceDescription)
     def getServiceDescription(self,
         registration_context,

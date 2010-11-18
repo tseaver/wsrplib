@@ -11,6 +11,13 @@ from wsrplib._datatypes import UserContext
 from wsrplib._datatypes import desiredLocales
 from wsrplib._datatypes import handleList
 from wsrplib._datatypes import nameList
+from wsrplib._faults import AccessDenied
+from wsrplib._faults import InconsistentParameters
+from wsrplib._faults import InvalidHandle
+from wsrplib._faults import InvalidRegistration
+from wsrplib._faults import InvalidUserCategory
+from wsrplib._faults import MissingParameters
+from wsrplib._faults import OperationFailed
 from wsrplib._namespaces import WSRP_INTF_NAMESPACE
 
 
@@ -21,6 +28,14 @@ class PortletManagementAPI(DefinitionBase):
          PortletContext,
          UserContext,
          desiredLocales,
+         _faults=[AccessDenied,
+                  InconsistentParameters,
+                  InvalidHandle,
+                  InvalidRegistration,
+                  InvalidUserCategory,
+                  MissingParameters,
+                  OperationFailed,
+                 ],
          _returns=PortletDescriptionResponse,
         )
     def getPortletDescription(self,
@@ -35,6 +50,14 @@ class PortletManagementAPI(DefinitionBase):
     @rpc(RegistrationContext,
          PortletContext,
          UserContext,
+         _faults=[AccessDenied,
+                  InconsistentParameters,
+                  InvalidHandle,
+                  InvalidRegistration,
+                  InvalidUserCategory,
+                  MissingParameters,
+                  OperationFailed,
+                 ],
          _returns=PortletContext,
         )
     def clonePortlet(self,
@@ -47,6 +70,11 @@ class PortletManagementAPI(DefinitionBase):
 
     @rpc(RegistrationContext,
          handleList,
+         _faults=[InconsistentParameters,
+                  InvalidRegistration,
+                  MissingParameters,
+                  OperationFailed,
+                 ],
          _returns=DestroyPortletsResponse,
         )
     def destroyPortlets(self,
@@ -60,6 +88,14 @@ class PortletManagementAPI(DefinitionBase):
          PortletContext,
          UserContext,
          PropertyList,
+         _faults=[AccessDenied,
+                  InconsistentParameters,
+                  InvalidHandle,
+                  InvalidRegistration,
+                  InvalidUserCategory,
+                  MissingParameters,
+                  OperationFailed,
+                 ],
          _returns=PortletContext,
         )
     def setPortletProperties(self,
@@ -75,6 +111,14 @@ class PortletManagementAPI(DefinitionBase):
          PortletContext,
          UserContext,
          nameList,
+         _faults=[AccessDenied,
+                  InconsistentParameters,
+                  InvalidHandle,
+                  InvalidRegistration,
+                  InvalidUserCategory,
+                  MissingParameters,
+                  OperationFailed,
+                 ],
          _returns=PropertyList,
         )
     def getPortletProperties(self,
@@ -90,6 +134,14 @@ class PortletManagementAPI(DefinitionBase):
          PortletContext,
          UserContext,
          desiredLocales,
+         _faults=[AccessDenied,
+                  InconsistentParameters,
+                  InvalidHandle,
+                  InvalidRegistration,
+                  InvalidUserCategory,
+                  MissingParameters,
+                  OperationFailed,
+                 ],
          _returns=PortletPropertyDescriptionResponse,
         )
     def getPortletPropertyDsecription(self,

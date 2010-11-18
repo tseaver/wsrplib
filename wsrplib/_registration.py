@@ -4,6 +4,9 @@ from soaplib.service import rpc
 from wsrplib._datatypes import RegistrationContext
 from wsrplib._datatypes import RegistrationData
 from wsrplib._datatypes import RegistrationState
+from wsrplib._faults import InvalidRegistration
+from wsrplib._faults import MissingParameters
+from wsrplib._faults import OperationFailed
 from wsrplib._namespaces import WSRP_INTF_NAMESPACE
 
 
@@ -11,6 +14,9 @@ class RegistrationAPI(DefinitionBase):
     __namespace__ = WSRP_INTF_NAMESPACE
 
     @rpc(RegistrationData,
+         _faults=[MissingParameters,
+                  OperationFailed,
+                 ],
          _returns=RegistrationContext,
         )
     def register(self,
@@ -21,6 +27,10 @@ class RegistrationAPI(DefinitionBase):
 
     @rpc(RegistrationContext,
          RegistrationData,
+         _faults=[InvalidRegistration,
+                  MissingParameters,
+                  OperationFailed,
+                 ],
          _returns=RegistrationState,
         )
     def modifyRegistration(self,
@@ -31,6 +41,9 @@ class RegistrationAPI(DefinitionBase):
         pass
 
     @rpc(RegistrationContext,
+         _faults=[InvalidRegistration,
+                  OperationFailed,
+                 ],
         )
     def deregister(self,
         registration_context,

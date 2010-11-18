@@ -9,6 +9,20 @@ from wsrplib._datatypes import RegistrationContext
 from wsrplib._datatypes import RuntimeContext
 from wsrplib._datatypes import UserContext
 from wsrplib._datatypes import sessionIDs
+from wsrplib._faults import AccessDenied
+from wsrplib._faults import InconsistentParameters
+from wsrplib._faults import InvalidCookie
+from wsrplib._faults import InvalidHandle
+from wsrplib._faults import InvalidRegistration
+from wsrplib._faults import InvalidSession
+from wsrplib._faults import InvalidUserCategory
+from wsrplib._faults import MissingParameters
+from wsrplib._faults import OperationFailed
+from wsrplib._faults import PortletStateChangeRequired
+from wsrplib._faults import UnsupportedLocale
+from wsrplib._faults import UnsupportedMimeType
+from wsrplib._faults import UnsupportedMode
+from wsrplib._faults import UnsupportedWindowState
 from wsrplib._namespaces import WSRP_INTF_NAMESPACE
 
 class MarkupAPI(DefinitionBase):
@@ -19,6 +33,20 @@ class MarkupAPI(DefinitionBase):
          RuntimeContext,
          UserContext,
          MarkupParams,
+         _faults=[AccessDenied,
+                  InconsistentParameters,
+                  InvalidCookie,
+                  InvalidHandle,
+                  InvalidRegistration,
+                  InvalidSession,
+                  InvalidUserCategory,
+                  MissingParameters,
+                  OperationFailed,
+                  UnsupportedLocale,
+                  UnsupportedMimeType,
+                  UnsupportedMode,
+                  UnsupportedWindowState,
+                 ],
          _returns=MarkupResponse)
     def getMarkup(self,
         registration_context,
@@ -35,6 +63,21 @@ class MarkupAPI(DefinitionBase):
          RuntimeContext,
          UserContext,
          MarkupParams,
+         _faults=[AccessDenied,
+                  InconsistentParameters,
+                  InvalidCookie,
+                  InvalidHandle,
+                  InvalidRegistration,
+                  InvalidSession,
+                  InvalidUserCategory,
+                  MissingParameters,
+                  OperationFailed,
+                  PortletStateChangeRequired,
+                  UnsupportedLocale,
+                  UnsupportedMimeType,
+                  UnsupportedMode,
+                  UnsupportedWindowState,
+                 ],
          _returns=BlockingInteractionResponse,
         )
     def performBlockingInteraction(self,
@@ -49,6 +92,10 @@ class MarkupAPI(DefinitionBase):
         pass
 
     @rpc(RegistrationContext,
+         _faults=[AccessDenied,
+                  InvalidRegistration,
+                  OperationFailed,
+                 ],
         )
     def initCookie(self,
         registration_context,
@@ -58,6 +105,11 @@ class MarkupAPI(DefinitionBase):
 
     @rpc(RegistrationContext,
          sessionIDs,
+         _faults=[AccessDenied,
+                  InvalidRegistration,
+                  MissingParameters,
+                  OperationFailed,
+                 ],
         )
     def releaseSessions(self,
         registration_context,
