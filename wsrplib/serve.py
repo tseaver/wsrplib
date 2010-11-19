@@ -53,19 +53,23 @@ class DummyServiceDescriptionInfo(object):
 
 if __name__=='__main__':
     import logging
+    from wsgiref.simple_server import make_server
     from zope.component import provideUtility
     import soaplib
     from soaplib.server import wsgi
-    from wsgiref.simple_server import make_server
+    from wsrplib._namespaces import WSRP_INTF_NAMESPACE
     logging.basicConfig()
     provideUtility(DummyServiceDescriptionInfo(), IServiceDescriptionInfo)
     provideUtility(DummyPortlet(), IPortlet, name='dummy')
     soap_application = soaplib.Application(
                             [ServiceDescriptionAPI,
-                             MarkupAPI,
+                             #MarkupAPI,
                              #RegistrationAPI,
                              #PortletManagementAPI,
-                            ], None)
+                            ],
+                            tns=WSRP_INTF_NAMESPACE,
+                            name='WSRP_v1_ServiceDescription',
+                           )
     wsgi_application = wsgi.Application(soap_application)
     server = make_server('localhost', 7789, wsgi_application)
 
