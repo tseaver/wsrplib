@@ -1,3 +1,4 @@
+from soaplib.model.primitive import Any
 from soaplib.service import DefinitionBase
 from soaplib.service import rpc
 from zope.component import getUtilitiesFor
@@ -25,6 +26,7 @@ def _localized(name, value):
 
 class ServiceDescriptionAPI(DefinitionBase):
     __namespace__ = WSRP_INTF_NAMESPACE
+    __in_header__ = Any
 
     @rpc(RegistrationContext,
          desiredLocales,
