@@ -6,8 +6,7 @@ def _maybeEmpty(attr):
     return attr[0]
 
 if __name__ == '__main__':
-    client = Client('http://localhost:7789/?wsdl')
-    client.set_options(cache=None)
+    client = Client('http://localhost:7789/?wsdl', cache=None)
     sd =  client.service.getServiceDescription(None, [])
 
     print '###################'
