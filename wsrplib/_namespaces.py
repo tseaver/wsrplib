@@ -1,3 +1,5 @@
 WSDL_NAMESPACE = 'http://schemas.xmlsoap.org/wsdl/'
 WSRP_INTF_NAMESPACE = 'urn:oasis:names:tc:wsrp:v1:intf'
 WSRP_TYPES_NAMESPACE = 'urn:oasis:names:tc:wsrp:v1:types'
+WSRP_BIND_NAMESPACE = 'urn:oasis:names:tc:wsrp:v1:bind'
+WSRP_WSDL_NAMESPACE = 'urn:oasis:names:tc:wsrp:v1:wsdl'
