@@ -6,7 +6,11 @@ def _maybeEmpty(attr):
     return attr[0]
 
 if __name__ == '__main__':
-    client = Client('http://localhost:7789/?wsdl', cache=None)
+    import sys
+    url = 'http://localhost:7789/?wsdl'
+    if len(sys.argv) > 1:
+        url = sys.argv[1]
+    client = Client(url, cache=None)
     sd =  client.service.getServiceDescription(None, [])
 
     print '###################'
