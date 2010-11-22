@@ -74,27 +74,27 @@ class ResourceValue(_WSRPSerializer):
     # See WSRP 1.0 spec. 5.1.6
     xmlLang = Mandatory.String
     value = Mandatory.String
-    extensions = Array(Extension)
+    #extensions = Array(Extension)
 
 
 class Resource(_WSRPSerializer):
     # See WSRP 1.0 spec. 5.1.7
     resourceName = Mandatory.String
     values = Array(ResourceValue)
-    extensions = Array(Extension)
+    #extensions = Array(Extension)
 
 
 class ResourceList(_WSRPSerializer):
     # See WSRP 1.0 spec. 5.1.8
     resources = Array(Resource)
-    extensions = Array(Extension)
+    #extensions = Array(Extension)
 
 
 class ItemDescription(_WSRPSerializer):
     # See WSRP 1.0 spec. 5.1.9
     itemName = Mandatory.String
     description = LocalizedString
-    extensions = Array(Extension)
+    #extensions = Array(Extension)
 
 class MarkupType(_WSRPSerializer):
     # See WSRP 1.0 spec. 5.1.10
@@ -102,7 +102,7 @@ class MarkupType(_WSRPSerializer):
     modes = Array(String)
     windowStates = Array(String)
     locales = Array(String)
-    extensions = Array(Extension)
+    #extensions = Array(Extension)
 
 class PortletDescription(_WSRPSerializer):
     # See WSRP 1.0 spec. 5.1.11
@@ -123,7 +123,7 @@ class PortletDescription(_WSRPSerializer):
     templatesStoredInSession = Boolean
     hasUserSpecificState = Boolean
     doesUrlTemplateProcessing = Boolean
-    extensions = Array(Extension)
+    #extensions = Array(Extension)
 
 
 class Property(_WSRPSerializer):
@@ -142,7 +142,7 @@ class PropertyList(_WSRPSerializer):
     # See WSRP 1.0 spec. 5.1.14
     properties = Array(Property)
     resetProperties = Array(ResetProperty)
-    extensions = Array(Extension)
+    #extensions = Array(Extension)
 
 
 class PropertyDescription(_WSRPSerializer):
@@ -151,7 +151,7 @@ class PropertyDescription(_WSRPSerializer):
     type = QName
     label = LocalizedString
     hint = LocalizedString
-    extensions = Array(Extension)
+    #extensions = Array(Extension)
 
 
 class ModelTypes(_WSRPSerializer):
@@ -163,7 +163,7 @@ class ModelDescription(_WSRPSerializer):
     # See WSRP 1.0 spec. 5.1.17
     propertyDescriptions = Array(PropertyDescription)
     modelTypes = ModelTypes
-    extensions = Array(Extension)
+    #extensions = Array(Extension)
 
 
 # See WSRP 1.0 spec. 5.1.18
@@ -184,20 +184,20 @@ class ServiceDescription(_WSRPSerializer):
     registrationPropertyDescription = ModelDescription
     locales = Array(String)
     resourceList = ResourceList
-    extensions = Array(Extension)
+    #extensions = Array(Extension)
 
 
 class RegistrationState(_WSRPSerializer):
     # See WSRP 1.0 spec. 5.1.20
     registrationState = Attachment
-    extensions = Array(Extension)
+    #extensions = Array(Extension)
 
 
 class RegistrationContext(_WSRPSerializer):
     # See WSRP 1.0 spec. 5.1.21
     registrationHandle = Handle
     registrationState = Attachment
-    extensions = Array(Extension)
+    #extensions = Array(Extension)
 
 
 # See WSRP 1.0 spec. 5.1.22
@@ -215,7 +215,7 @@ class SessionContext(_WSRPSerializer):
     # See WSRP 1.0 spec. 6.1.1
     sessionID = ID
     expires = Integer
-    extensions = Array(Extension)
+    #extensions = Array(Extension)
 
 
 class Templates(_WSRPSerializer):
@@ -228,7 +228,7 @@ class Templates(_WSRPSerializer):
     secureBlockingActionTemplate = String
     secureRenderTemplate = String
     secureResourceTemplate = String
-    extensions = Array(Extension)
+    #extensions = Array(Extension)
 
 
 class RuntimeContext(_WSRPSerializer):
@@ -238,14 +238,14 @@ class RuntimeContext(_WSRPSerializer):
     namespacePrefix = String
     templates = Templates # WTF?
     sessionID = ID
-    extensions = Array(Extension)
+    #extensions = Array(Extension)
 
 
 class PortletContext(_WSRPSerializer):
     # See WSRP 1.0 spec. 6.1.3
     portletHandle = Handle
     portletState = Attachment
-    extensions = Array(Extension)
+    #extensions = Array(Extension)
 
 
 # standard user scopes, 6.1.4
@@ -256,7 +256,7 @@ class CacheControl(_WSRPSerializer):
     expires = Mandatory.Integer
     userScope = Mandatory.String
     validateTag = String
-    extensions = Array(Extension)
+    #extensions = Array(Extension)
 
 
 # Templates, 6.1.6, defined out of order because used by RuntimeContext
@@ -265,7 +265,7 @@ class CacheControl(_WSRPSerializer):
 class ClientData(_WSRPSerializer):
     # See WSRP 1.0 spec. 6.1.7
     userAgent = String
-    extensions = Array(Extension)
+    #extensions = Array(Extension)
 
 
 class NamedString(_WSRPSerializer):
@@ -287,7 +287,7 @@ class MarkupParams(_WSRPSerializer):
     validateTag = String
     validNewModes = Array(String)
     validNewWIndowStates = Array(String)
-    extensions = Array(Extension)
+    #extensions = Array(Extension)
 
 
 class MarkupContext(_WSRPSerializer):
@@ -300,14 +300,14 @@ class MarkupContext(_WSRPSerializer):
     requiresUrlRewriting = Boolean
     cacheControl = CacheControl
     preferredTitle = String
-    extensions = Array(Extension)
+    #extensions = Array(Extension)
 
 
 class MarkupResponse(_WSRPSerializer):
     # See WSRP 1.0 spec. 6.1.11
     markupContext = MarkupContext
     sessionContext = SessionContext
-    extensions = Array(Extension)
+    #extensions = Array(Extension)
 
 
 class UpdateResponse(_WSRPSerializer):
@@ -324,7 +324,7 @@ class BlockingInteractionResponse(_WSRPSerializer):
     # See WSRP 1.0 spec. 6.1.13
     updateResponse = UpdateResponse
     redirectURL = String
-    extensions = Array(Extension)
+    #extensions = Array(Extension)
 
 
 # See WSRP 1.0 spec. 6.1.14
@@ -338,7 +338,7 @@ class UploadContext(_WSRPSerializer):
     mimeType = Mandatory.String
     uploadData = Attachment
     mimeAttributes = Array(NamedString)
-    extensions = Array(Extension)
+    #extensions = Array(Extension)
 
 
 class InteractionParams(_WSRPSerializer):
@@ -347,7 +347,7 @@ class InteractionParams(_WSRPSerializer):
     interactionState = String
     formParameters = Array(NamedString)
     uploadContexts = Array(UploadContext)
-    extensions = Array(Extension)
+    #extensions = Array(Extension)
 
 
 class PersonName(_WSRPSerializer):
@@ -358,7 +358,7 @@ class PersonName(_WSRPSerializer):
     middle = String
     suffix = String
     nickname = String
-    extensions = Array(Extension)
+    #extensions = Array(Extension)
 
 
 class EmployerInfo(_WSRPSerializer):
@@ -366,7 +366,7 @@ class EmployerInfo(_WSRPSerializer):
     employer = String
     department = String
     jobTitle = String
-    extensions = Array(Extension)
+    #extensions = Array(Extension)
 
 
 class TelephoneNum(_WSRPSerializer):
@@ -376,7 +376,7 @@ class TelephoneNum(_WSRPSerializer):
     number = String
     ext = String
     comment = String
-    extensions = Array(Extension)
+    #extensions = Array(Extension)
 
 
 class Telecom(_WSRPSerializer):
@@ -385,14 +385,14 @@ class Telecom(_WSRPSerializer):
     fax = TelephoneNum
     mobile = TelephoneNum
     pager = TelephoneNum
-    extensions = Array(Extension)
+    #extensions = Array(Extension)
 
 
 class Online(_WSRPSerializer):
     # See WSRP 1.0 spec. 6.1.17.5
     email = String
     uri = String
-    extensions = Array(Extension)
+    #extensions = Array(Extension)
 
 
 class Postal(_WSRPSerializer):
@@ -403,7 +403,7 @@ class Postal(_WSRPSerializer):
     stateprov = String
     country = String
     organization = String
-    extensions = Array(Extension)
+    #extensions = Array(Extension)
 
 
 class Contact(_WSRPSerializer):
@@ -411,7 +411,7 @@ class Contact(_WSRPSerializer):
     postal = Postal
     telecom = Telecom
     online = Online
-    extensions = Array(Extension)
+    #extensions = Array(Extension)
 
 
 class UserProfile(_WSRPSerializer):
@@ -422,7 +422,7 @@ class UserProfile(_WSRPSerializer):
     employerInfo = EmployerInfo
     homeInfo = Contact
     businessInfo = Contact
-    extensions = Array(Extension)
+    #extensions = Array(Extension)
 
 
 class UserContext(_WSRPSerializer):
@@ -430,7 +430,7 @@ class UserContext(_WSRPSerializer):
     userContextKey = Key
     userCategories = Array(String)
     profile = UserProfile
-    extensions = Array(Extension)
+    #extensions = Array(Extension)
 
 
 # Not named in API
@@ -453,7 +453,7 @@ class RegistrationData(_WSRPSerializer):
     consumerUserScopes = Array(String)
     customUserProfileData = Array(String)
     registrationProperties = Array(Property)
-    extensions = Array(Extension)
+    #extensions = Array(Extension)
 
 
 ##############################################################################
@@ -470,21 +470,21 @@ class DestroyFailed(_WSRPSerializer):
 class DestroyPortletsResponse(_WSRPSerializer):
     # See WSRP 1.0 spec. 8.1.2
     destroyFailed = Array(DestroyFailed)
-    extensions = Array(Extension)
+    #extensions = Array(Extension)
 
 
 class PortletDescriptionResponse(_WSRPSerializer):
     # See WSRP 1.0 spec. 8.1.3
     portletDescription = PortletDescription
     resourceList = ResourceList
-    extensions = Array(Extension)
+    #extensions = Array(Extension)
 
 
 class PortletPropertyDescriptionResponse(_WSRPSerializer):
     # See WSRP 1.0 spec. 8.1.4
     modelDescription = ModelDescription
     resourceList = ResourceList
-    extensions = Array(Extension)
+    #extensions = Array(Extension)
 
 
 # Not named in API
