@@ -22,6 +22,7 @@ setup(name='wsrplib',
       install_requires=[
         'soaplib',
         'zope.component',
+        'Paste',
       ],
       packages=['wsrplib'],
       **extras
