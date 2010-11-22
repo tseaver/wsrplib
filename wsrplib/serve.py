@@ -1,4 +1,9 @@
+import os
+
 from zope.interface import implements
+from paste.urlmap import URLMap
+from paste.urlparser import PkgResourcesParser
+from paste.urlparser import StaticURLParser
 
 from wsrplib.interfaces import IMarkupType
 from wsrplib.interfaces import IPortlet
@@ -55,23 +60,28 @@ if __name__=='__main__':
     import logging
     from wsgiref.simple_server import make_server
     from zope.component import provideUtility
-    import soaplib
     from soaplib.server import wsgi
-    from wsrplib._namespaces import WSRP_INTF_NAMESPACE
+    from wsrplib._application import Application
+    from wsrplib._namespaces import WSRP_WSDL_NAMESPACE
     logging.basicConfig()
     provideUtility(DummyServiceDescriptionInfo(), IServiceDescriptionInfo)
     provideUtility(DummyPortlet(), IPortlet, name='dummy')
-    soap_application = soaplib.Application(
+    soap_application = Application(
                             [ServiceDescriptionAPI,
-                             #MarkupAPI,
+                             MarkupAPI,
                              #RegistrationAPI,
                              #PortletManagementAPI,
                             ],
-                            tns=WSRP_INTF_NAMESPACE,
-                            name='WSRP_v1_ServiceDescription',
+                            tns=WSRP_WSDL_NAMESPACE,
+                            name='WSRP_v1_Service',
                            )
     wsgi_application = wsgi.Application(soap_application)
-    server = make_server('localhost', 7789, wsgi_application)
+    urlmap = URLMap()
+    #urlmap['/static/'] = PkgResourcesParser('wsrplib', 'static')
+    here = os.path.split(__file__)[0]
+    urlmap['/static/'] = StaticURLParser(os.path.join(here, 'static'))
+    urlmap['/'] = wsgi_application
+    server = make_server('localhost', 7789, urlmap)
 
     print "listening to http://0.0.0.0:7789"
     print "wsdl is at: http://127.0.0.1:7789/?wsdl"
