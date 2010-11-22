@@ -14,10 +14,11 @@ from wsrplib._namespaces import WSRP_WSDL_NAMESPACE
 #_WSRP_BIND_URL = '%s/version1/wsrp_v1_bindings.wsdl' % _WSRP_BASE_URL
 _WSRP_BIND_URL = '/static/wsrp_v1_bindings.wsdl'
 _WSRP_SERVICE_NAME_TEMPLATE = 'WSRP_v1_%s_Service'
-_WSRP_SERVICE_SOAP_BINDING_TEMPLATE = 'WSRP_v1_%s_Binding_SOAP'
+_WSRP_SERVICE_SOAP_BINDING_TEMPLATE = 'bind:WSRP_v1_%s_Binding_SOAP'
 
 
 _NS_MAP = {
+    None: ns_wsdl,
     'soap': ns_soap,
     'wsdl': ns_wsdl,
     'bind': WSRP_BIND_NAMESPACE,
@@ -41,12 +42,12 @@ class Application(_Application):
         service = SubElement(root, '{%s}service' % ns_wsdl)
         service.set('name', self.name)
 
-        for name in ('ServiceDescrption', 'Markup'):
+        for name in ('ServiceDescription', 'Markup'):
             port = SubElement(service, '{%s}port' % ns_wsdl)
             port.set('name', _WSRP_SERVICE_NAME_TEMPLATE % name)
             port.set('binding', _WSRP_SERVICE_SOAP_BINDING_TEMPLATE % name)
 
-            soap = SubElement(port, '{%s}addresss' % ns_soap)
+            soap = SubElement(port, '{%s}address' % ns_soap)
             soap.set('location', url)
 
         self.__wsdl = tostring(root, xml_declaration=True, encoding="UTF-8")
