@@ -2,7 +2,6 @@ import os
 
 from zope.interface import implements
 from paste.urlmap import URLMap
-from paste.urlparser import PkgResourcesParser
 from paste.urlparser import StaticURLParser
 
 from wsrplib.interfaces import IMarkupType
@@ -17,8 +16,8 @@ from wsrplib._service_description import ServiceDescriptionAPI
 class DummyMarkupType(object):
     implements(IMarkupType)
     mimeType = 'text/plain'
-    modes = ('wsrp:view',)
-    windowStates = ('wsrp:normal',)
+    modes = ()
+    windowStates = ()
     locales = ('en',)
 
 class DummyPortlet(object):
@@ -62,8 +61,8 @@ if __name__=='__main__':
     from zope.component import provideUtility
     from soaplib.server import wsgi
     from wsrplib._application import Application
-    from wsrplib._namespaces import WSRP_WSDL_NAMESPACE
-    logging.basicConfig()
+    from wsrplib._namespaces import WSRP_TYPES_NAMESPACE
+    logging.basicConfig(level=logging.DEBUG)
     provideUtility(DummyServiceDescriptionInfo(), IServiceDescriptionInfo)
     provideUtility(DummyPortlet(), IPortlet, name='dummy')
     soap_application = Application(
@@ -72,12 +71,11 @@ if __name__=='__main__':
                              #RegistrationAPI,
                              #PortletManagementAPI,
                             ],
-                            tns=WSRP_WSDL_NAMESPACE,
+                            tns=WSRP_TYPES_NAMESPACE,
                             name='WSRP_v1_Service',
                            )
     wsgi_application = wsgi.Application(soap_application)
     urlmap = URLMap()
-    #urlmap['/static/'] = PkgResourcesParser('wsrplib', 'static')
     here = os.path.split(__file__)[0]
     urlmap['/static/'] = StaticURLParser(os.path.join(here, 'static'))
     urlmap['/'] = wsgi_application
