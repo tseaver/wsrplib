@@ -58,12 +58,12 @@ class ServiceDescriptionAPI(DefinitionBase):
             for m_type in portlet.markupTypes:
                 mt = MarkupType()
                 mt.mimeType = m_type.mimeType
-                mt.modes = list(m_type.modes)
-                mt.windowStates = list(m_type.windowStates)
+                mt.modes = list(m_type.modes) or None
+                mt.windowStates = list(m_type.windowStates) or None
                 mt.locales = list(m_type.locales)
                 m_types.append(mt)
-            pd.userCategories = list(portlet.userCategories)
-            pd.userProfileItems = list(portlet.userProfileItems)
+            pd.userCategories = list(portlet.userCategories) or None
+            pd.userProfileItems = list(portlet.userProfileItems) or None
             pd.usesMethodGet = portlet.usesMethodGet
             pd.defaultMarkupSecure = portlet.defaultMarkupSecure
             pd.onlySecure = portlet.onlySecure
