@@ -29,9 +29,20 @@ _NS_MAP = {
 
 class Application(_Application):
 
+    def __init__(self, services, tns, name=None,
+                 _with_partnerlink=False,
+                 _static_wsdl=True,
+                ):
+        super(Application, self).__init__(services, tns, name,
+                                          _with_partnerlink)
+        self._static_wsdl = _static_wsdl
+
     def __build_wsdl(self, url):
         """ Override to import standard WSDL rather than introspect.
         """
+        if not self._static_wsdl:
+            return super(Application, self).__build_wsdl(url)
+
         root = Element('{%s}definitions' % ns_wsdl, nsmap=_NS_MAP)
         root.set('targetNamespace', WSRP_WSDL_NAMESPACE)
 
