@@ -10,7 +10,7 @@ from wsrplib._faults import OperationFailed
 from wsrplib._namespaces import WSRP_INTF_NAMESPACE
 
 
-class RegistrationAPI(DefinitionBase):
+class WSRP_v1_Registration(DefinitionBase):
     __namespace__ = WSRP_INTF_NAMESPACE
 
     @rpc(RegistrationData,

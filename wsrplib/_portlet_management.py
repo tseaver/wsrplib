@@ -21,7 +21,7 @@ from wsrplib._faults import OperationFailed
 from wsrplib._namespaces import WSRP_INTF_NAMESPACE
 
 
-class PortletManagementAPI(DefinitionBase):
+class WSRP_v1_PortletManagement(DefinitionBase):
     __namespace__ = WSRP_INTF_NAMESPACE
 
     @rpc(RegistrationContext,

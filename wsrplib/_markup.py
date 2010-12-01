@@ -27,7 +27,7 @@ from wsrplib._faults import UnsupportedMode
 from wsrplib._faults import UnsupportedWindowState
 from wsrplib._namespaces import WSRP_INTF_NAMESPACE
 
-class MarkupAPI(DefinitionBase):
+class WSRP_v1_Markup(DefinitionBase):
     __namespace__ = WSRP_INTF_NAMESPACE
 
     @rpc(RegistrationContext,

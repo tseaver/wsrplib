@@ -24,7 +24,7 @@ def _localized(name, value):
     ls.resourceName = name
     return ls
 
-class ServiceDescriptionAPI(DefinitionBase):
+class WSRP_v1_ServiceDescription(DefinitionBase):
     __namespace__ = WSRP_INTF_NAMESPACE
     __in_header__ = Any
 
