@@ -1,4 +1,23 @@
+"""\
+Run a test WSRP portlet server.
+
+Usage:  %s [OPTIONS]
+
+Options
+-------
+
+--help, -h, -?          Print this usage message and exit with RC = 2.
+
+--quiet, -q             Suppress inessential output.
+
+--verbose, -v           Print more output.
+
+--static-wsdl, -s       Render static WSDL.
+
+--dynamic-wsdl, -d      Render dynamic WSDL.
+"""
 import os
+import sys
 
 from zope.interface import implements
 from paste.urlmap import URLMap
@@ -55,14 +74,52 @@ class DummyServiceDescriptionInfo(object):
     requiresInitCookie = 'none'
     locales = ['en-US']
 
-if __name__=='__main__':
+def usage(message='', rc=1):
+    print >>sys.stderr, __doc__ % sys.argv[0]
+    if message:
+        print >>sys.stderr
+        print >>sys.stderr, message
+    sys.exit(rc)
+
+def main():
+    import getopt
     import logging
     from wsgiref.simple_server import make_server
+
     from zope.component import provideUtility
     from soaplib.server import wsgi
     from wsrplib._application import Application
     from wsrplib._namespaces import WSRP_TYPES_NAMESPACE
+    static_wsdl = True
+    verbosity = 1
+
     logging.basicConfig(level=logging.DEBUG)
+
+    try:
+        opts, args = getopt.gnu_getopt(sys.argv[1:],
+                                       '?hqvsd',
+                                       ['help',
+                                        'quiet',
+                                        'verbose',
+                                        'static-wsdl',
+                                        'dynamic-wsdl',
+                                       ],
+                                      )
+    except getopt.GetoptError:
+        usage(1)
+
+    for k, v in opts:
+        if k in ('--help', '-h', '-?'):
+            usage(rc=2)
+        if k in ('--quiet', '-q'):
+            verbosity = 0
+        if k in ('--verbose', '-v'):
+            verbosity += 1
+        if k in ('--static-wsdl', '-s'):
+            static_wsdl = True
+        if k in ('--dynamic-wsdl', '-d'):
+            static_wsdl = False
+
     provideUtility(DummyServiceDescriptionInfo(), IServiceDescriptionInfo)
     provideUtility(DummyPortlet(), IPortlet, name='dummy')
     soap_application = Application(
@@ -73,6 +130,7 @@ if __name__=='__main__':
                             ],
                             tns=WSRP_TYPES_NAMESPACE,
                             name='WSRP_v1_Service',
+                            _static_wsdl=static_wsdl,
                            )
     wsgi_application = wsgi.Application(soap_application)
     urlmap = URLMap()
@@ -84,3 +142,6 @@ if __name__=='__main__':
     print "listening to http://0.0.0.0:7789"
     print "wsdl is at: http://127.0.0.1:7789/?wsdl"
     server.serve_forever()
+
+if __name__=='__main__':
+    main()

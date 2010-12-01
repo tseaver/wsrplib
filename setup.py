@@ -2,13 +2,17 @@ import os
 
 try:
     from setuptools import setup
-    extras = {
-        'test_suite': 'wsrplib.tests',
-        'zip_safe': False,
-    }
 except ImportError:
     from distutils.core import setup
     extras = {}
+else:
+    extras = {
+        'test_suite': 'wsrplib.tests',
+        'zip_safe': False,
+        'entry_points': 
+          "[console_scripts]\n"
+          "wsrp_server = wsrplib.serve:main\n"
+    }
 
 here = os.path.abspath(os.path.dirname(__file__))
 README = open(os.path.join(here, 'README.txt')).read()
