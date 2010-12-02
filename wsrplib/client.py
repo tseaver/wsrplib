@@ -10,7 +10,6 @@ def main():
     url = 'http://localhost:7789/?wsdl'
     if len(sys.argv) > 1:
         url = sys.argv[1]
-    import pdb; pdb.set_trace()
     client = Client(url, cache=None)
     sd =  client.service.getServiceDescription(None, [])
 
