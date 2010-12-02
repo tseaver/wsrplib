@@ -1,4 +1,3 @@
-from soaplib.model.primitive import Any
 from soaplib.service import DefinitionBase
 from soaplib.service import rpc
 from zope.component import getUtilitiesFor
@@ -26,7 +25,11 @@ def _localized(name, value):
 
 class WSRP_v1_ServiceDescription(DefinitionBase):
     __namespace__ = WSRP_INTF_NAMESPACE
-    __in_header__ = Any
+
+    @classmethod
+    def get_tns(cls):
+        # Override to get our messages in the right namespace
+        return cls.__namespace__
 
     @rpc(RegistrationContext,
          desiredLocales,
