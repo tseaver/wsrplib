@@ -139,11 +139,15 @@ class Application(_Application):
         import_ = SubElement(root, 'import')
         import_.set('namespace', WSRP_BIND_NAMESPACE)
         import_.set('location', _WSRP_BIND_URL)
-
         service = SubElement(root, '{%s}service' % ns_wsdl)
         service.set('name', self.name)
 
-        for name in ('ServiceDescription', 'Markup'):
+        for name in ('ServiceDescription',
+                     'Markup',
+                     'PortletManagement',
+                     'Registration',
+                    ):
+
             port = SubElement(service, '{%s}port' % ns_wsdl)
             port.set('name', _WSRP_SERVICE_NAME_TEMPLATE % name)
             port.set('binding', _WSRP_SERVICE_SOAP_BINDING_TEMPLATE % name)
