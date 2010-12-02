@@ -88,15 +88,42 @@ class Application(_Application):
             port_type = SubElement(root, '{%s}portType' % ns_wsdl)
             pt_name = port_types[name] = '%s_PortType' % name
             port_type.set('name', pt_name)
-            inst.add_port_type(self, root, name, types, url, port_type)
+            # Ripped off from soaplib.service.DescriptionBase.add_port_type
+            for method in inst.public_methods:
+                operation = SubElement(port_type,'{%s}operation'% ns_wsdl)
+                operation.set('name', method.name)
+
+                if method.doc is not None:
+                    documentation = SubElement(operation,
+                                               '{%s}documentation' % ns_wsdl)
+                    documentation.text = method.doc
+
+                # XXX:  WSRP's WSDL does not have this attribute!
+                #operation.set('parameterOrder',
+                #              method.in_message.get_type_name())
+
+                # Our messages are defined in *our* namespace, not the
+                # namespace of the service ('types:'), and hence don't need
+                # qualification.
+                op_input = SubElement(operation, '{%s}input' % ns_wsdl)
+                op_input.set('name', method.in_message.get_type_name())
+                #op_input.set('message',
+                #             method.in_message.get_type_name_ns(app))
+                op_input.set('message', method.in_message.get_type_name())
+
+                op_output = SubElement(operation, '{%s}output' %  ns_wsdl)
+                op_output.set('name', method.out_message.get_type_name())
+                #op_output.set('message',
+                #              method.out_message.get_type_name_ns(app))
+                op_output.set('message', method.out_message.get_type_name())
+
         root.append(Comment('End WSRP 1.0 port types'))
 
         root.append(Comment('Begin WSRP 1.0 bindings'))
         for name, inst in services.items():
             binding = SubElement(root, '{%s}binding' % ns_wsdl)
-            binding.set('name', name)
-            pref_ns = self.get_namespace_prefix(inst.__namespace__)
-            binding.set('type', '%s:%s'% (pref_ns, port_types[name]))
+            binding.set('name', '%s_Binding_SOAP' % name)
+            binding.set('type', port_types[name])
 
             soap_binding = SubElement(binding, '{%s}binding' % ns_soap)
             soap_binding.set('style', 'document')
@@ -111,26 +138,21 @@ class Application(_Application):
         root.append(Comment('End WSRP 1.0 bindings'))
 
         root.append(Comment('Begin WSRP 1.0 services'))
+        service = SubElement(root, '{%s}service' % ns_wsdl)
+        service.set('name', '%s_Service' % self.name)
         for name, inst in services.items():
-            service = SubElement(root, '{%s}service' % ns_wsdl)
-            service.set('name', '%s_Service' % name)
-            self._add_service(root, name, types, url, service)
+            wsdl_port = SubElement(service, '{%s}port' % ns_wsdl)
+            wsdl_port.set('name', name)
+            wsdl_port.set('binding', '%s_Binding_SOAP' % name)
+
+            addr = SubElement(wsdl_port, '{%s}address' % ns_soap)
+            addr.set('location', url)
+
         root.append(Comment('End WSRP 1.0 services'))
 
         self.__wsdl = tostring(root, xml_declaration=True, encoding="UTF-8")
 
         return self.__wsdl
-
-    def _add_service(self, root, service_name, types, url, service):
-        # Ripping off soaplib._base.Application.__add_service
-
-        wsdl_port = SubElement(service, '{%s}port' % ns_wsdl)
-        wsdl_port.set('name', service_name)
-        #wsdl_port.set('binding', 'bind:%s' % service_name)
-        wsdl_port.set('binding', service_name)
-
-        addr = SubElement(wsdl_port, '{%s}address' % ns_soap)
-        addr.set('location', url)
 
     def _build_static_wsdl(self, url):
         root = Element('{%s}definitions' % ns_wsdl, nsmap=_NS_MAP)
