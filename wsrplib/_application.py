@@ -35,12 +35,14 @@ class Application(_Application):
                 ):
         super(Application, self).__init__(services, tns, name,
                                           _with_partnerlink,
-                                          _build_schema=False,
                                          )
         self._wsdl_generation = _wsdl_generation
         for prefix, namespace in _NS_MAP.items():
             if prefix is not None:
                 self.set_namespace_prefix(namespace, prefix)
+
+        # Rebuild after updating namespaces.
+        self.call_routes = {}
         self.build_schema()
 
     def __build_wsdl(self, url):
