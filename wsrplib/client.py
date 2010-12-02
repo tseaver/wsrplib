@@ -11,7 +11,9 @@ def main():
     if len(sys.argv) > 1:
         url = sys.argv[1]
     client = Client(url, cache=None)
-    sd =  client.service.getServiceDescription(None, [])
+    sd_port = client.service['WSRP_v1_ServiceDescription']
+    markup_port = client.service['WSRP_v1_Markup']
+    sd = sd_port.getServiceDescription(None, [])
 
     print '###################'
     print 'Service Description'
@@ -55,7 +57,7 @@ def main():
             print '  Locales:', ', '.join(_maybeEmpty(markupType.locales))
 
         p_context = {'portletHandle': portlet.portletHandle}
-        response = client.service.getMarkup(None, p_context, None, None, None)
+        response = markup_port.getMarkup(None, p_context, None, None, None)
         m_context = response.markupContext
 
         print
