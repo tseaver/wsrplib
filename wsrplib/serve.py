@@ -27,10 +27,10 @@ from wsrplib.interfaces import IMarkupType
 from wsrplib.interfaces import IPortlet
 from wsrplib.interfaces import IServiceDescriptionInfo
 from wsrplib._datatypes import MarkupContext
-from wsrplib._markup import MarkupAPI
-from wsrplib._service_description import ServiceDescriptionAPI
-#from wsrplib import RegistrationAPI
-#from wsrplib import PortletManagementAPI
+from wsrplib._markup import WSRP_v1_Markup
+from wsrplib._service_description import WSRP_v1_ServiceDescription
+from wsrplib._registration import WSRP_v1_Registration
+from wsrplib._portlet_management import WSRP_v1_PortletManagement
 
 class DummyMarkupType(object):
     implements(IMarkupType)
@@ -123,10 +123,10 @@ def main():
     provideUtility(DummyServiceDescriptionInfo(), IServiceDescriptionInfo)
     provideUtility(DummyPortlet(), IPortlet, name='dummy')
     soap_application = Application(
-                            [ServiceDescriptionAPI,
-                             MarkupAPI,
-                             #RegistrationAPI,
-                             #PortletManagementAPI,
+                            [WSRP_v1_ServiceDescription,
+                             WSRP_v1_Markup,
+                             WSRP_v1_Registration,
+                             WSRP_v1_PortletManagement,
                             ],
                             tns=WSRP_TYPES_NAMESPACE,
                             name='WSRP_v1_Service',
