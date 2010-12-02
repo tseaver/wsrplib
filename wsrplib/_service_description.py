@@ -13,7 +13,7 @@ from wsrplib._datatypes import ServiceDescription
 from wsrplib._datatypes import desiredLocales
 from wsrplib._faults import InvalidRegistration
 from wsrplib._faults import OperationFailed
-from wsrplib._namespaces import WSRP_INTF_NAMESPACE
+from wsrplib._namespaces import WSRP_TYPES_NAMESPACE
 
 
 def _localized(name, value):
@@ -24,7 +24,7 @@ def _localized(name, value):
     return ls
 
 class WSRP_v1_ServiceDescription(DefinitionBase):
-    __namespace__ = WSRP_INTF_NAMESPACE
+    __namespace__ = WSRP_TYPES_NAMESPACE
 
     @classmethod
     def get_tns(cls):

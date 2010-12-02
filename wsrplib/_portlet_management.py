@@ -18,11 +18,11 @@ from wsrplib._faults import InvalidRegistration
 from wsrplib._faults import InvalidUserCategory
 from wsrplib._faults import MissingParameters
 from wsrplib._faults import OperationFailed
-from wsrplib._namespaces import WSRP_INTF_NAMESPACE
+from wsrplib._namespaces import WSRP_TYPES_NAMESPACE
 
 
 class WSRP_v1_PortletManagement(DefinitionBase):
-    __namespace__ = WSRP_INTF_NAMESPACE
+    __namespace__ = WSRP_TYPES_NAMESPACE
 
     @classmethod
     def get_tns(cls):

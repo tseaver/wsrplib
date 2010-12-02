@@ -25,10 +25,10 @@ from wsrplib._faults import UnsupportedLocale
 from wsrplib._faults import UnsupportedMimeType
 from wsrplib._faults import UnsupportedMode
 from wsrplib._faults import UnsupportedWindowState
-from wsrplib._namespaces import WSRP_INTF_NAMESPACE
+from wsrplib._namespaces import WSRP_TYPES_NAMESPACE
 
 class WSRP_v1_Markup(DefinitionBase):
-    __namespace__ = WSRP_INTF_NAMESPACE
+    __namespace__ = WSRP_TYPES_NAMESPACE
 
     @classmethod
     def get_tns(cls):
