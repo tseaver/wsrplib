@@ -90,7 +90,7 @@ def main():
     from soaplib.server import wsgi
     from wsrplib._application import Application
     from wsrplib._namespaces import WSRP_TYPES_NAMESPACE
-    static_wsdl = True
+    wsdl_generation = None
     verbosity = 1
 
     logging.basicConfig(level=logging.DEBUG)
@@ -116,9 +116,9 @@ def main():
         if k in ('--verbose', '-v'):
             verbosity += 1
         if k in ('--static-wsdl', '-s'):
-            static_wsdl = True
+            wsdl_generation = 'static'
         if k in ('--dynamic-wsdl', '-d'):
-            static_wsdl = False
+            wsdl_generation = 'dynamic'
 
     provideUtility(DummyServiceDescriptionInfo(), IServiceDescriptionInfo)
     provideUtility(DummyPortlet(), IPortlet, name='dummy')
@@ -130,7 +130,7 @@ def main():
                             ],
                             tns=WSRP_TYPES_NAMESPACE,
                             name='WSRP_v1_Service',
-                            _static_wsdl=static_wsdl,
+                            _wsdl_generation=wsdl_generation,
                            )
     wsgi_application = wsgi.Application(soap_application)
     urlmap = URLMap()
