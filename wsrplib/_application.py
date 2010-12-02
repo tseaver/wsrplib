@@ -67,7 +67,7 @@ class Application(_Application):
 
         url = url.replace('.wsdl', '')
         service_name = self.get_name()
-        root = Element("{%s}definitions" % ns_wsdl, nsmap=_NS_MAP)
+        root = Element("{%s}definitions" % ns_wsdl, nsmap=self.nsmap)
         root.set('targetNamespace', WSRP_WSDL_NAMESPACE)
 
         root.append(Comment('Begin WSRP 1.0 types'))
@@ -76,10 +76,10 @@ class Application(_Application):
         root.append(Comment('End WSRP 1.0 types'))
 
         root.append(Comment('Begin WSRP 1.0 messages'))
-        messages = set()
+        seen = set()
         # XXX faults?
         for name, inst in services.items():
-            inst.add_messages_for_methods(self, root, messages)
+            inst.add_messages_for_methods(self, root, seen)
         root.append(Comment('End WSRP 1.0 messages'))
 
         port_types = {}
@@ -95,8 +95,8 @@ class Application(_Application):
         for name, inst in services.items():
             binding = SubElement(root, '{%s}binding' % ns_wsdl)
             binding.set('name', name)
-            binding.set('type', '%s:%s'% (inst.__namespace__,
-                                          port_types[name]))
+            pref_ns = self.get_namespace_prefix(inst.__namespace__)
+            binding.set('type', '%s:%s'% (pref_ns, port_types[name]))
 
             soap_binding = SubElement(binding, '{%s}binding' % ns_soap)
             soap_binding.set('style', 'document')
@@ -126,7 +126,8 @@ class Application(_Application):
 
         wsdl_port = SubElement(service, '{%s}port' % ns_wsdl)
         wsdl_port.set('name', service_name)
-        wsdl_port.set('binding', 'bind:%s' % service_name)
+        #wsdl_port.set('binding', 'bind:%s' % service_name)
+        wsdl_port.set('binding', service_name)
 
         addr = SubElement(wsdl_port, '{%s}address' % ns_soap)
         addr.set('location', url)
