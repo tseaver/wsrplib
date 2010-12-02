@@ -1,3 +1,4 @@
+import sys
 from suds.client import Client
 
 def _maybeEmpty(attr):
@@ -5,11 +6,11 @@ def _maybeEmpty(attr):
         return ()
     return attr[0]
 
-if __name__ == '__main__':
-    import sys
+def main():
     url = 'http://localhost:7789/?wsdl'
     if len(sys.argv) > 1:
         url = sys.argv[1]
+    import pdb; pdb.set_trace()
     client = Client(url, cache=None)
     sd =  client.service.getServiceDescription(None, [])
 
@@ -70,3 +71,6 @@ if __name__ == '__main__':
         print '  Requires URL Rewriting?', m_context.requiresUrlRewriting
         print '  Cache control:', m_context.cacheControl
         print '  Preferred Title:', m_context.preferredTitle
+
+if __name__ == '__main__':
+    main()

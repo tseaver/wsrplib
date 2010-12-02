@@ -12,6 +12,7 @@ else:
         'entry_points': 
           "[console_scripts]\n"
           "wsrp_server = wsrplib.serve:main\n"
+          "wsrp_client = wsrplib.client:main\n"
     }
 
 here = os.path.abspath(os.path.dirname(__file__))
