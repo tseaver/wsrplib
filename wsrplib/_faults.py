@@ -5,6 +5,10 @@ from wsrplib._namespaces import WSRP_TYPES_NAMESPACE
 class _WSRPFault(Fault):
     __namespace__ = WSRP_TYPES_NAMESPACE
 
+    @classmethod
+    def get_type_name(cls):
+        return cls.__name__
+
 class AccessDenied(_WSRPFault):
     pass
 
