@@ -117,6 +117,11 @@ class Application(_Application):
                 #              method.out_message.get_type_name_ns(app))
                 op_output.set('message', method.out_message.get_type_name())
 
+                for f in method.faults:
+                    fault = SubElement(operation, '{%s}fault' %  ns_wsdl)
+                    fault.set('name', f.get_type_name())
+                    fault.set('message', f.get_type_name())
+
         root.append(Comment('End WSRP 1.0 port types'))
 
         root.append(Comment('Begin WSRP 1.0 bindings'))
