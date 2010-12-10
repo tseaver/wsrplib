@@ -1,5 +1,5 @@
 from soaplib.service import DefinitionBase
-from soaplib.service import rpc
+from soaplib.service import document
 from zope.component import getUtilitiesFor
 from zope.component import getUtility
 
@@ -31,12 +31,13 @@ class WSRP_v1_ServiceDescription(DefinitionBase):
         # Override to get our messages in the right namespace
         return cls.__namespace__
 
-    @rpc(RegistrationContext,
-         desiredLocales,
-         _faults=[InvalidRegistration,
-                  OperationFailed,
-                 ],
-         _returns=ServiceDescription)
+    @document(RegistrationContext,
+              desiredLocales,
+              _faults=[InvalidRegistration,
+                       OperationFailed,
+                      ],
+              _returns=ServiceDescription,
+             )
     def getServiceDescription(self,
         registration_context,
         desired_locales,

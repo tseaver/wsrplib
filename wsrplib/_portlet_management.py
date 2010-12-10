@@ -1,5 +1,5 @@
 from soaplib.service import DefinitionBase
-from soaplib.service import rpc
+from soaplib.service import document
 
 from wsrplib._datatypes import DestroyPortletsResponse
 from wsrplib._datatypes import PortletContext
@@ -29,20 +29,20 @@ class WSRP_v1_PortletManagement(DefinitionBase):
         # Override to get our messages in the right namespace
         return cls.__namespace__
 
-    @rpc(RegistrationContext,
-         PortletContext,
-         UserContext,
-         desiredLocales,
-         _faults=[AccessDenied,
-                  InconsistentParameters,
-                  InvalidHandle,
-                  InvalidRegistration,
-                  InvalidUserCategory,
-                  MissingParameters,
-                  OperationFailed,
-                 ],
-         _returns=PortletDescriptionResponse,
-        )
+    @document(RegistrationContext,
+              PortletContext,
+              UserContext,
+              desiredLocales,
+              _faults=[AccessDenied,
+                       InconsistentParameters,
+                       InvalidHandle,
+                       InvalidRegistration,
+                       InvalidUserCategory,
+                       MissingParameters,
+                       OperationFailed,
+                      ],
+              _returns=PortletDescriptionResponse,
+             )
     def getPortletDescription(self,
         registration_context,
         portlet_context,
@@ -52,19 +52,19 @@ class WSRP_v1_PortletManagement(DefinitionBase):
         # See WSRP 1.0 spec. 8.2
         pass
 
-    @rpc(RegistrationContext,
-         PortletContext,
-         UserContext,
-         _faults=[AccessDenied,
-                  InconsistentParameters,
-                  InvalidHandle,
-                  InvalidRegistration,
-                  InvalidUserCategory,
-                  MissingParameters,
-                  OperationFailed,
-                 ],
-         _returns=PortletContext,
-        )
+    @document(RegistrationContext,
+              PortletContext,
+              UserContext,
+              _faults=[AccessDenied,
+                       InconsistentParameters,
+                       InvalidHandle,
+                       InvalidRegistration,
+                       InvalidUserCategory,
+                       MissingParameters,
+                       OperationFailed,
+                      ],
+              _returns=PortletContext,
+             )
     def clonePortlet(self,
         registration_context,
         portlet_context,
@@ -73,15 +73,15 @@ class WSRP_v1_PortletManagement(DefinitionBase):
         # See WSRP 1.0 spec. 8.3
         pass
 
-    @rpc(RegistrationContext,
-         handleList,
-         _faults=[InconsistentParameters,
-                  InvalidRegistration,
-                  MissingParameters,
-                  OperationFailed,
-                 ],
-         _returns=DestroyPortletsResponse,
-        )
+    @document(RegistrationContext,
+              handleList,
+              _faults=[InconsistentParameters,
+                      InvalidRegistration,
+                      MissingParameters,
+                      OperationFailed,
+                      ],
+              _returns=DestroyPortletsResponse,
+              )
     def destroyPortlets(self,
         registration_context,
         portlet_handles,
@@ -89,20 +89,20 @@ class WSRP_v1_PortletManagement(DefinitionBase):
         # See WSRP 1.0 spec. 8.4
         pass
 
-    @rpc(RegistrationContext,
-         PortletContext,
-         UserContext,
-         PropertyList,
-         _faults=[AccessDenied,
-                  InconsistentParameters,
-                  InvalidHandle,
-                  InvalidRegistration,
-                  InvalidUserCategory,
-                  MissingParameters,
-                  OperationFailed,
-                 ],
-         _returns=PortletContext,
-        )
+    @document(RegistrationContext,
+              PortletContext,
+              UserContext,
+              PropertyList,
+              _faults=[AccessDenied,
+                       InconsistentParameters,
+                       InvalidHandle,
+                       InvalidRegistration,
+                       InvalidUserCategory,
+                       MissingParameters,
+                       OperationFailed,
+                      ],
+              _returns=PortletContext,
+             )
     def setPortletProperties(self,
         registration_context,
         portlet_context,
@@ -112,20 +112,20 @@ class WSRP_v1_PortletManagement(DefinitionBase):
         # See WSRP 1.0 spec. 8.5
         pass
 
-    @rpc(RegistrationContext,
-         PortletContext,
-         UserContext,
-         nameList,
-         _faults=[AccessDenied,
-                  InconsistentParameters,
-                  InvalidHandle,
-                  InvalidRegistration,
-                  InvalidUserCategory,
-                  MissingParameters,
-                  OperationFailed,
-                 ],
-         _returns=PropertyList,
-        )
+    @document(RegistrationContext,
+              PortletContext,
+              UserContext,
+              nameList,
+              _faults=[AccessDenied,
+                       InconsistentParameters,
+                       InvalidHandle,
+                       InvalidRegistration,
+                       InvalidUserCategory,
+                       MissingParameters,
+                       OperationFailed,
+                      ],
+              _returns=PropertyList,
+             )
     def getPortletProperties(self,
         registration_context,
         portlet_context,
@@ -135,20 +135,20 @@ class WSRP_v1_PortletManagement(DefinitionBase):
         # See WSRP 1.0 spec. 8.6
         pass
 
-    @rpc(RegistrationContext,
-         PortletContext,
-         UserContext,
-         desiredLocales,
-         _faults=[AccessDenied,
-                  InconsistentParameters,
-                  InvalidHandle,
-                  InvalidRegistration,
-                  InvalidUserCategory,
-                  MissingParameters,
-                  OperationFailed,
-                 ],
-         _returns=PortletPropertyDescriptionResponse,
-        )
+    @document(RegistrationContext,
+              PortletContext,
+              UserContext,
+              desiredLocales,
+              _faults=[AccessDenied,
+                       InconsistentParameters,
+                       InvalidHandle,
+                       InvalidRegistration,
+                       InvalidUserCategory,
+                       MissingParameters,
+                       OperationFailed,
+                      ],
+              _returns=PortletPropertyDescriptionResponse,
+             )
     def getPortletPropertyDsecription(self,
         registration_context,
         portlet_context,

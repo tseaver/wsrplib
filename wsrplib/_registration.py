@@ -1,5 +1,5 @@
 from soaplib.service import DefinitionBase
-from soaplib.service import rpc
+from soaplib.service import document
 
 from wsrplib._datatypes import RegistrationContext
 from wsrplib._datatypes import RegistrationData
@@ -18,26 +18,26 @@ class WSRP_v1_Registration(DefinitionBase):
         # Override to get our messages in the right namespace
         return cls.__namespace__
 
-    @rpc(RegistrationData,
-         _faults=[MissingParameters,
-                  OperationFailed,
-                 ],
-         _returns=RegistrationContext,
-        )
+    @document(RegistrationData,
+              _faults=[MissingParameters,
+                       OperationFailed,
+                      ],
+              _returns=RegistrationContext,
+             )
     def register(self,
         registration_data,
         ):
         # See WSRP 1.0 spec. 7.2
         pass
 
-    @rpc(RegistrationContext,
-         RegistrationData,
-         _faults=[InvalidRegistration,
-                  MissingParameters,
-                  OperationFailed,
-                 ],
-         _returns=RegistrationState,
-        )
+    @document(RegistrationContext,
+              RegistrationData,
+              _faults=[InvalidRegistration,
+                       MissingParameters,
+                       OperationFailed,
+                      ],
+              _returns=RegistrationState,
+             )
     def modifyRegistration(self,
         registration_context,
         registration_data,
@@ -45,11 +45,11 @@ class WSRP_v1_Registration(DefinitionBase):
         # See WSRP 1.0 spec. 7.3
         pass
 
-    @rpc(RegistrationContext,
-         _faults=[InvalidRegistration,
-                  OperationFailed,
-                 ],
-        )
+    @document(RegistrationContext,
+              _faults=[InvalidRegistration,
+                       OperationFailed,
+                      ],
+             )
     def deregister(self,
         registration_context,
         ):

@@ -1,5 +1,5 @@
 from soaplib.service import DefinitionBase
-from soaplib.service import rpc
+from soaplib.service import document
 from zope.component import queryUtility
 
 from wsrplib.interfaces import IPortlet
@@ -35,26 +35,27 @@ class WSRP_v1_Markup(DefinitionBase):
         # Override to get our messages in the right namespace
         return cls.__namespace__
 
-    @rpc(RegistrationContext,
-         PortletContext,
-         RuntimeContext,
-         UserContext,
-         MarkupParams,
-         _faults=[AccessDenied,
-                  InconsistentParameters,
-                  InvalidCookie,
-                  InvalidHandle,
-                  InvalidRegistration,
-                  InvalidSession,
-                  InvalidUserCategory,
-                  MissingParameters,
-                  OperationFailed,
-                  UnsupportedLocale,
-                  UnsupportedMimeType,
-                  UnsupportedMode,
-                  UnsupportedWindowState,
-                 ],
-         _returns=MarkupResponse)
+    @document(RegistrationContext,
+              PortletContext,
+              RuntimeContext,
+              UserContext,
+              MarkupParams,
+              _faults=[AccessDenied,
+                       InconsistentParameters,
+                       InvalidCookie,
+                       InvalidHandle,
+                       InvalidRegistration,
+                       InvalidSession,
+                       InvalidUserCategory,
+                       MissingParameters,
+                       OperationFailed,
+                       UnsupportedLocale,
+                       UnsupportedMimeType,
+                       UnsupportedMode,
+                       UnsupportedWindowState,
+                      ],
+              _returns=MarkupResponse,
+             )
     def getMarkup(self,
         registration_context,
         portlet_context,
@@ -81,28 +82,28 @@ class WSRP_v1_Markup(DefinitionBase):
         else:
             return m_response
 
-    @rpc(RegistrationContext,
-         PortletContext,
-         RuntimeContext,
-         UserContext,
-         MarkupParams,
-         _faults=[AccessDenied,
-                  InconsistentParameters,
-                  InvalidCookie,
-                  InvalidHandle,
-                  InvalidRegistration,
-                  InvalidSession,
-                  InvalidUserCategory,
-                  MissingParameters,
-                  OperationFailed,
-                  PortletStateChangeRequired,
-                  UnsupportedLocale,
-                  UnsupportedMimeType,
-                  UnsupportedMode,
-                  UnsupportedWindowState,
-                 ],
-         _returns=BlockingInteractionResponse,
-        )
+    @document(RegistrationContext,
+              PortletContext,
+              RuntimeContext,
+              UserContext,
+              MarkupParams,
+              _faults=[AccessDenied,
+                       InconsistentParameters,
+                       InvalidCookie,
+                       InvalidHandle,
+                       InvalidRegistration,
+                       InvalidSession,
+                       InvalidUserCategory,
+                       MissingParameters,
+                       OperationFailed,
+                       PortletStateChangeRequired,
+                       UnsupportedLocale,
+                       UnsupportedMimeType,
+                       UnsupportedMode,
+                       UnsupportedWindowState,
+                      ],
+              _returns=BlockingInteractionResponse,
+             )
     def performBlockingInteraction(self,
         registration_context,
         portlet_context,
@@ -114,26 +115,26 @@ class WSRP_v1_Markup(DefinitionBase):
         # See WSRP 1.0 spec. 6.3
         return OperationFailed()
 
-    @rpc(RegistrationContext,
-         _faults=[AccessDenied,
-                  InvalidRegistration,
-                  OperationFailed,
-                 ],
-        )
+    @document(RegistrationContext,
+              _faults=[AccessDenied,
+                       InvalidRegistration,
+                       OperationFailed,
+                      ],
+             )
     def initCookie(self,
         registration_context,
         ):
         # See WSRP 1.0 spec. 6.4
         return OperationFailed()
 
-    @rpc(RegistrationContext,
-         sessionIDs,
-         _faults=[AccessDenied,
-                  InvalidRegistration,
-                  MissingParameters,
-                  OperationFailed,
-                 ],
-        )
+    @document(RegistrationContext,
+              sessionIDs,
+              _faults=[AccessDenied,
+                       InvalidRegistration,
+                       MissingParameters,
+                       OperationFailed,
+                      ],
+             )
     def releaseSessions(self,
         registration_context,
         session_ids,
