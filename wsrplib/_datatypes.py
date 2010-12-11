@@ -1,5 +1,6 @@
 # WSRP datatypes
 
+from soaplib.model import SimpleType
 from soaplib.model.binary import Attachment
 from soaplib.model.enum import Enum
 from soaplib.model.primitive import Any  # AnyAsDict?
@@ -8,7 +9,6 @@ from soaplib.model.primitive import Boolean
 from soaplib.model.primitive import Date
 from soaplib.model.primitive import Integer
 from soaplib.model.primitive import String
-from soaplib.model.primitive import Mandatory
 from soaplib.model.clazz import Array
 from soaplib.model.clazz import ClassSerializer
 
@@ -27,6 +27,17 @@ class _WSRPSerializer(ClassSerializer):
 class _WSRPString(String):
     __namespace__ = WSRP_TYPES_NAMESPACE
     __base_type__ = String
+
+class _WSRPMandatoryString(String):
+    __namespace__ = WSRP_TYPES_NAMESPACE
+    __base_type__ = String
+    __type_name__ = 'MandatoryString'
+    class Attributes(SimpleType.Attributes):
+        min_len = 1
+        min_occurs = 1
+        max_len = "unbounded"
+        pattern = None
+        nillable = False
 
 
 class Extension(_WSRPSerializer):
@@ -65,21 +76,21 @@ class ID(_WSRPString):
 
 class LocalizedString(_WSRPSerializer):
     # See WSRP 1.0 spec. 5.1.5
-    xmlLang = Mandatory.String
-    value = Mandatory.String
+    xmlLang = _WSRPMandatoryString
+    value = _WSRPMandatoryString
     resourceName = String
 
 
 class ResourceValue(_WSRPSerializer):
     # See WSRP 1.0 spec. 5.1.6
-    xmlLang = Mandatory.String
-    value = Mandatory.String
+    xmlLang = _WSRPMandatoryString
+    value = _WSRPMandatoryString
     #extensions = Array(Extension)
 
 
 class Resource(_WSRPSerializer):
     # See WSRP 1.0 spec. 5.1.7
-    resourceName = Mandatory.String
+    resourceName = _WSRPMandatoryString
     values = Array(ResourceValue)
     #extensions = Array(Extension)
 
@@ -92,13 +103,13 @@ class ResourceList(_WSRPSerializer):
 
 class ItemDescription(_WSRPSerializer):
     # See WSRP 1.0 spec. 5.1.9
-    itemName = Mandatory.String
+    itemName = _WSRPMandatoryString
     description = LocalizedString
     #extensions = Array(Extension)
 
 class MarkupType(_WSRPSerializer):
     # See WSRP 1.0 spec. 5.1.10
-    mimeType = Mandatory.String
+    mimeType = _WSRPMandatoryString
     modes = Array(String)
     windowStates = Array(String)
     locales = Array(String)
@@ -128,14 +139,14 @@ class PortletDescription(_WSRPSerializer):
 
 class Property(_WSRPSerializer):
     # See WSRP 1.0 spec. 5.1.12
-    name = Mandatory.String
+    name = _WSRPMandatoryString
     xmlLang = String
     value = Array(Any)
 
 
 class ResetProperty(_WSRPSerializer):
     # See WSRP 1.0 spec. 5.1.13
-    name = Mandatory.String
+    name = _WSRPMandatoryString
 
 
 class PropertyList(_WSRPSerializer):
@@ -147,7 +158,7 @@ class PropertyList(_WSRPSerializer):
 
 class PropertyDescription(_WSRPSerializer):
     # See WSRP 1.0 spec. 5.1.15
-    name = Mandatory.String
+    name = _WSRPMandatoryString
     type = QName
     label = LocalizedString
     hint = LocalizedString
@@ -167,7 +178,7 @@ class ModelDescription(_WSRPSerializer):
 
 
 # See WSRP 1.0 spec. 5.1.18
-CookieProtocol = Enum('none', 'perUser', 'perGroup', type_name='String')
+CookieProtocol = Enum('none', 'perUser', 'perGroup', type_name='CookieProtocol')
 CookieProtocol__namespace__ = WSRP_TYPES_NAMESPACE
 
 
@@ -233,7 +244,7 @@ class Templates(_WSRPSerializer):
 
 class RuntimeContext(_WSRPSerializer):
     # See WSRP 1.0 spec. 6.1.2
-    userAuthentication = Mandatory.String
+    userAuthentication = _WSRPMandatoryString
     portletInstanceKey = Key
     namespacePrefix = String
     templates = Templates # WTF?
@@ -253,8 +264,8 @@ class PortletContext(_WSRPSerializer):
 
 class CacheControl(_WSRPSerializer):
     # See WSRP 1.0 spec. 6.1.6
-    expires = Mandatory.Integer
-    userScope = Mandatory.String
+    expires = _WSRPMandatoryString
+    userScope = _WSRPMandatoryString
     validateTag = String
     #extensions = Array(Extension)
 
@@ -270,8 +281,8 @@ class ClientData(_WSRPSerializer):
 
 class NamedString(_WSRPSerializer):
     # See WSRP 1.0 spec. 6.1.8
-    name = Mandatory.String
-    value = Mandatory.String
+    name = _WSRPMandatoryString
+    value = _WSRPMandatoryString
 
 
 class MarkupParams(_WSRPSerializer):
@@ -279,8 +290,8 @@ class MarkupParams(_WSRPSerializer):
     secureClientCommunication = Boolean         # XXX required
     locales = Array(String)
     mimeTypes = Array(String)
-    mode = Mandatory.String
-    windowState = Mandatory.String
+    mode = _WSRPMandatoryString
+    windowState = _WSRPMandatoryString
     clientData = ClientData
     navigationalState = String
     markupCharacterSets = Array(String)
@@ -315,7 +326,7 @@ class UpdateResponse(_WSRPSerializer):
     sessionContext = SessionContext
     portletContext = PortletContext
     markupContext = MarkupContext
-    navigationalState = Mandatory.String
+    navigationalState = _WSRPMandatoryString
     newWindowState = String
     newMode = String
 
@@ -329,13 +340,13 @@ class BlockingInteractionResponse(_WSRPSerializer):
 
 # See WSRP 1.0 spec. 6.1.14
 StateChange = Enum('readWrite', 'cloneBeforeWrite', 'readOnly',
-                   type_name='String')
+                   type_name='StateChange')
 StateChange.__namespace__ = WSRP_TYPES_NAMESPACE
 
 
 class UploadContext(_WSRPSerializer):
     # See WSRP 1.0 spec. 6.1.15
-    mimeType = Mandatory.String
+    mimeType = _WSRPMandatoryString
     uploadData = Attachment
     mimeAttributes = Array(NamedString)
     #extensions = Array(Extension)
@@ -445,8 +456,8 @@ __namespace__ = WSRP_TYPES_NAMESPACE
 
 class RegistrationData(_WSRPSerializer):
     # See WSRP 1.0 spec. 7.1.1
-    consumerName = Mandatory.String
-    consumerAgent = Mandatory.String
+    consumerName = _WSRPMandatoryString
+    consumerAgent = _WSRPMandatoryString
     methodGetSupported = Boolean            # XXX required
     consumerModes = Array(String)
     consumerWindowStates = Array(String)
