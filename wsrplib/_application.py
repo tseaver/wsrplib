@@ -32,11 +32,13 @@ class Application(_Application):
     def __init__(self, services, tns, name=None,
                  _with_partnerlink=False,
                  _wsdl_generation=None,
+                 _endpoint_url=None,
                 ):
         super(Application, self).__init__(services, tns, name,
                                           _with_partnerlink,
                                          )
         self._wsdl_generation = _wsdl_generation
+        self._endpoint_url = _endpoint_url
         for prefix, namespace in _NS_MAP.items():
             if prefix is not None:
                 self.set_namespace_prefix(namespace, prefix)
@@ -48,6 +50,9 @@ class Application(_Application):
     def __build_wsdl(self, url):
         """ Override to import standard WSDL rather than introspect.
         """
+        if self._endpoint_url is not None:
+            url = self._endpoint_url
+
         if self._wsdl_generation == 'dynamic':
             return self._build_dynamic_wsdl(url)
 

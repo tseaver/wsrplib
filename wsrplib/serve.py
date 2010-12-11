@@ -92,17 +92,19 @@ def main():
     from wsrplib._namespaces import WSRP_TYPES_NAMESPACE
     wsdl_generation = None
     verbosity = 1
+    endpoint_url = None
 
     logging.basicConfig(level=logging.DEBUG)
 
     try:
         opts, args = getopt.gnu_getopt(sys.argv[1:],
-                                       '?hqvsd',
+                                       '?hqvsdu:',
                                        ['help',
                                         'quiet',
                                         'verbose',
                                         'static-wsdl',
                                         'dynamic-wsdl',
+                                        'endpoint-url',
                                        ],
                                       )
     except getopt.GetoptError:
@@ -119,6 +121,8 @@ def main():
             wsdl_generation = 'static'
         if k in ('--dynamic-wsdl', '-d'):
             wsdl_generation = 'dynamic'
+        if k in ('--endpoint-url', '-u'):
+            endpoint_url = v
 
     provideUtility(DummyServiceDescriptionInfo(), IServiceDescriptionInfo)
     provideUtility(DummyPortlet(), IPortlet, name='dummy')
@@ -131,6 +135,7 @@ def main():
                             tns=WSRP_TYPES_NAMESPACE,
                             name='WSRP_v1_Service',
                             _wsdl_generation=wsdl_generation,
+                            _endpoint_url=endpoint_url,
                            )
     wsgi_application = wsgi.Application(soap_application)
     urlmap = URLMap()
