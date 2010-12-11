@@ -4,6 +4,7 @@ from zope.component import queryUtility
 
 from wsrplib.interfaces import IPortlet
 from wsrplib._datatypes import BlockingInteractionResponse
+from wsrplib._datatypes import InteractionParams
 from wsrplib._datatypes import MarkupParams
 from wsrplib._datatypes import MarkupResponse
 from wsrplib._datatypes import PortletContext
@@ -87,6 +88,7 @@ class WSRP_v1_Markup(DefinitionBase):
               RuntimeContext,
               UserContext,
               MarkupParams,
+              InteractionParams,
               _faults=[AccessDenied,
                        InconsistentParameters,
                        InvalidCookie,
