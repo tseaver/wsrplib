@@ -3,7 +3,7 @@
 from wsrplib._namespaces import WSRP_TYPES_NAMESPACE
 from wsrplib._namespaces import WSRP_INTF_NAMESPACE
 
-from wsrplib._datatypes import Extension
+#from wsrplib._datatypes import Extension
 from wsrplib._datatypes import Handle
 from wsrplib._datatypes import Key
 from wsrplib._datatypes import ID
