@@ -15,10 +15,12 @@ from wsrplib._namespaces import WSRP_TYPES_NAMESPACE
 def _makeSeq(cls):
     return cls.customize(min_occurs=0, max_occurs="unbounded", nillable=False)
 
+
 StringSeq = _makeSeq(String)
 StringSeqNotEmpty = String.customize(min_occurs=1, max_occurs="unbounded",
                                      nillable=False)
 AnySeq = _makeSeq(Any)
+
 
 class _WSRPSerializer(ClassSerializer):
     __namespace__ = WSRP_TYPES_NAMESPACE
@@ -41,10 +43,11 @@ class _WSRPMandatoryString(String):
         nillable = False
 
 
-class Extension(_WSRPSerializer):
-    # See WSRP 1.0 spec. 5.1.1
-    any = Any
-ExtensionSeq = _makeSeq(Extension)
+#class Extension(_WSRPSerializer):
+#    # See WSRP 1.0 spec. 5.1.1
+#    any = AnySeq
+#
+#ExtensionSeq = _makeSeq(Extension)
 
 
 class Handle(_WSRPString):
@@ -84,6 +87,7 @@ class LocalizedString(_WSRPSerializer):
 
 LocalizedStringSeq = _makeSeq(LocalizedString)
 
+
 class ResourceValue(_WSRPSerializer):
     # See WSRP 1.0 spec. 5.1.6
     xmlLang = _WSRPMandatoryString
@@ -92,6 +96,7 @@ class ResourceValue(_WSRPSerializer):
 
 ResourceValueSeq = _makeSeq(ResourceValue)
 
+
 class Resource(_WSRPSerializer):
     # See WSRP 1.0 spec. 5.1.7
     resourceName = _WSRPMandatoryString
@@ -99,6 +104,7 @@ class Resource(_WSRPSerializer):
     #extensions = ExtensionSeq
 
 ResourceSeq = _makeSeq(Resource)
+
 
 class ResourceList(_WSRPSerializer):
     # See WSRP 1.0 spec. 5.1.8
@@ -114,6 +120,7 @@ class ItemDescription(_WSRPSerializer):
 
 ItemDescriptionSeq = _makeSeq(ItemDescription)
 
+
 class MarkupType(_WSRPSerializer):
     # See WSRP 1.0 spec. 5.1.10
     mimeType = _WSRPMandatoryString
@@ -123,6 +130,7 @@ class MarkupType(_WSRPSerializer):
     #extensions = ExtensionSeq
 
 MarkupTypeSeq = _makeSeq(MarkupType)
+
 
 class PortletDescription(_WSRPSerializer):
     # See WSRP 1.0 spec. 5.1.11
@@ -147,6 +155,7 @@ class PortletDescription(_WSRPSerializer):
 
 PortletDescriptionSeq = _makeSeq(PortletDescription)
 
+
 class Property(_WSRPSerializer):
     # See WSRP 1.0 spec. 5.1.12
     name = _WSRPMandatoryString
@@ -155,11 +164,13 @@ class Property(_WSRPSerializer):
 
 PropertySeq = _makeSeq(Property)
 
+
 class ResetProperty(_WSRPSerializer):
     # See WSRP 1.0 spec. 5.1.13
     name = _WSRPMandatoryString
 
 ResetPropertySeq = _makeSeq(ResetProperty)
+
 
 class PropertyList(_WSRPSerializer):
     # See WSRP 1.0 spec. 5.1.14
@@ -177,6 +188,7 @@ class PropertyDescription(_WSRPSerializer):
     #extensions = ExtensionSeq
 
 PropertyDescriptionSeq = _makeSeq(PropertyDescription)
+
 
 class ModelTypes(_WSRPSerializer):
     # See WSRP 1.0 spec. 5.1.16
@@ -293,6 +305,7 @@ class NamedString(_WSRPSerializer):
     value = _WSRPMandatoryString
 
 NamedStringSeq = _makeSeq(NamedString)
+
 
 class MarkupParams(_WSRPSerializer):
     # See WSRP 1.0 spec. 6.1.9
