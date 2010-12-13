@@ -4,7 +4,6 @@ from soaplib.model import SimpleType
 from soaplib.model.binary import Attachment
 from soaplib.model.enum import Enum
 from soaplib.model.primitive import Any  # AnyAsDict?
-from soaplib.model.primitive import AnyUri
 from soaplib.model.primitive import Boolean
 from soaplib.model.primitive import Date
 from soaplib.model.primitive import Integer
@@ -12,21 +11,17 @@ from soaplib.model.primitive import String
 from soaplib.model.clazz import Array
 from soaplib.model.clazz import ClassSerializer
 
-from wsrplib._namespaces import WSDL_NAMESPACE
 from wsrplib._namespaces import WSRP_TYPES_NAMESPACE
-
-
-class QName(AnyUri):
-    __namespace__ = WSDL_NAMESPACE
-
 
 
 class _WSRPSerializer(ClassSerializer):
     __namespace__ = WSRP_TYPES_NAMESPACE
 
+
 class _WSRPString(String):
     __namespace__ = WSRP_TYPES_NAMESPACE
     __base_type__ = String
+
 
 class _WSRPMandatoryString(String):
     __namespace__ = WSRP_TYPES_NAMESPACE
@@ -159,7 +154,7 @@ class PropertyList(_WSRPSerializer):
 class PropertyDescription(_WSRPSerializer):
     # See WSRP 1.0 spec. 5.1.15
     name = _WSRPMandatoryString
-    type = QName
+    type = String       # s.b. xsd:QName, and s.b. an attribute, not an element.
     label = LocalizedString
     hint = LocalizedString
     #extensions = Array(Extension)
