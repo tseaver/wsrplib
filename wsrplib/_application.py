@@ -14,7 +14,7 @@ from wsrplib._namespaces import WSRP_WSDL_NAMESPACE
 #_WSRP_BASE_URL = 'http://www.oasis-open.org/committees/wsrp/specifications'
 #_WSRP_BIND_URL = '%s/version1/wsrp_v1_bindings.wsdl' % _WSRP_BASE_URL
 _WSRP_BIND_URL = '/static/wsrp_v1_bindings.wsdl'
-_WSRP_SERVICE_NAME_TEMPLATE = 'WSRP_v1_%s_Service'
+_WSRP_SERVICE_NAME_TEMPLATE = 'WSRP_v1_%s'
 _WSRP_SERVICE_SOAP_BINDING_TEMPLATE = 'bind:WSRP_v1_%s_Binding_SOAP'
 
 _NS_MAP = {
