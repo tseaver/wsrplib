@@ -1,10 +1,8 @@
 import sys
 from suds.client import Client
 
-def _maybeEmpty(attr):
-    if attr is None:
-        return ()
-    return attr[0]
+def _maybeEmpty(x, attr):
+    return getattr(x, attr, ())
 
 def main():
     url = 'http://localhost:7789/?wsdl'
@@ -20,9 +18,9 @@ def main():
     print '###################'
     print 'Requires registration:', sd.requiresRegistration
     print 'Requires init cookie:', sd.requiresInitCookie
-    print 'Locales:', ', '.join(_maybeEmpty(sd.locales))
+    print 'Locales:', ', '.join(_maybeEmpty(sd, 'locales'))
 
-    for portlet in _maybeEmpty(sd.offeredPortlets):
+    for portlet in _maybeEmpty(sd, 'offeredPortlets'):
         print
         print ' Portlet'
         print ' ======='
@@ -32,12 +30,12 @@ def main():
         print ' Short title:', portlet.shortTitle.value
         print ' Display name:', portlet.displayName.value
         print ' Dscription:', portlet.description.value
-        print ' Keywords:', ', '.join([
-                                x.value for x in _maybeEmpty(portlet.keywords)])
+        print ' Keywords:', ', '.join([x.value
+                                for x in _maybeEmpty(portlet, 'keywords')])
         print ' User categories:', ', '.join(
-                                _maybeEmpty(portlet.userCategories))
+                                _maybeEmpty(portlet, 'userCategories'))
         print ' User profile items:', ', '.join(
-                                _maybeEmpty(portlet.userProfileItems))
+                                _maybeEmpty(portlet, 'userProfileItems'))
         print ' Uses GET method?', portlet.usesMethodGet
         print ' Default markup secure?', portlet.defaultMarkupSecure
         print ' All markup secure?', portlet.onlySecure
@@ -46,15 +44,15 @@ def main():
         print ' User-specific state?', portlet.hasUserSpecificState
         print ' URL Template processing?', portlet.doesUrlTemplateProcessing
 
-        for markupType in _maybeEmpty(portlet.markupTypes):
+        for markupType in _maybeEmpty(portlet, 'markupTypes'):
             print
             print '  Markup Type'
             print '  -----------'
             print '  MIME type:', markupType.mimeType
-            print '  Modes:', ', '.join(_maybeEmpty(markupType.modes))
+            print '  Modes:', ', '.join(_maybeEmpty(markupType, 'modes'))
             print '  Window States:', ', '.join(
-                                    _maybeEmpty(markupType.windowStates))
-            print '  Locales:', ', '.join(_maybeEmpty(markupType.locales))
+                                    _maybeEmpty(markupType, 'windowStates'))
+            print '  Locales:', ', '.join(_maybeEmpty(markupType, 'locales'))
 
         p_context = {'portletHandle': portlet.portletHandle}
         response = markup_port.getMarkup(None, p_context, None, None, None)

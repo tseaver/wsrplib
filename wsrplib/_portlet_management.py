@@ -7,10 +7,8 @@ from wsrplib._datatypes import PortletDescriptionResponse
 from wsrplib._datatypes import PortletPropertyDescriptionResponse
 from wsrplib._datatypes import PropertyList
 from wsrplib._datatypes import RegistrationContext
+from wsrplib._datatypes import StringSeq
 from wsrplib._datatypes import UserContext
-from wsrplib._datatypes import desiredLocales
-from wsrplib._datatypes import handleList
-from wsrplib._datatypes import nameList
 from wsrplib._faults import AccessDenied
 from wsrplib._faults import InconsistentParameters
 from wsrplib._faults import InvalidHandle
@@ -32,7 +30,7 @@ class WSRP_v1_PortletManagement(DefinitionBase):
     @document(RegistrationContext,
               PortletContext,
               UserContext,
-              desiredLocales,
+              StringSeq,
               _faults=[AccessDenied,
                        InconsistentParameters,
                        InvalidHandle,
@@ -74,7 +72,7 @@ class WSRP_v1_PortletManagement(DefinitionBase):
         pass
 
     @document(RegistrationContext,
-              handleList,
+              StringSeq,
               _faults=[InconsistentParameters,
                       InvalidRegistration,
                       MissingParameters,
@@ -115,7 +113,7 @@ class WSRP_v1_PortletManagement(DefinitionBase):
     @document(RegistrationContext,
               PortletContext,
               UserContext,
-              nameList,
+              StringSeq,
               _faults=[AccessDenied,
                        InconsistentParameters,
                        InvalidHandle,
@@ -138,7 +136,7 @@ class WSRP_v1_PortletManagement(DefinitionBase):
     @document(RegistrationContext,
               PortletContext,
               UserContext,
-              desiredLocales,
+              StringSeq,
               _faults=[AccessDenied,
                        InconsistentParameters,
                        InvalidHandle,

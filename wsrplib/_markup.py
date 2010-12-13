@@ -10,8 +10,8 @@ from wsrplib._datatypes import MarkupResponse
 from wsrplib._datatypes import PortletContext
 from wsrplib._datatypes import RegistrationContext
 from wsrplib._datatypes import RuntimeContext
+from wsrplib._datatypes import StringSeq
 from wsrplib._datatypes import UserContext
-from wsrplib._datatypes import sessionIDs
 from wsrplib._faults import AccessDenied
 from wsrplib._faults import InconsistentParameters
 from wsrplib._faults import InvalidCookie
@@ -130,7 +130,7 @@ class WSRP_v1_Markup(DefinitionBase):
         return OperationFailed()
 
     @document(RegistrationContext,
-              sessionIDs,
+              StringSeq,
               _faults=[AccessDenied,
                        InvalidRegistration,
                        MissingParameters,

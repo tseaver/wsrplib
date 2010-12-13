@@ -8,11 +8,17 @@ from soaplib.model.primitive import Boolean
 from soaplib.model.primitive import Date
 from soaplib.model.primitive import Integer
 from soaplib.model.primitive import String
-from soaplib.model.clazz import Array
 from soaplib.model.clazz import ClassSerializer
 
 from wsrplib._namespaces import WSRP_TYPES_NAMESPACE
 
+def _makeSeq(cls):
+    return cls.customize(min_occurs=0, max_occurs="unbounded", nillable=False)
+
+StringSeq = _makeSeq(String)
+StringSeqNotEmpty = String.customize(min_occurs=1, max_occurs="unbounded",
+                                     nillable=False)
+AnySeq = _makeSeq(Any)
 
 class _WSRPSerializer(ClassSerializer):
     __namespace__ = WSRP_TYPES_NAMESPACE
@@ -38,6 +44,7 @@ class _WSRPMandatoryString(String):
 class Extension(_WSRPSerializer):
     # See WSRP 1.0 spec. 5.1.1
     any = Any
+ExtensionSeq = _makeSeq(Extension)
 
 
 class Handle(_WSRPString):
@@ -75,53 +82,60 @@ class LocalizedString(_WSRPSerializer):
     value = _WSRPMandatoryString
     resourceName = String
 
+LocalizedStringSeq = _makeSeq(LocalizedString)
 
 class ResourceValue(_WSRPSerializer):
     # See WSRP 1.0 spec. 5.1.6
     xmlLang = _WSRPMandatoryString
     value = _WSRPMandatoryString
-    #extensions = Array(Extension)
+    #extensions = ExtensionSeq
 
+ResourceValueSeq = _makeSeq(ResourceValue)
 
 class Resource(_WSRPSerializer):
     # See WSRP 1.0 spec. 5.1.7
     resourceName = _WSRPMandatoryString
-    values = Array(ResourceValue)
-    #extensions = Array(Extension)
+    values = ResourceValueSeq
+    #extensions = ExtensionSeq
 
+ResourceSeq = _makeSeq(Resource)
 
 class ResourceList(_WSRPSerializer):
     # See WSRP 1.0 spec. 5.1.8
-    resources = Array(Resource)
-    #extensions = Array(Extension)
+    resources = ResourceSeq
+    #extensions = ExtensionSeq
 
 
 class ItemDescription(_WSRPSerializer):
     # See WSRP 1.0 spec. 5.1.9
     itemName = _WSRPMandatoryString
     description = LocalizedString
-    #extensions = Array(Extension)
+    #extensions = ExtensionSeq
+
+ItemDescriptionSeq = _makeSeq(ItemDescription)
 
 class MarkupType(_WSRPSerializer):
     # See WSRP 1.0 spec. 5.1.10
     mimeType = _WSRPMandatoryString
-    modes = Array(String)
-    windowStates = Array(String)
-    locales = Array(String)
-    #extensions = Array(Extension)
+    modes = StringSeqNotEmpty
+    windowStates = StringSeqNotEmpty
+    locales = StringSeq
+    #extensions = ExtensionSeq
+
+MarkupTypeSeq = _makeSeq(MarkupType)
 
 class PortletDescription(_WSRPSerializer):
     # See WSRP 1.0 spec. 5.1.11
     portletHandle = Handle
-    markupTypes = Array(MarkupType)
+    markupTypes = MarkupTypeSeq
     groupID = ID
     description = LocalizedString
     shortTitle = LocalizedString
     title = LocalizedString
     displayName = LocalizedString
-    keywords = Array(LocalizedString)
-    userCategories = Array(String)
-    userProfileItems = Array(String)
+    keywords = LocalizedStringSeq
+    userCategories = StringSeq
+    userProfileItems = StringSeq
     usesMethodGet = Boolean
     defaultMarkupSecure = Boolean
     onlySecure = Boolean
@@ -129,26 +143,29 @@ class PortletDescription(_WSRPSerializer):
     templatesStoredInSession = Boolean
     hasUserSpecificState = Boolean
     doesUrlTemplateProcessing = Boolean
-    #extensions = Array(Extension)
+    #extensions = ExtensionSeq
 
+PortletDescriptionSeq = _makeSeq(PortletDescription)
 
 class Property(_WSRPSerializer):
     # See WSRP 1.0 spec. 5.1.12
     name = _WSRPMandatoryString
     xmlLang = String
-    value = Array(Any)
+    value = AnySeq
 
+PropertySeq = _makeSeq(Property)
 
 class ResetProperty(_WSRPSerializer):
     # See WSRP 1.0 spec. 5.1.13
     name = _WSRPMandatoryString
 
+ResetPropertySeq = _makeSeq(ResetProperty)
 
 class PropertyList(_WSRPSerializer):
     # See WSRP 1.0 spec. 5.1.14
-    properties = Array(Property)
-    resetProperties = Array(ResetProperty)
-    #extensions = Array(Extension)
+    properties = PropertySeq
+    resetProperties = ResetPropertySeq
+    #extensions = ExtensionSeq
 
 
 class PropertyDescription(_WSRPSerializer):
@@ -157,19 +174,20 @@ class PropertyDescription(_WSRPSerializer):
     type = String       # s.b. xsd:QName, and s.b. an attribute, not an element.
     label = LocalizedString
     hint = LocalizedString
-    #extensions = Array(Extension)
+    #extensions = ExtensionSeq
 
+PropertyDescriptionSeq = _makeSeq(PropertyDescription)
 
 class ModelTypes(_WSRPSerializer):
     # See WSRP 1.0 spec. 5.1.16
-    any = Array(Any)
+    any = AnySeq
 
 
 class ModelDescription(_WSRPSerializer):
     # See WSRP 1.0 spec. 5.1.17
-    propertyDescriptions = Array(PropertyDescription)
+    propertyDescriptions = PropertyDescriptionSeq
     modelTypes = ModelTypes
-    #extensions = Array(Extension)
+    #extensions = ExtensionSeq
 
 
 # See WSRP 1.0 spec. 5.1.18
@@ -181,34 +199,29 @@ CookieProtocol__namespace__ = WSRP_TYPES_NAMESPACE
 class ServiceDescription(_WSRPSerializer):
     # See WSRP 1.0 spec. 5.1.19
     requiresRegistration = Boolean
-    offeredPortlets = Array(PortletDescription)
-    userCategoryDescriptions = Array(ItemDescription)
-    customUserProfileItemDescriptions = Array(ItemDescription)
-    customWindowStateDescriptions = Array(ItemDescription)
-    customModeDescriptions = Array(ItemDescription)
+    offeredPortlets = PortletDescriptionSeq
+    userCategoryDescriptions = ItemDescriptionSeq
+    customUserProfileItemDescriptions = ItemDescriptionSeq
+    customWindowStateDescriptions = ItemDescriptionSeq
+    customModeDescriptions = ItemDescriptionSeq
     requiresInitCookie = CookieProtocol
     registrationPropertyDescription = ModelDescription
-    locales = Array(String)
+    locales = StringSeq
     resourceList = ResourceList
-    #extensions = Array(Extension)
+    #extensions = ExtensionSeq
 
 
 class RegistrationState(_WSRPSerializer):
     # See WSRP 1.0 spec. 5.1.20
     registrationState = Attachment
-    #extensions = Array(Extension)
+    #extensions = ExtensionSeq
 
 
 class RegistrationContext(_WSRPSerializer):
     # See WSRP 1.0 spec. 5.1.21
     registrationHandle = Handle
     registrationState = Attachment
-    #extensions = Array(Extension)
-
-
-# See WSRP 1.0 spec. 5.1.22
-desiredLocales = Array(String)
-desiredLocales.__namespace__ = WSRP_TYPES_NAMESPACE
+    #extensions = ExtensionSeq
 
 
 
@@ -221,7 +234,7 @@ class SessionContext(_WSRPSerializer):
     # See WSRP 1.0 spec. 6.1.1
     sessionID = ID
     expires = Integer
-    #extensions = Array(Extension)
+    #extensions = ExtensionSeq
 
 
 class Templates(_WSRPSerializer):
@@ -234,7 +247,7 @@ class Templates(_WSRPSerializer):
     secureBlockingActionTemplate = String
     secureRenderTemplate = String
     secureResourceTemplate = String
-    #extensions = Array(Extension)
+    #extensions = ExtensionSeq
 
 
 class RuntimeContext(_WSRPSerializer):
@@ -244,14 +257,14 @@ class RuntimeContext(_WSRPSerializer):
     namespacePrefix = String
     templates = Templates # WTF?
     sessionID = ID
-    #extensions = Array(Extension)
+    #extensions = ExtensionSeq
 
 
 class PortletContext(_WSRPSerializer):
     # See WSRP 1.0 spec. 6.1.3
     portletHandle = Handle
     portletState = Attachment
-    #extensions = Array(Extension)
+    #extensions = ExtensionSeq
 
 
 # standard user scopes, 6.1.4
@@ -262,7 +275,7 @@ class CacheControl(_WSRPSerializer):
     expires = _WSRPMandatoryString
     userScope = _WSRPMandatoryString
     validateTag = String
-    #extensions = Array(Extension)
+    #extensions = ExtensionSeq
 
 
 # Templates, 6.1.6, defined out of order because used by RuntimeContext
@@ -271,7 +284,7 @@ class CacheControl(_WSRPSerializer):
 class ClientData(_WSRPSerializer):
     # See WSRP 1.0 spec. 6.1.7
     userAgent = String
-    #extensions = Array(Extension)
+    #extensions = ExtensionSeq
 
 
 class NamedString(_WSRPSerializer):
@@ -279,21 +292,22 @@ class NamedString(_WSRPSerializer):
     name = _WSRPMandatoryString
     value = _WSRPMandatoryString
 
+NamedStringSeq = _makeSeq(NamedString)
 
 class MarkupParams(_WSRPSerializer):
     # See WSRP 1.0 spec. 6.1.9
     secureClientCommunication = Boolean         # XXX required
-    locales = Array(String)
-    mimeTypes = Array(String)
+    locales = StringSeq
+    mimeTypes = StringSeqNotEmpty
     mode = _WSRPMandatoryString
     windowState = _WSRPMandatoryString
     clientData = ClientData
     navigationalState = String
-    markupCharacterSets = Array(String)
+    markupCharacterSets = StringSeq
     validateTag = String
-    validNewModes = Array(String)
-    validNewWIndowStates = Array(String)
-    #extensions = Array(Extension)
+    validNewModes = StringSeq
+    validNewWIndowStates = StringSeq
+    #extensions = ExtensionSeq
 
 
 class MarkupContext(_WSRPSerializer):
@@ -306,14 +320,14 @@ class MarkupContext(_WSRPSerializer):
     requiresUrlRewriting = Boolean
     cacheControl = CacheControl
     preferredTitle = String
-    #extensions = Array(Extension)
+    #extensions = ExtensionSeq
 
 
 class MarkupResponse(_WSRPSerializer):
     # See WSRP 1.0 spec. 6.1.11
     markupContext = MarkupContext
     sessionContext = SessionContext
-    #extensions = Array(Extension)
+    #extensions = ExtensionSeq
 
 
 class UpdateResponse(_WSRPSerializer):
@@ -330,7 +344,7 @@ class BlockingInteractionResponse(_WSRPSerializer):
     # See WSRP 1.0 spec. 6.1.13
     updateResponse = UpdateResponse
     redirectURL = String
-    #extensions = Array(Extension)
+    #extensions = ExtensionSeq
 
 
 # See WSRP 1.0 spec. 6.1.14
@@ -343,17 +357,19 @@ class UploadContext(_WSRPSerializer):
     # See WSRP 1.0 spec. 6.1.15
     mimeType = _WSRPMandatoryString
     uploadData = Attachment
-    mimeAttributes = Array(NamedString)
-    #extensions = Array(Extension)
+    mimeAttributes = NamedStringSeq
+    #extensions = ExtensionSeq
+
+UploadContextSeq = _makeSeq(UploadContext)
 
 
 class InteractionParams(_WSRPSerializer):
     # See WSRP 1.0 spec. 6.1.16
     stateChange = StateChange                   # XXX required
     interactionState = String
-    formParameters = Array(NamedString)
-    uploadContexts = Array(UploadContext)
-    #extensions = Array(Extension)
+    formParameters = NamedStringSeq
+    uploadContexts = UploadContextSeq
+    #extensions = ExtensionSeq
 
 
 class PersonName(_WSRPSerializer):
@@ -364,7 +380,7 @@ class PersonName(_WSRPSerializer):
     middle = String
     suffix = String
     nickname = String
-    #extensions = Array(Extension)
+    #extensions = ExtensionSeq
 
 
 class EmployerInfo(_WSRPSerializer):
@@ -372,7 +388,7 @@ class EmployerInfo(_WSRPSerializer):
     employer = String
     department = String
     jobTitle = String
-    #extensions = Array(Extension)
+    #extensions = ExtensionSeq
 
 
 class TelephoneNum(_WSRPSerializer):
@@ -382,7 +398,7 @@ class TelephoneNum(_WSRPSerializer):
     number = String
     ext = String
     comment = String
-    #extensions = Array(Extension)
+    #extensions = ExtensionSeq
 
 
 class Telecom(_WSRPSerializer):
@@ -391,14 +407,14 @@ class Telecom(_WSRPSerializer):
     fax = TelephoneNum
     mobile = TelephoneNum
     pager = TelephoneNum
-    #extensions = Array(Extension)
+    #extensions = ExtensionSeq
 
 
 class Online(_WSRPSerializer):
     # See WSRP 1.0 spec. 6.1.17.5
     email = String
     uri = String
-    #extensions = Array(Extension)
+    #extensions = ExtensionSeq
 
 
 class Postal(_WSRPSerializer):
@@ -409,7 +425,7 @@ class Postal(_WSRPSerializer):
     stateprov = String
     country = String
     organization = String
-    #extensions = Array(Extension)
+    #extensions = ExtensionSeq
 
 
 class Contact(_WSRPSerializer):
@@ -417,7 +433,7 @@ class Contact(_WSRPSerializer):
     postal = Postal
     telecom = Telecom
     online = Online
-    #extensions = Array(Extension)
+    #extensions = ExtensionSeq
 
 
 class UserProfile(_WSRPSerializer):
@@ -428,20 +444,16 @@ class UserProfile(_WSRPSerializer):
     employerInfo = EmployerInfo
     homeInfo = Contact
     businessInfo = Contact
-    #extensions = Array(Extension)
+    #extensions = ExtensionSeq
 
 
 class UserContext(_WSRPSerializer):
     # See WSRP 1.0 spec. 6.1.18
     userContextKey = Key
-    userCategories = Array(String)
+    userCategories = StringSeq
     profile = UserProfile
-    #extensions = Array(Extension)
+    #extensions = ExtensionSeq
 
-
-# Not named in API
-sessionIDs = Array(ID)
-__namespace__ = WSRP_TYPES_NAMESPACE
 
 
 ##############################################################################
@@ -454,12 +466,12 @@ class RegistrationData(_WSRPSerializer):
     consumerName = _WSRPMandatoryString
     consumerAgent = _WSRPMandatoryString
     methodGetSupported = Boolean            # XXX required
-    consumerModes = Array(String)
-    consumerWindowStates = Array(String)
-    consumerUserScopes = Array(String)
-    customUserProfileData = Array(String)
-    registrationProperties = Array(Property)
-    #extensions = Array(Extension)
+    consumerModes = StringSeq
+    consumerWindowStates = StringSeq
+    consumerUserScopes = StringSeq
+    customUserProfileData = StringSeq
+    registrationProperties = StringSeq
+    #extensions = ExtensionSeq
 
 
 ##############################################################################
@@ -472,32 +484,24 @@ class DestroyFailed(_WSRPSerializer):
     portletHandle = Handle                  # XXX required
     reason = String                         # XXX required
 
+DestroyFailedSeq = _makeSeq(DestroyFailed)
+
 
 class DestroyPortletsResponse(_WSRPSerializer):
     # See WSRP 1.0 spec. 8.1.2
-    destroyFailed = Array(DestroyFailed)
-    #extensions = Array(Extension)
+    destroyFailed = DestroyFailedSeq
+    #extensions = ExtensionSeq
 
 
 class PortletDescriptionResponse(_WSRPSerializer):
     # See WSRP 1.0 spec. 8.1.3
     portletDescription = PortletDescription
     resourceList = ResourceList
-    #extensions = Array(Extension)
+    #extensions = ExtensionSeq
 
 
 class PortletPropertyDescriptionResponse(_WSRPSerializer):
     # See WSRP 1.0 spec. 8.1.4
     modelDescription = ModelDescription
     resourceList = ResourceList
-    #extensions = Array(Extension)
-
-
-# Not named in API
-handleList = Array(ID)
-handleList.__namespace__ = WSRP_TYPES_NAMESPACE
-
-
-# Not named in API
-nameList = Array(String)
-nameList.__namespace__ = WSRP_TYPES_NAMESPACE
+    #extensions = ExtensionSeq

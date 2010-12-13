@@ -10,7 +10,7 @@ from wsrplib._datatypes import MarkupType
 from wsrplib._datatypes import PortletDescription
 from wsrplib._datatypes import RegistrationContext
 from wsrplib._datatypes import ServiceDescription
-from wsrplib._datatypes import desiredLocales
+from wsrplib._datatypes import StringSeq
 from wsrplib._faults import InvalidRegistration
 from wsrplib._faults import OperationFailed
 from wsrplib._namespaces import WSRP_TYPES_NAMESPACE
@@ -32,7 +32,7 @@ class WSRP_v1_ServiceDescription(DefinitionBase):
         return cls.__namespace__
 
     @document(RegistrationContext,
-              desiredLocales,
+              StringSeq,
               _faults=[InvalidRegistration,
                        OperationFailed,
                       ],
@@ -62,12 +62,12 @@ class WSRP_v1_ServiceDescription(DefinitionBase):
             for m_type in portlet.markupTypes:
                 mt = MarkupType()
                 mt.mimeType = m_type.mimeType
-                mt.modes = list(m_type.modes) or None
-                mt.windowStates = list(m_type.windowStates) or None
+                mt.modes = list(m_type.modes)
+                mt.windowStates = list(m_type.windowStates)
                 mt.locales = list(m_type.locales)
                 m_types.append(mt)
-            pd.userCategories = list(portlet.userCategories) or None
-            pd.userProfileItems = list(portlet.userProfileItems) or None
+            pd.userCategories = list(portlet.userCategories)
+            pd.userProfileItems = list(portlet.userProfileItems)
             pd.usesMethodGet = portlet.usesMethodGet
             pd.defaultMarkupSecure = portlet.defaultMarkupSecure
             pd.onlySecure = portlet.onlySecure

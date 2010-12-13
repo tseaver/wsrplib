@@ -24,7 +24,6 @@ from wsrplib._datatypes import CookieProtocol
 from wsrplib._datatypes import ServiceDescription
 from wsrplib._datatypes import RegistrationState
 from wsrplib._datatypes import RegistrationContext
-from wsrplib._datatypes import desiredLocales
 from wsrplib._datatypes import SessionContext
 from wsrplib._datatypes import Templates
 from wsrplib._datatypes import RuntimeContext
@@ -49,14 +48,11 @@ from wsrplib._datatypes import Postal
 from wsrplib._datatypes import Contact
 from wsrplib._datatypes import UserProfile
 from wsrplib._datatypes import UserContext
-from wsrplib._datatypes import sessionIDs
 from wsrplib._datatypes import RegistrationData
 from wsrplib._datatypes import DestroyFailed
 from wsrplib._datatypes import DestroyPortletsResponse
 from wsrplib._datatypes import PortletDescriptionResponse
 from wsrplib._datatypes import PortletPropertyDescriptionResponse
-from wsrplib._datatypes import handleList
-from wsrplib._datatypes import nameList
 
 from wsrplib._faults import AccessDenied
 from wsrplib._faults import InvalidUserCategory
