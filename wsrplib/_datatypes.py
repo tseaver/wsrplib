@@ -9,6 +9,8 @@ from soaplib.model.primitive import Date
 from soaplib.model.primitive import Integer
 from soaplib.model.primitive import String
 from soaplib.model.clazz import ClassSerializer
+from soaplib.model.clazz import XMLAttribute
+from soaplib.model.clazz import XMLAttributeRef
 
 from wsrplib._namespaces import WSRP_TYPES_NAMESPACE
 
@@ -81,16 +83,16 @@ class ID(_WSRPString):
 
 class LocalizedString(_WSRPSerializer):
     # See WSRP 1.0 spec. 5.1.5
-    xmlLang = _WSRPMandatoryString
+    xmlLang = XMLAttributeRef('xml:lang', use='required')
     value = _WSRPMandatoryString
-    resourceName = String
+    resourceName = XMLAttribute('xs:string')
 
 LocalizedStringSeq = _makeSeq(LocalizedString)
 
 
 class ResourceValue(_WSRPSerializer):
     # See WSRP 1.0 spec. 5.1.6
-    xmlLang = _WSRPMandatoryString
+    xmlLang = XMLAttributeRef('xml:lang', use='required')
     value = _WSRPMandatoryString
     #extensions = ExtensionSeq
 
@@ -99,7 +101,7 @@ ResourceValueSeq = _makeSeq(ResourceValue)
 
 class Resource(_WSRPSerializer):
     # See WSRP 1.0 spec. 5.1.7
-    resourceName = _WSRPMandatoryString
+    resourceName = XMLAttribute('xs:string', use='required')
     values = ResourceValueSeq
     #extensions = ExtensionSeq
 
@@ -114,7 +116,7 @@ class ResourceList(_WSRPSerializer):
 
 class ItemDescription(_WSRPSerializer):
     # See WSRP 1.0 spec. 5.1.9
-    itemName = _WSRPMandatoryString
+    itemName = XMLAttribute('xs:string', use='required')
     description = LocalizedString
     #extensions = ExtensionSeq
 
@@ -158,8 +160,9 @@ PortletDescriptionSeq = _makeSeq(PortletDescription)
 
 class Property(_WSRPSerializer):
     # See WSRP 1.0 spec. 5.1.12
-    name = _WSRPMandatoryString
-    xmlLang = String
+    name = XMLAttribute('xs:string', use='required')
+    xmlLang = XMLAttributeRef('xml:lang', use='required')
+    stringValue = StringSeq
     value = AnySeq
 
 PropertySeq = _makeSeq(Property)
@@ -167,7 +170,7 @@ PropertySeq = _makeSeq(Property)
 
 class ResetProperty(_WSRPSerializer):
     # See WSRP 1.0 spec. 5.1.13
-    name = _WSRPMandatoryString
+    name = XMLAttribute('xs:string', use='required')
 
 ResetPropertySeq = _makeSeq(ResetProperty)
 
@@ -181,8 +184,8 @@ class PropertyList(_WSRPSerializer):
 
 class PropertyDescription(_WSRPSerializer):
     # See WSRP 1.0 spec. 5.1.15
-    name = _WSRPMandatoryString
-    type = String       # s.b. xsd:QName, and s.b. an attribute, not an element.
+    name = XMLAttribute('xs:string', use='required')
+    type = XMLAttribute('xs:QName', use='required')
     label = LocalizedString
     hint = LocalizedString
     #extensions = ExtensionSeq
@@ -301,7 +304,7 @@ class ClientData(_WSRPSerializer):
 
 class NamedString(_WSRPSerializer):
     # See WSRP 1.0 spec. 6.1.8
-    name = _WSRPMandatoryString
+    name = XMLAttribute('xs:string', use='required')
     value = _WSRPMandatoryString
 
 NamedStringSeq = _makeSeq(NamedString)
