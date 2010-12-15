@@ -17,6 +17,8 @@ from wsrplib._namespaces import WSRP_TYPES_NAMESPACE
 def _makeSeq(cls):
     return cls.customize(min_occurs=0, max_occurs="unbounded", nillable=False)
 
+def _makeNotNillable(cls):
+    return cls.customize(min_occurs=0, nillable=False)
 
 StringSeq = _makeSeq(String)
 StringSeqNotEmpty = String.customize(min_occurs=1, max_occurs="unbounded",
@@ -113,6 +115,7 @@ class ResourceList(_WSRPSerializer):
     resources = ResourceSeq
     #extensions = ExtensionSeq
 
+ResourceListNotNillable = _makeNotNillable(ResourceList)
 
 class ItemDescription(_WSRPSerializer):
     # See WSRP 1.0 spec. 5.1.9
@@ -204,6 +207,7 @@ class ModelDescription(_WSRPSerializer):
     modelTypes = ModelTypes
     #extensions = ExtensionSeq
 
+ModelDescriptionNotNillable = _makeNotNillable(ModelDescription)
 
 # See WSRP 1.0 spec. 5.1.18
 CookieProtocol = Enum('none', 'perUser', 'perGroup', type_name='CookieProtocol')
@@ -220,9 +224,9 @@ class ServiceDescription(_WSRPSerializer):
     customWindowStateDescriptions = ItemDescriptionSeq
     customModeDescriptions = ItemDescriptionSeq
     requiresInitCookie = CookieProtocol
-    registrationPropertyDescription = ModelDescription
+    registrationPropertyDescription = ModelDescriptionNotNillable
     locales = StringSeq
-    resourceList = ResourceList
+    resourceList = ResourceListNotNillable
     #extensions = ExtensionSeq
 
 

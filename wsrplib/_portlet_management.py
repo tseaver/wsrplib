@@ -42,10 +42,10 @@ class WSRP_v1_PortletManagement(DefinitionBase):
               _returns=PortletDescriptionResponse,
              )
     def getPortletDescription(self,
-        registration_context,
-        portlet_context,
-        user_context,
-        desired_locales,
+        registrationContext,
+        portletContext,
+        userContext,
+        desiredLocales,
         ):
         # See WSRP 1.0 spec. 8.2
         pass
@@ -64,9 +64,9 @@ class WSRP_v1_PortletManagement(DefinitionBase):
               _returns=PortletContext,
              )
     def clonePortlet(self,
-        registration_context,
-        portlet_context,
-        user_context,
+        registrationContext,
+        portletContext,
+        userContext,
         ):
         # See WSRP 1.0 spec. 8.3
         pass
@@ -81,8 +81,8 @@ class WSRP_v1_PortletManagement(DefinitionBase):
               _returns=DestroyPortletsResponse,
               )
     def destroyPortlets(self,
-        registration_context,
-        portlet_handles,
+        registrationContext,
+        portletHandles,
         ):
         # See WSRP 1.0 spec. 8.4
         pass
@@ -102,10 +102,10 @@ class WSRP_v1_PortletManagement(DefinitionBase):
               _returns=PortletContext,
              )
     def setPortletProperties(self,
-        registration_context,
-        portlet_context,
-        user_context,
-        property_list,
+        registrationContext,
+        portletContext,
+        userContext,
+        propertyList,
         ):
         # See WSRP 1.0 spec. 8.5
         pass
@@ -125,10 +125,10 @@ class WSRP_v1_PortletManagement(DefinitionBase):
               _returns=PropertyList,
              )
     def getPortletProperties(self,
-        registration_context,
-        portlet_context,
-        user_context,
-        name_list,
+        registrationContext,
+        portletContext,
+        userContext,
+        nameList,
         ):
         # See WSRP 1.0 spec. 8.6
         pass
@@ -148,10 +148,10 @@ class WSRP_v1_PortletManagement(DefinitionBase):
               _returns=PortletPropertyDescriptionResponse,
              )
     def getPortletPropertyDsecription(self,
-        registration_context,
-        portlet_context,
-        user_context,
-        desired_locales,
+        registrationContext,
+        portletContext,
+        userContext,
+        desiredLocales,
         ):
         # See WSRP 1.0 spec. 8.7
         pass

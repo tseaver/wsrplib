@@ -7,6 +7,8 @@ from wsrplib.interfaces import IPortlet
 from wsrplib.interfaces import IServiceDescriptionInfo
 from wsrplib._datatypes import LocalizedString
 from wsrplib._datatypes import MarkupType
+from wsrplib._datatypes import ModelDescription
+from wsrplib._datatypes import ModelTypes
 from wsrplib._datatypes import PortletDescription
 from wsrplib._datatypes import RegistrationContext
 from wsrplib._datatypes import ServiceDescription
@@ -39,15 +41,26 @@ class WSRP_v1_ServiceDescription(DefinitionBase):
               _returns=ServiceDescription,
              )
     def getServiceDescription(self,
-        registration_context,
-        desired_locales,
+        registrationContext,
+        desiredLocales,
         ):
         # See WSRP 1.0 spec. 5.2
         result = ServiceDescription()
         info = getUtility(IServiceDescriptionInfo)
         result.requiresRegistration = info.requiresRegistration
+        result.userCategoryDescriptions = []            # XXX
+        result.customUserProfileItemDescriptions = []   # XXX
+        result.customWindowStateDescriptions = []       # XXX
+        result.customModeDescriptions = []              # XXX
         result.requiresInitCookie = info.requiresInitCookie
+        regProps = ModelDescription()
+        regProps.propertyDescriptions = []
+        modelTypes = ModelTypes()
+        modelTypes.any = []
+        regProps.modelTypes = modelTypes
+        result.registrationPropertyDescription = regProps
         result.locales = list(info.locales)
+        result.resourceList = []                        # XXX
         result.offeredPortlets = portlets = []
         for name, portlet in getUtilitiesFor(IPortlet):
             pd = PortletDescription()

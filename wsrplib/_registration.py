@@ -25,7 +25,7 @@ class WSRP_v1_Registration(DefinitionBase):
               _returns=RegistrationContext,
              )
     def register(self,
-        registration_data,
+        registrationData,
         ):
         # See WSRP 1.0 spec. 7.2
         pass
@@ -39,8 +39,8 @@ class WSRP_v1_Registration(DefinitionBase):
               _returns=RegistrationState,
              )
     def modifyRegistration(self,
-        registration_context,
-        registration_data,
+        registrationContext,
+        registrationData,
         ):
         # See WSRP 1.0 spec. 7.3
         pass
@@ -51,7 +51,7 @@ class WSRP_v1_Registration(DefinitionBase):
                       ],
              )
     def deregister(self,
-        registration_context,
+        registrationContext,
         ):
         # See WSRP 1.0 spec. 7.4
         pass

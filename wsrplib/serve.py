@@ -35,8 +35,8 @@ from wsrplib._portlet_management import WSRP_v1_PortletManagement
 class DummyMarkupType(object):
     implements(IMarkupType)
     mimeType = 'text/plain'
-    modes = ()
-    windowStates = ()
+    modes = ('wsrp:view',)
+    windowStates = ('wsrp:normal',)
     locales = ('en',)
 
 class DummyPortlet(object):
@@ -72,7 +72,7 @@ class DummyServiceDescriptionInfo(object):
     implements(IServiceDescriptionInfo)
     requiresRegistration = False
     requiresInitCookie = 'none'
-    locales = ['en-US']
+    locales = ['en']
 
 def usage(message='', rc=1):
     print >>sys.stderr, __doc__ % sys.argv[0]

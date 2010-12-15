@@ -58,24 +58,24 @@ class WSRP_v1_Markup(DefinitionBase):
               _returns=MarkupResponse,
              )
     def getMarkup(self,
-        registration_context,
-        portlet_context,
-        runtime_context,
-        user_context,
-        markup_params,
+        registrationContext,
+        portletContext,
+        runtimeContext,
+        userContext,
+        markupParams,
         ):
         # See WSRP 1.0 spec. 6.2
-        p_handle = portlet_context.portletHandle
+        p_handle = portletContext.portletHandle
         portlet = queryUtility(IPortlet, name=p_handle)
         if portlet is None:
             return InvalidHandle('No such portlet: %s' % p_handle)
         m_response = MarkupResponse()
         try:
-            m_response.markupContext = portlet.GET(registration_context,
-                                                   portlet_context,
-                                                   runtime_context,
-                                                   user_context,
-                                                   markup_params,
+            m_response.markupContext = portlet.GET(registrationContext,
+                                                   portletContext,
+                                                   runtimeContext,
+                                                   userContext,
+                                                   markupParams,
                                                   )
             # XXX sessionContext in response?
         except Exception, e:
@@ -107,12 +107,12 @@ class WSRP_v1_Markup(DefinitionBase):
               _returns=BlockingInteractionResponse,
              )
     def performBlockingInteraction(self,
-        registration_context,
-        portlet_context,
-        runtime_context,
-        user_context,
-        markup_params,
-        interaction_params,
+        registrationContext,
+        portletContext,
+        runtimeContext,
+        userContext,
+        markupParams,
+        interactionParams,
         ):
         # See WSRP 1.0 spec. 6.3
         return OperationFailed()
@@ -124,7 +124,7 @@ class WSRP_v1_Markup(DefinitionBase):
                       ],
              )
     def initCookie(self,
-        registration_context,
+        registrationContext,
         ):
         # See WSRP 1.0 spec. 6.4
         return OperationFailed()
@@ -138,8 +138,8 @@ class WSRP_v1_Markup(DefinitionBase):
                       ],
              )
     def releaseSessions(self,
-        registration_context,
-        session_ids,
+        registrationContext,
+        sessionIDs,
         ):
         # See WSRP 1.0 spec. 6.4
         return OperationFailed()
