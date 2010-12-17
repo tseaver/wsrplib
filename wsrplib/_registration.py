@@ -27,7 +27,8 @@ class WSRP_v1_Registration(DefinitionBase):
     def register(self,
         registrationData,
         ):
-        # See WSRP 1.0 spec. 7.2
+        """ See WSRP 1.0 spec. 7.2
+        """
         pass
 
     @document(RegistrationContext,
@@ -42,7 +43,8 @@ class WSRP_v1_Registration(DefinitionBase):
         registrationContext,
         registrationData,
         ):
-        # See WSRP 1.0 spec. 7.3
+        """ See WSRP 1.0 spec. 7.3
+        """
         pass
 
     @document(RegistrationContext,
@@ -53,5 +55,6 @@ class WSRP_v1_Registration(DefinitionBase):
     def deregister(self,
         registrationContext,
         ):
-        # See WSRP 1.0 spec. 7.4
+        """ See WSRP 1.0 spec. 7.4
+        """
         pass

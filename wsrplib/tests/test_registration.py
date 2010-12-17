@@ -6,9 +6,121 @@ class WSRP_v1_RegistrationTests(unittest.TestCase):
         from wsrplib._registration import WSRP_v1_Registration
         return WSRP_v1_Registration
 
+    def _makeOne(self):
+        return self._getTargetClass()()
+
+    def _getDescriptor(self, instance, name):
+        method = getattr(instance, name)
+        return method(clazz=self._getTargetClass(), _method_descriptor=1)
+
     def test_get_tns(self):
         from wsrplib._namespaces import WSRP_TYPES_NAMESPACE
         cls = self._getTargetClass()
         self.assertEqual(cls.get_tns(), WSRP_TYPES_NAMESPACE)
 
+    def test_register_descriptor(self):
+        from soaplib.service import MethodDescriptor
+        from wsrplib._datatypes import RegistrationContext
+        from wsrplib._datatypes import RegistrationData
+        from wsrplib._faults import MissingParameters
+        from wsrplib._faults import OperationFailed
+        from wsrplib._namespaces import WSRP_TYPES_NAMESPACE
+        instance = self._makeOne()
+        descriptor = self._getDescriptor(instance, 'register')
+        self.failUnless(isinstance(descriptor, MethodDescriptor))
+        self.assertEqual(descriptor.name, 'register')
+        self.assertEqual(descriptor.public_name, 'register')
+        in_message = descriptor.in_message
+        self.assertEqual(in_message.__type_name__, 'register')
+        self.assertEqual(in_message.__namespace__, WSRP_TYPES_NAMESPACE)
+        self.assertEqual(len(in_message._type_info), 1)
+        self.failUnless(in_message._type_info[0] is RegistrationData)
+        out_message = descriptor.out_message
+        self.assertEqual(out_message.__type_name__,
+                         'registerResponse')
+        self.assertEqual(out_message.__namespace__, WSRP_TYPES_NAMESPACE)
+        self.assertEqual(out_message._type_info,
+                         RegistrationContext._type_info)
+        self.failUnless('WSRP' in descriptor.doc)
+        self.failIf(descriptor.is_callback)
+        self.failIf(descriptor.is_async)
+        self.failIf(descriptor.mtom)
+        self.assertEqual(descriptor.in_header, None)
+        self.assertEqual(descriptor.out_header, None)
+        faults = descriptor.faults
+        self.assertEqual(len(faults), 2)
+        self.failUnless(MissingParameters in faults)
+        self.failUnless(OperationFailed in faults)
+        self.assertEqual(descriptor.body_style, 'document')
 
+    def test_modifyRegistration_descriptor(self):
+        from soaplib.service import MethodDescriptor
+        from wsrplib._datatypes import RegistrationContext
+        from wsrplib._datatypes import RegistrationData
+        from wsrplib._datatypes import RegistrationState
+        from wsrplib._faults import InvalidRegistration
+        from wsrplib._faults import MissingParameters
+        from wsrplib._faults import OperationFailed
+        from wsrplib._namespaces import WSRP_TYPES_NAMESPACE
+        instance = self._makeOne()
+        descriptor = self._getDescriptor(instance, 'modifyRegistration')
+        self.failUnless(isinstance(descriptor, MethodDescriptor))
+        self.assertEqual(descriptor.name, 'modifyRegistration')
+        self.assertEqual(descriptor.public_name, 'modifyRegistration')
+        in_message = descriptor.in_message
+        self.assertEqual(in_message.__type_name__, 'modifyRegistration')
+        self.assertEqual(in_message.__namespace__, WSRP_TYPES_NAMESPACE)
+        self.assertEqual(len(in_message._type_info), 2)
+        self.failUnless(in_message._type_info[0] is RegistrationContext)
+        self.failUnless(in_message._type_info[1] is RegistrationData)
+        out_message = descriptor.out_message
+        self.assertEqual(out_message.__type_name__,
+                         'modifyRegistrationResponse')
+        self.assertEqual(out_message.__namespace__, WSRP_TYPES_NAMESPACE)
+        self.assertEqual(out_message._type_info,
+                         RegistrationState._type_info)
+        self.failUnless('WSRP' in descriptor.doc)
+        self.failIf(descriptor.is_callback)
+        self.failIf(descriptor.is_async)
+        self.failIf(descriptor.mtom)
+        self.assertEqual(descriptor.in_header, None)
+        self.assertEqual(descriptor.out_header, None)
+        faults = descriptor.faults
+        self.assertEqual(len(faults), 3)
+        self.failUnless(InvalidRegistration in faults)
+        self.failUnless(MissingParameters in faults)
+        self.failUnless(OperationFailed in faults)
+        self.assertEqual(descriptor.body_style, 'document')
+
+    def test_deregister_descriptor(self):
+        from soaplib.service import MethodDescriptor
+        from wsrplib._datatypes import RegistrationContext
+        from wsrplib._faults import InvalidRegistration
+        from wsrplib._faults import OperationFailed
+        from wsrplib._namespaces import WSRP_TYPES_NAMESPACE
+        instance = self._makeOne()
+        descriptor = self._getDescriptor(instance, 'deregister')
+        self.failUnless(isinstance(descriptor, MethodDescriptor))
+        self.assertEqual(descriptor.name, 'deregister')
+        self.assertEqual(descriptor.public_name, 'deregister')
+        in_message = descriptor.in_message
+        self.assertEqual(in_message.__type_name__, 'deregister')
+        self.assertEqual(in_message.__namespace__, WSRP_TYPES_NAMESPACE)
+        self.assertEqual(len(in_message._type_info), 1)
+        self.failUnless(in_message._type_info[0] is RegistrationContext)
+        out_message = descriptor.out_message
+        self.assertEqual(out_message.__type_name__,
+                         'deregisterResponse')
+        self.assertEqual(out_message.__namespace__, WSRP_TYPES_NAMESPACE)
+        self.assertEqual(len(out_message._type_info), 0)
+        self.failUnless('WSRP' in descriptor.doc)
+        self.failIf(descriptor.is_callback)
+        self.failIf(descriptor.is_async)
+        self.failIf(descriptor.mtom)
+        self.assertEqual(descriptor.in_header, None)
+        self.assertEqual(descriptor.out_header, None)
+        faults = descriptor.faults
+        self.assertEqual(len(faults), 2)
+        self.failUnless(InvalidRegistration in faults)
+        self.failUnless(OperationFailed in faults)
+        self.assertEqual(descriptor.body_style, 'document')
