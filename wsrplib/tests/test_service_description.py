@@ -46,7 +46,6 @@ class WSRP_v1_ServiceDescriptionTests(unittest.TestCase):
         self.failIf(descriptor.is_callback)
         self.failIf(descriptor.is_async)
         self.failIf(descriptor.mtom)
-        self.failIf(descriptor.mtom)
         self.assertEqual(descriptor.in_header, None)
         self.assertEqual(descriptor.out_header, None)
         faults = descriptor.faults

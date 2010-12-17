@@ -63,7 +63,6 @@ class WSRP_v1_MarkupTests(unittest.TestCase):
         self.failIf(descriptor.is_callback)
         self.failIf(descriptor.is_async)
         self.failIf(descriptor.mtom)
-        self.failIf(descriptor.mtom)
         self.assertEqual(descriptor.in_header, None)
         self.assertEqual(descriptor.out_header, None)
         faults = descriptor.faults
@@ -132,7 +131,6 @@ class WSRP_v1_MarkupTests(unittest.TestCase):
         self.failIf(descriptor.is_callback)
         self.failIf(descriptor.is_async)
         self.failIf(descriptor.mtom)
-        self.failIf(descriptor.mtom)
         self.assertEqual(descriptor.in_header, None)
         self.assertEqual(descriptor.out_header, None)
         faults = descriptor.faults
@@ -179,7 +177,6 @@ class WSRP_v1_MarkupTests(unittest.TestCase):
         self.failIf(descriptor.is_callback)
         self.failIf(descriptor.is_async)
         self.failIf(descriptor.mtom)
-        self.failIf(descriptor.mtom)
         self.assertEqual(descriptor.in_header, None)
         self.assertEqual(descriptor.out_header, None)
         faults = descriptor.faults
@@ -217,7 +214,6 @@ class WSRP_v1_MarkupTests(unittest.TestCase):
         self.failUnless('WSRP' in descriptor.doc)
         self.failIf(descriptor.is_callback)
         self.failIf(descriptor.is_async)
-        self.failIf(descriptor.mtom)
         self.failIf(descriptor.mtom)
         self.assertEqual(descriptor.in_header, None)
         self.assertEqual(descriptor.out_header, None)
