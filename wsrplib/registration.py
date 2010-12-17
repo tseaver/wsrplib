@@ -11,12 +11,12 @@ from wsrplib.namespaces import WSRP_TYPES_NAMESPACE
 
 
 class WSRP_v1_Registration(DefinitionBase):
-    namespace = WSRP_TYPES_NAMESPACE
+    __namespace__ = WSRP_TYPES_NAMESPACE
 
     @classmethod
     def get_tns(cls):
         # Override to get our messages in the right namespace
-        return cls.namespace
+        return cls.__namespace__
 
     @document(RegistrationData,
               _faults=[MissingParameters,

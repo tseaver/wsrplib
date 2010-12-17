@@ -27,12 +27,12 @@ def _localized(name, value):
     return ls
 
 class WSRP_v1_ServiceDescription(DefinitionBase):
-    namespace = WSRP_TYPES_NAMESPACE
+    __namespace__ = WSRP_TYPES_NAMESPACE
 
     @classmethod
     def get_tns(cls):
         # Override to get our messages in the right namespace
-        return cls.namespace
+        return cls.__namespace__
 
     @soap(RegistrationContext,
           StringSeq,
