@@ -115,7 +115,8 @@ class WSRP_v1_Markup(DefinitionBase):
         markupParams,
         interactionParams,
         ):
-        # See WSRP 1.0 spec. 6.3
+        """ See WSRP 1.0 spec. 6.3
+        """
         return OperationFailed()
 
     @document(RegistrationContext,
