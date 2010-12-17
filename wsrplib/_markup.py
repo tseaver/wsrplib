@@ -128,7 +128,8 @@ class WSRP_v1_Markup(DefinitionBase):
     def initCookie(self,
         registrationContext,
         ):
-        # See WSRP 1.0 spec. 6.4
+        """ See WSRP 1.0 spec. 6.4
+        """
         return OperationFailed()
 
     @document(RegistrationContext,
