@@ -44,7 +44,8 @@ class WSRP_v1_ServiceDescription(DefinitionBase):
         registrationContext,
         desiredLocales,
         ):
-        # See WSRP 1.0 spec. 5.2
+        """ See WSRP 1.0 spec. 5.2
+        """
         result = ServiceDescription()
         info = getUtility(IServiceDescriptionInfo)
         result.requiresRegistration = info.requiresRegistration
