@@ -1,5 +1,6 @@
+from soaplib import DOC_STYLE
 from soaplib.service import DefinitionBase
-from soaplib.service import document
+from soaplib.service import soap
 
 from wsrplib.datatypes import DestroyPortletsResponse
 from wsrplib.datatypes import PortletContext
@@ -27,20 +28,21 @@ class WSRP_v1_PortletManagement(DefinitionBase):
         # Override to get our messages in the right namespace
         return cls.__namespace__
 
-    @document(RegistrationContext,
-              PortletContext,
-              UserContext,
-              StringSeq,
-              _faults=[AccessDenied,
-                       InconsistentParameters,
-                       InvalidHandle,
-                       InvalidRegistration,
-                       InvalidUserCategory,
-                       MissingParameters,
-                       OperationFailed,
-                      ],
-              _returns=PortletDescriptionResponse,
-             )
+    @soap(RegistrationContext,
+          PortletContext,
+          UserContext,
+          StringSeq,
+          _faults=[AccessDenied,
+                   InconsistentParameters,
+                   InvalidHandle,
+                   InvalidRegistration,
+                   InvalidUserCategory,
+                   MissingParameters,
+                   OperationFailed,
+                  ],
+          _returns=PortletDescriptionResponse,
+          _style=DOC_STYLE,
+         )
     def getPortletDescription(self,
         registrationContext,
         portletContext,
@@ -51,19 +53,20 @@ class WSRP_v1_PortletManagement(DefinitionBase):
         """
         pass
 
-    @document(RegistrationContext,
-              PortletContext,
-              UserContext,
-              _faults=[AccessDenied,
-                       InconsistentParameters,
-                       InvalidHandle,
-                       InvalidRegistration,
-                       InvalidUserCategory,
-                       MissingParameters,
-                       OperationFailed,
-                      ],
-              _returns=PortletContext,
-             )
+    @soap(RegistrationContext,
+          PortletContext,
+          UserContext,
+          _faults=[AccessDenied,
+                   InconsistentParameters,
+                   InvalidHandle,
+                   InvalidRegistration,
+                   InvalidUserCategory,
+                   MissingParameters,
+                   OperationFailed,
+                  ],
+          _returns=PortletContext,
+          _style=DOC_STYLE,
+         )
     def clonePortlet(self,
         registrationContext,
         portletContext,
@@ -73,15 +76,16 @@ class WSRP_v1_PortletManagement(DefinitionBase):
         """
         pass
 
-    @document(RegistrationContext,
-              StringSeq,
-              _faults=[InconsistentParameters,
-                       InvalidRegistration,
-                       MissingParameters,
-                       OperationFailed,
-                      ],
-              _returns=DestroyPortletsResponse,
-              )
+    @soap(RegistrationContext,
+          StringSeq,
+          _faults=[InconsistentParameters,
+                   InvalidRegistration,
+                   MissingParameters,
+                   OperationFailed,
+                  ],
+          _returns=DestroyPortletsResponse,
+          _style=DOC_STYLE,
+         )
     def destroyPortlets(self,
         registrationContext,
         portletHandles,
@@ -90,20 +94,21 @@ class WSRP_v1_PortletManagement(DefinitionBase):
         """
         pass
 
-    @document(RegistrationContext,
-              PortletContext,
-              UserContext,
-              PropertyList,
-              _faults=[AccessDenied,
-                       InconsistentParameters,
-                       InvalidHandle,
-                       InvalidRegistration,
-                       InvalidUserCategory,
-                       MissingParameters,
-                       OperationFailed,
-                      ],
-              _returns=PortletContext,
-             )
+    @soap(RegistrationContext,
+          PortletContext,
+          UserContext,
+          PropertyList,
+          _faults=[AccessDenied,
+                   InconsistentParameters,
+                   InvalidHandle,
+                   InvalidRegistration,
+                   InvalidUserCategory,
+                   MissingParameters,
+                   OperationFailed,
+                  ],
+          _returns=PortletContext,
+          _style=DOC_STYLE,
+         )
     def setPortletProperties(self,
         registrationContext,
         portletContext,
@@ -114,20 +119,21 @@ class WSRP_v1_PortletManagement(DefinitionBase):
         """
         pass
 
-    @document(RegistrationContext,
-              PortletContext,
-              UserContext,
-              StringSeq,
-              _faults=[AccessDenied,
-                       InconsistentParameters,
-                       InvalidHandle,
-                       InvalidRegistration,
-                       InvalidUserCategory,
-                       MissingParameters,
-                       OperationFailed,
-                      ],
-              _returns=PropertyList,
-             )
+    @soap(RegistrationContext,
+          PortletContext,
+          UserContext,
+          StringSeq,
+          _faults=[AccessDenied,
+                   InconsistentParameters,
+                   InvalidHandle,
+                   InvalidRegistration,
+                   InvalidUserCategory,
+                   MissingParameters,
+                   OperationFailed,
+                  ],
+          _returns=PropertyList,
+          _style=DOC_STYLE,
+         )
     def getPortletProperties(self,
         registrationContext,
         portletContext,
@@ -138,20 +144,21 @@ class WSRP_v1_PortletManagement(DefinitionBase):
         """
         pass
 
-    @document(RegistrationContext,
-              PortletContext,
-              UserContext,
-              StringSeq,
-              _faults=[AccessDenied,
-                       InconsistentParameters,
-                       InvalidHandle,
-                       InvalidRegistration,
-                       InvalidUserCategory,
-                       MissingParameters,
-                       OperationFailed,
-                      ],
-              _returns=PortletPropertyDescriptionResponse,
-             )
+    @soap(RegistrationContext,
+          PortletContext,
+          UserContext,
+          StringSeq,
+          _faults=[AccessDenied,
+                   InconsistentParameters,
+                   InvalidHandle,
+                   InvalidRegistration,
+                   InvalidUserCategory,
+                   MissingParameters,
+                   OperationFailed,
+                  ],
+          _returns=PortletPropertyDescriptionResponse,
+          _style=DOC_STYLE,
+         )
     def getPortletPropertyDescription(self,
         registrationContext,
         portletContext,

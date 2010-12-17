@@ -8,7 +8,7 @@ from soaplib.model.primitive import Boolean
 from soaplib.model.primitive import Date
 from soaplib.model.primitive import Integer
 from soaplib.model.primitive import String
-from soaplib.model.clazz import ClassSerializer
+from soaplib.model.clazz import ClassModel
 from soaplib.model.clazz import XMLAttribute
 from soaplib.model.clazz import XMLAttributeRef
 
@@ -26,7 +26,7 @@ StringSeqNotEmpty = String.customize(min_occurs=1, max_occurs="unbounded",
 AnySeq = _makeSeq(Any)
 
 
-class _WSRPSerializer(ClassSerializer):
+class _WSRPSerializer(ClassModel):
     __namespace__ = WSRP_TYPES_NAMESPACE
 
 

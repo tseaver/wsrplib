@@ -1,5 +1,6 @@
+from soaplib import DOC_STYLE
 from soaplib.service import DefinitionBase
-from soaplib.service import document
+from soaplib.service import soap
 from zope.component import getUtilitiesFor
 from zope.component import getUtility
 
@@ -26,20 +27,21 @@ def _localized(name, value):
     return ls
 
 class WSRP_v1_ServiceDescription(DefinitionBase):
-    __namespace__ = WSRP_TYPES_NAMESPACE
+    namespace = WSRP_TYPES_NAMESPACE
 
     @classmethod
     def get_tns(cls):
         # Override to get our messages in the right namespace
-        return cls.__namespace__
+        return cls.namespace
 
-    @document(RegistrationContext,
-              StringSeq,
-              _faults=[InvalidRegistration,
-                       OperationFailed,
-                      ],
-              _returns=ServiceDescription,
-             )
+    @soap(RegistrationContext,
+          StringSeq,
+          _faults=[InvalidRegistration,
+                   OperationFailed,
+                  ],
+          _returns=ServiceDescription,
+          _style=DOC_STYLE
+         )
     def getServiceDescription(self,
         registrationContext,
         desiredLocales,

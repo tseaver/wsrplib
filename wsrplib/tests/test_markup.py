@@ -47,7 +47,7 @@ class WSRP_v1_MarkupTests(unittest.TestCase):
         self.assertEqual(descriptor.public_name, 'getMarkup')
         in_message = descriptor.in_message
         self.assertEqual(in_message.__type_name__, 'getMarkup')
-        self.assertEqual(in_message.__namespace__, WSRP_TYPES_NAMESPACE)
+        self.assertEqual(in_message.namespace, WSRP_TYPES_NAMESPACE)
         self.assertEqual(len(in_message._type_info), 5)
         self.failUnless(in_message._type_info[0] is RegistrationContext)
         self.failUnless(in_message._type_info[1] is PortletContext)
@@ -57,7 +57,7 @@ class WSRP_v1_MarkupTests(unittest.TestCase):
         out_message = descriptor.out_message
         self.assertEqual(out_message.__type_name__,
                          'getMarkupResponse')
-        self.assertEqual(out_message.__namespace__, WSRP_TYPES_NAMESPACE)
+        self.assertEqual(out_message.namespace, WSRP_TYPES_NAMESPACE)
         self.assertEqual(out_message._type_info, MarkupResponse._type_info)
         self.failUnless('WSRP' in descriptor.doc)
         self.failIf(descriptor.is_callback)
@@ -113,7 +113,7 @@ class WSRP_v1_MarkupTests(unittest.TestCase):
         self.assertEqual(descriptor.public_name, 'performBlockingInteraction')
         in_message = descriptor.in_message
         self.assertEqual(in_message.__type_name__, 'performBlockingInteraction')
-        self.assertEqual(in_message.__namespace__, WSRP_TYPES_NAMESPACE)
+        self.assertEqual(in_message.namespace, WSRP_TYPES_NAMESPACE)
         self.assertEqual(len(in_message._type_info), 6)
         self.failUnless(in_message._type_info[0] is RegistrationContext)
         self.failUnless(in_message._type_info[1] is PortletContext)
@@ -124,7 +124,7 @@ class WSRP_v1_MarkupTests(unittest.TestCase):
         out_message = descriptor.out_message
         self.assertEqual(out_message.__type_name__,
                          'performBlockingInteractionResponse')
-        self.assertEqual(out_message.__namespace__, WSRP_TYPES_NAMESPACE)
+        self.assertEqual(out_message.namespace, WSRP_TYPES_NAMESPACE)
         self.assertEqual(out_message._type_info,
                          BlockingInteractionResponse._type_info)
         self.failUnless('WSRP' in descriptor.doc)
@@ -165,13 +165,13 @@ class WSRP_v1_MarkupTests(unittest.TestCase):
         self.assertEqual(descriptor.public_name, 'initCookie')
         in_message = descriptor.in_message
         self.assertEqual(in_message.__type_name__, 'initCookie')
-        self.assertEqual(in_message.__namespace__, WSRP_TYPES_NAMESPACE)
+        self.assertEqual(in_message.namespace, WSRP_TYPES_NAMESPACE)
         self.assertEqual(len(in_message._type_info), 1)
         self.failUnless(in_message._type_info[0] is RegistrationContext)
         out_message = descriptor.out_message
         self.assertEqual(out_message.__type_name__,
                          'initCookieResponse')
-        self.assertEqual(out_message.__namespace__, WSRP_TYPES_NAMESPACE)
+        self.assertEqual(out_message.namespace, WSRP_TYPES_NAMESPACE)
         self.assertEqual(len(out_message._type_info), 0)
         self.failUnless('WSRP' in descriptor.doc)
         self.failIf(descriptor.is_callback)
@@ -202,14 +202,14 @@ class WSRP_v1_MarkupTests(unittest.TestCase):
         self.assertEqual(descriptor.public_name, 'releaseSessions')
         in_message = descriptor.in_message
         self.assertEqual(in_message.__type_name__, 'releaseSessions')
-        self.assertEqual(in_message.__namespace__, WSRP_TYPES_NAMESPACE)
+        self.assertEqual(in_message.namespace, WSRP_TYPES_NAMESPACE)
         self.assertEqual(len(in_message._type_info), 2)
         self.failUnless(in_message._type_info[0] is RegistrationContext)
         self.failUnless(in_message._type_info[1] is StringSeq)
         out_message = descriptor.out_message
         self.assertEqual(out_message.__type_name__,
                          'releaseSessionsResponse')
-        self.assertEqual(out_message.__namespace__, WSRP_TYPES_NAMESPACE)
+        self.assertEqual(out_message.namespace, WSRP_TYPES_NAMESPACE)
         self.assertEqual(len(out_message._type_info), 0)
         self.failUnless('WSRP' in descriptor.doc)
         self.failIf(descriptor.is_callback)

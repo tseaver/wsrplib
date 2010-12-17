@@ -1,5 +1,6 @@
+from soaplib import DOC_STYLE
 from soaplib.service import DefinitionBase
-from soaplib.service import document
+from soaplib.service import soap
 from zope.component import queryUtility
 
 from wsrplib.interfaces import IPortlet
@@ -29,34 +30,35 @@ from wsrplib.faults import UnsupportedWindowState
 from wsrplib.namespaces import WSRP_TYPES_NAMESPACE
 
 class WSRP_v1_Markup(DefinitionBase):
-    __namespace__ = WSRP_TYPES_NAMESPACE
+    namespace = WSRP_TYPES_NAMESPACE
 
     @classmethod
     def get_tns(cls):
         # Override to get our messages in the right namespace
-        return cls.__namespace__
+        return cls.namespace
 
-    @document(RegistrationContext,
-              PortletContext,
-              RuntimeContext,
-              UserContext,
-              MarkupParams,
-              _faults=[AccessDenied,
-                       InconsistentParameters,
-                       InvalidCookie,
-                       InvalidHandle,
-                       InvalidRegistration,
-                       InvalidSession,
-                       InvalidUserCategory,
-                       MissingParameters,
-                       OperationFailed,
-                       UnsupportedLocale,
-                       UnsupportedMimeType,
-                       UnsupportedMode,
-                       UnsupportedWindowState,
-                      ],
-              _returns=MarkupResponse,
-             )
+    @soap(RegistrationContext,
+          PortletContext,
+          RuntimeContext,
+          UserContext,
+          MarkupParams,
+          _faults=[AccessDenied,
+                   InconsistentParameters,
+                   InvalidCookie,
+                   InvalidHandle,
+                   InvalidRegistration,
+                   InvalidSession,
+                   InvalidUserCategory,
+                   MissingParameters,
+                   OperationFailed,
+                   UnsupportedLocale,
+                   UnsupportedMimeType,
+                   UnsupportedMode,
+                   UnsupportedWindowState,
+                  ],
+          _returns=MarkupResponse,
+          _style=DOC_STYLE,
+         )
     def getMarkup(self,
         registrationContext,
         portletContext,
@@ -84,29 +86,30 @@ class WSRP_v1_Markup(DefinitionBase):
         else:
             return m_response
 
-    @document(RegistrationContext,
-              PortletContext,
-              RuntimeContext,
-              UserContext,
-              MarkupParams,
-              InteractionParams,
-              _faults=[AccessDenied,
-                       InconsistentParameters,
-                       InvalidCookie,
-                       InvalidHandle,
-                       InvalidRegistration,
-                       InvalidSession,
-                       InvalidUserCategory,
-                       MissingParameters,
-                       OperationFailed,
-                       PortletStateChangeRequired,
-                       UnsupportedLocale,
-                       UnsupportedMimeType,
-                       UnsupportedMode,
-                       UnsupportedWindowState,
-                      ],
-              _returns=BlockingInteractionResponse,
-             )
+    @soap(RegistrationContext,
+          PortletContext,
+          RuntimeContext,
+          UserContext,
+          MarkupParams,
+          InteractionParams,
+          _faults=[AccessDenied,
+                   InconsistentParameters,
+                   InvalidCookie,
+                   InvalidHandle,
+                   InvalidRegistration,
+                   InvalidSession,
+                   InvalidUserCategory,
+                   MissingParameters,
+                   OperationFailed,
+                   PortletStateChangeRequired,
+                   UnsupportedLocale,
+                   UnsupportedMimeType,
+                   UnsupportedMode,
+                   UnsupportedWindowState,
+                  ],
+          _returns=BlockingInteractionResponse,
+          _style=DOC_STYLE,
+         )
     def performBlockingInteraction(self,
         registrationContext,
         portletContext,
@@ -119,12 +122,13 @@ class WSRP_v1_Markup(DefinitionBase):
         """
         return OperationFailed()
 
-    @document(RegistrationContext,
-              _faults=[AccessDenied,
-                       InvalidRegistration,
-                       OperationFailed,
-                      ],
-             )
+    @soap(RegistrationContext,
+          _faults=[AccessDenied,
+                   InvalidRegistration,
+                   OperationFailed,
+                  ],
+          _style=DOC_STYLE,
+         )
     def initCookie(self,
         registrationContext,
         ):
@@ -132,14 +136,15 @@ class WSRP_v1_Markup(DefinitionBase):
         """
         return OperationFailed()
 
-    @document(RegistrationContext,
-              StringSeq,
-              _faults=[AccessDenied,
-                       InvalidRegistration,
-                       MissingParameters,
-                       OperationFailed,
-                      ],
-             )
+    @soap(RegistrationContext,
+          StringSeq,
+          _faults=[AccessDenied,
+                   InvalidRegistration,
+                   MissingParameters,
+                   OperationFailed,
+                  ],
+          _style=DOC_STYLE,
+         )
     def releaseSessions(self,
         registrationContext,
         sessionIDs,
