@@ -211,7 +211,7 @@ ModelDescriptionNotNillable = _makeNotNillable(ModelDescription)
 
 # See WSRP 1.0 spec. 5.1.18
 CookieProtocol = Enum('none', 'perUser', 'perGroup', type_name='CookieProtocol')
-CookieProtocol__namespace__ = WSRP_TYPES_NAMESPACE
+CookieProtocol.__namespace__ = WSRP_TYPES_NAMESPACE
 
 
 
