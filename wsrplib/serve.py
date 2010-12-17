@@ -88,8 +88,8 @@ def main():
 
     from zope.component import provideUtility
     from soaplib.server import wsgi
-    from wsrplib._application import Application
-    from wsrplib._namespaces import WSRP_TYPES_NAMESPACE
+    from wsrplib.application import Application
+    from wsrplib.namespaces import WSRP_TYPES_NAMESPACE
     wsdl_generation = None
     verbosity = 1
     endpoint_url = None
