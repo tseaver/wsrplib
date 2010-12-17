@@ -16,7 +16,9 @@ class _ByName(unittest.TestCase):
 class _API(object):
     # Test that the (declarative) datatype classes can be imported.
     def test_API_importable(self):
-        self._getTargetClass()
+        from wsrplib._namespaces import WSRP_TYPES_NAMESPACE
+        cls = self._getTargetClass()
+        self.assertEqual(cls.__namespace__, WSRP_TYPES_NAMESPACE)
 
 
 class _Seq(object):
