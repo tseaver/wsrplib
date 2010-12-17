@@ -64,7 +64,8 @@ class WSRP_v1_Markup(DefinitionBase):
         userContext,
         markupParams,
         ):
-        # See WSRP 1.0 spec. 6.2
+        """ See WSRP 1.0 spec. 6.2
+        """
         p_handle = portletContext.portletHandle
         portlet = queryUtility(IPortlet, name=p_handle)
         if portlet is None:
