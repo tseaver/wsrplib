@@ -21,12 +21,12 @@ from wsrplib.namespaces import WSRP_TYPES_NAMESPACE
 
 
 class WSRP_v1_PortletManagement(DefinitionBase):
-    __namespace__ = WSRP_TYPES_NAMESPACE
+    namespace = WSRP_TYPES_NAMESPACE
 
     @classmethod
     def get_tns(cls):
         # Override to get our messages in the right namespace
-        return cls.__namespace__
+        return cls.namespace
 
     @soap(RegistrationContext,
           PortletContext,
