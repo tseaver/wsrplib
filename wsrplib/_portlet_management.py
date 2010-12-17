@@ -47,7 +47,8 @@ class WSRP_v1_PortletManagement(DefinitionBase):
         userContext,
         desiredLocales,
         ):
-        # See WSRP 1.0 spec. 8.2
+        """ See WSRP 1.0 spec. 8.2
+        """
         pass
 
     @document(RegistrationContext,
@@ -68,15 +69,16 @@ class WSRP_v1_PortletManagement(DefinitionBase):
         portletContext,
         userContext,
         ):
-        # See WSRP 1.0 spec. 8.3
+        """ See WSRP 1.0 spec. 8.3
+        """
         pass
 
     @document(RegistrationContext,
               StringSeq,
               _faults=[InconsistentParameters,
-                      InvalidRegistration,
-                      MissingParameters,
-                      OperationFailed,
+                       InvalidRegistration,
+                       MissingParameters,
+                       OperationFailed,
                       ],
               _returns=DestroyPortletsResponse,
               )
@@ -84,7 +86,8 @@ class WSRP_v1_PortletManagement(DefinitionBase):
         registrationContext,
         portletHandles,
         ):
-        # See WSRP 1.0 spec. 8.4
+        """ See WSRP 1.0 spec. 8.4
+        """
         pass
 
     @document(RegistrationContext,
@@ -107,7 +110,8 @@ class WSRP_v1_PortletManagement(DefinitionBase):
         userContext,
         propertyList,
         ):
-        # See WSRP 1.0 spec. 8.5
+        """ See WSRP 1.0 spec. 8.5
+        """
         pass
 
     @document(RegistrationContext,
@@ -130,7 +134,8 @@ class WSRP_v1_PortletManagement(DefinitionBase):
         userContext,
         nameList,
         ):
-        # See WSRP 1.0 spec. 8.6
+        """ See WSRP 1.0 spec. 8.6
+        """
         pass
 
     @document(RegistrationContext,
@@ -147,11 +152,12 @@ class WSRP_v1_PortletManagement(DefinitionBase):
                       ],
               _returns=PortletPropertyDescriptionResponse,
              )
-    def getPortletPropertyDsecription(self,
+    def getPortletPropertyDescription(self,
         registrationContext,
         portletContext,
         userContext,
         desiredLocales,
         ):
-        # See WSRP 1.0 spec. 8.7
+        """ See WSRP 1.0 spec. 8.7
+        """
         pass
