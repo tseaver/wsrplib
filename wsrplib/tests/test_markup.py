@@ -188,3 +188,43 @@ class WSRP_v1_MarkupTests(unittest.TestCase):
         self.failUnless(InvalidRegistration in faults)
         self.failUnless(OperationFailed in faults)
         self.assertEqual(descriptor.body_style, 'document')
+
+    def test_releaseSessions_descriptor(self):
+        from soaplib.service import MethodDescriptor
+        from wsrplib._datatypes import RegistrationContext
+        from wsrplib._datatypes import StringSeq
+        from wsrplib._faults import AccessDenied
+        from wsrplib._faults import InvalidRegistration
+        from wsrplib._faults import MissingParameters
+        from wsrplib._faults import OperationFailed
+        from wsrplib._namespaces import WSRP_TYPES_NAMESPACE
+        instance = self._makeOne()
+        descriptor = self._getDescriptor(instance, 'releaseSessions')
+        self.failUnless(isinstance(descriptor, MethodDescriptor))
+        self.assertEqual(descriptor.name, 'releaseSessions')
+        self.assertEqual(descriptor.public_name, 'releaseSessions')
+        in_message = descriptor.in_message
+        self.assertEqual(in_message.__type_name__, 'releaseSessions')
+        self.assertEqual(in_message.__namespace__, WSRP_TYPES_NAMESPACE)
+        self.assertEqual(len(in_message._type_info), 2)
+        self.failUnless(in_message._type_info[0] is RegistrationContext)
+        self.failUnless(in_message._type_info[1] is StringSeq)
+        out_message = descriptor.out_message
+        self.assertEqual(out_message.__type_name__,
+                         'releaseSessionsResponse')
+        self.assertEqual(out_message.__namespace__, WSRP_TYPES_NAMESPACE)
+        self.assertEqual(len(out_message._type_info), 0)
+        self.failUnless('WSRP' in descriptor.doc)
+        self.failIf(descriptor.is_callback)
+        self.failIf(descriptor.is_async)
+        self.failIf(descriptor.mtom)
+        self.failIf(descriptor.mtom)
+        self.assertEqual(descriptor.in_header, None)
+        self.assertEqual(descriptor.out_header, None)
+        faults = descriptor.faults
+        self.assertEqual(len(faults), 4)
+        self.failUnless(AccessDenied in faults)
+        self.failUnless(InvalidRegistration in faults)
+        self.failUnless(MissingParameters in faults)
+        self.failUnless(OperationFailed in faults)
+        self.assertEqual(descriptor.body_style, 'document')

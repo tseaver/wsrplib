@@ -144,5 +144,6 @@ class WSRP_v1_Markup(DefinitionBase):
         registrationContext,
         sessionIDs,
         ):
-        # See WSRP 1.0 spec. 6.4
+        """ See WSRP 1.0 spec. 6.4
+        """
         return OperationFailed()
