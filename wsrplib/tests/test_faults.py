@@ -7,14 +7,14 @@ class _ByName(unittest.TestCase):
         name = cls.__name__
         assert name.endswith('Tests')
         name = name[:-len('Tests')]
-        module = __import__('wsrplib._faults', fromlist=[name])
+        module = __import__('wsrplib.faults', fromlist=[name])
         return getattr(module, name)
 
 
 class _API(object):
     # Test that the (declarative) datatype classes can be imported.
     def test_API_importable(self):
-        from wsrplib._namespaces import WSRP_TYPES_NAMESPACE
+        from wsrplib.namespaces import WSRP_TYPES_NAMESPACE
         cls = self._getTargetClass()
         self.assertEqual(cls.__namespace__, WSRP_TYPES_NAMESPACE)
 

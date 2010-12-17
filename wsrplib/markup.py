@@ -3,30 +3,30 @@ from soaplib.service import document
 from zope.component import queryUtility
 
 from wsrplib.interfaces import IPortlet
-from wsrplib._datatypes import BlockingInteractionResponse
-from wsrplib._datatypes import InteractionParams
-from wsrplib._datatypes import MarkupParams
-from wsrplib._datatypes import MarkupResponse
-from wsrplib._datatypes import PortletContext
-from wsrplib._datatypes import RegistrationContext
-from wsrplib._datatypes import RuntimeContext
-from wsrplib._datatypes import StringSeq
-from wsrplib._datatypes import UserContext
-from wsrplib._faults import AccessDenied
-from wsrplib._faults import InconsistentParameters
-from wsrplib._faults import InvalidCookie
-from wsrplib._faults import InvalidHandle
-from wsrplib._faults import InvalidRegistration
-from wsrplib._faults import InvalidSession
-from wsrplib._faults import InvalidUserCategory
-from wsrplib._faults import MissingParameters
-from wsrplib._faults import OperationFailed
-from wsrplib._faults import PortletStateChangeRequired
-from wsrplib._faults import UnsupportedLocale
-from wsrplib._faults import UnsupportedMimeType
-from wsrplib._faults import UnsupportedMode
-from wsrplib._faults import UnsupportedWindowState
-from wsrplib._namespaces import WSRP_TYPES_NAMESPACE
+from wsrplib.datatypes import BlockingInteractionResponse
+from wsrplib.datatypes import InteractionParams
+from wsrplib.datatypes import MarkupParams
+from wsrplib.datatypes import MarkupResponse
+from wsrplib.datatypes import PortletContext
+from wsrplib.datatypes import RegistrationContext
+from wsrplib.datatypes import RuntimeContext
+from wsrplib.datatypes import StringSeq
+from wsrplib.datatypes import UserContext
+from wsrplib.faults import AccessDenied
+from wsrplib.faults import InconsistentParameters
+from wsrplib.faults import InvalidCookie
+from wsrplib.faults import InvalidHandle
+from wsrplib.faults import InvalidRegistration
+from wsrplib.faults import InvalidSession
+from wsrplib.faults import InvalidUserCategory
+from wsrplib.faults import MissingParameters
+from wsrplib.faults import OperationFailed
+from wsrplib.faults import PortletStateChangeRequired
+from wsrplib.faults import UnsupportedLocale
+from wsrplib.faults import UnsupportedMimeType
+from wsrplib.faults import UnsupportedMode
+from wsrplib.faults import UnsupportedWindowState
+from wsrplib.namespaces import WSRP_TYPES_NAMESPACE
 
 class WSRP_v1_Markup(DefinitionBase):
     __namespace__ = WSRP_TYPES_NAMESPACE

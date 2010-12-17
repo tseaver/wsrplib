@@ -3,7 +3,7 @@ import unittest
 class WSRP_v1_MarkupTests(unittest.TestCase):
 
     def _getTargetClass(self):
-        from wsrplib._markup import WSRP_v1_Markup
+        from wsrplib.markup import WSRP_v1_Markup
         return WSRP_v1_Markup
 
     def _makeOne(self):
@@ -14,32 +14,32 @@ class WSRP_v1_MarkupTests(unittest.TestCase):
         return method(clazz=self._getTargetClass(), _method_descriptor=1)
 
     def test_get_tns(self):
-        from wsrplib._namespaces import WSRP_TYPES_NAMESPACE
+        from wsrplib.namespaces import WSRP_TYPES_NAMESPACE
         cls = self._getTargetClass()
         self.assertEqual(cls.get_tns(), WSRP_TYPES_NAMESPACE)
 
     def test_getMarkup_descriptor(self):
         from soaplib.service import MethodDescriptor
-        from wsrplib._datatypes import MarkupParams
-        from wsrplib._datatypes import MarkupResponse
-        from wsrplib._datatypes import PortletContext
-        from wsrplib._datatypes import RegistrationContext
-        from wsrplib._datatypes import RuntimeContext
-        from wsrplib._datatypes import UserContext
-        from wsrplib._faults import AccessDenied
-        from wsrplib._faults import InconsistentParameters
-        from wsrplib._faults import InvalidCookie
-        from wsrplib._faults import InvalidHandle
-        from wsrplib._faults import InvalidRegistration
-        from wsrplib._faults import InvalidSession
-        from wsrplib._faults import InvalidUserCategory
-        from wsrplib._faults import MissingParameters
-        from wsrplib._faults import OperationFailed
-        from wsrplib._faults import UnsupportedLocale
-        from wsrplib._faults import UnsupportedMimeType
-        from wsrplib._faults import UnsupportedMode
-        from wsrplib._faults import UnsupportedWindowState
-        from wsrplib._namespaces import WSRP_TYPES_NAMESPACE
+        from wsrplib.datatypes import MarkupParams
+        from wsrplib.datatypes import MarkupResponse
+        from wsrplib.datatypes import PortletContext
+        from wsrplib.datatypes import RegistrationContext
+        from wsrplib.datatypes import RuntimeContext
+        from wsrplib.datatypes import UserContext
+        from wsrplib.faults import AccessDenied
+        from wsrplib.faults import InconsistentParameters
+        from wsrplib.faults import InvalidCookie
+        from wsrplib.faults import InvalidHandle
+        from wsrplib.faults import InvalidRegistration
+        from wsrplib.faults import InvalidSession
+        from wsrplib.faults import InvalidUserCategory
+        from wsrplib.faults import MissingParameters
+        from wsrplib.faults import OperationFailed
+        from wsrplib.faults import UnsupportedLocale
+        from wsrplib.faults import UnsupportedMimeType
+        from wsrplib.faults import UnsupportedMode
+        from wsrplib.faults import UnsupportedWindowState
+        from wsrplib.namespaces import WSRP_TYPES_NAMESPACE
         instance = self._makeOne()
         descriptor = self._getDescriptor(instance, 'getMarkup')
         self.failUnless(isinstance(descriptor, MethodDescriptor))
@@ -84,28 +84,28 @@ class WSRP_v1_MarkupTests(unittest.TestCase):
 
     def test_performBlockingInteraction_descriptor(self):
         from soaplib.service import MethodDescriptor
-        from wsrplib._datatypes import BlockingInteractionResponse
-        from wsrplib._datatypes import InteractionParams
-        from wsrplib._datatypes import MarkupParams
-        from wsrplib._datatypes import PortletContext
-        from wsrplib._datatypes import RegistrationContext
-        from wsrplib._datatypes import RuntimeContext
-        from wsrplib._datatypes import UserContext
-        from wsrplib._faults import AccessDenied
-        from wsrplib._faults import InconsistentParameters
-        from wsrplib._faults import InvalidCookie
-        from wsrplib._faults import InvalidHandle
-        from wsrplib._faults import InvalidRegistration
-        from wsrplib._faults import InvalidSession
-        from wsrplib._faults import InvalidUserCategory
-        from wsrplib._faults import MissingParameters
-        from wsrplib._faults import OperationFailed
-        from wsrplib._faults import PortletStateChangeRequired
-        from wsrplib._faults import UnsupportedLocale
-        from wsrplib._faults import UnsupportedMimeType
-        from wsrplib._faults import UnsupportedMode
-        from wsrplib._faults import UnsupportedWindowState
-        from wsrplib._namespaces import WSRP_TYPES_NAMESPACE
+        from wsrplib.datatypes import BlockingInteractionResponse
+        from wsrplib.datatypes import InteractionParams
+        from wsrplib.datatypes import MarkupParams
+        from wsrplib.datatypes import PortletContext
+        from wsrplib.datatypes import RegistrationContext
+        from wsrplib.datatypes import RuntimeContext
+        from wsrplib.datatypes import UserContext
+        from wsrplib.faults import AccessDenied
+        from wsrplib.faults import InconsistentParameters
+        from wsrplib.faults import InvalidCookie
+        from wsrplib.faults import InvalidHandle
+        from wsrplib.faults import InvalidRegistration
+        from wsrplib.faults import InvalidSession
+        from wsrplib.faults import InvalidUserCategory
+        from wsrplib.faults import MissingParameters
+        from wsrplib.faults import OperationFailed
+        from wsrplib.faults import PortletStateChangeRequired
+        from wsrplib.faults import UnsupportedLocale
+        from wsrplib.faults import UnsupportedMimeType
+        from wsrplib.faults import UnsupportedMode
+        from wsrplib.faults import UnsupportedWindowState
+        from wsrplib.namespaces import WSRP_TYPES_NAMESPACE
         instance = self._makeOne()
         descriptor = self._getDescriptor(instance, 'performBlockingInteraction')
         self.failUnless(isinstance(descriptor, MethodDescriptor))
@@ -153,11 +153,11 @@ class WSRP_v1_MarkupTests(unittest.TestCase):
 
     def test_initCookie_descriptor(self):
         from soaplib.service import MethodDescriptor
-        from wsrplib._datatypes import RegistrationContext
-        from wsrplib._faults import AccessDenied
-        from wsrplib._faults import InvalidRegistration
-        from wsrplib._faults import OperationFailed
-        from wsrplib._namespaces import WSRP_TYPES_NAMESPACE
+        from wsrplib.datatypes import RegistrationContext
+        from wsrplib.faults import AccessDenied
+        from wsrplib.faults import InvalidRegistration
+        from wsrplib.faults import OperationFailed
+        from wsrplib.namespaces import WSRP_TYPES_NAMESPACE
         instance = self._makeOne()
         descriptor = self._getDescriptor(instance, 'initCookie')
         self.failUnless(isinstance(descriptor, MethodDescriptor))
@@ -188,13 +188,13 @@ class WSRP_v1_MarkupTests(unittest.TestCase):
 
     def test_releaseSessions_descriptor(self):
         from soaplib.service import MethodDescriptor
-        from wsrplib._datatypes import RegistrationContext
-        from wsrplib._datatypes import StringSeq
-        from wsrplib._faults import AccessDenied
-        from wsrplib._faults import InvalidRegistration
-        from wsrplib._faults import MissingParameters
-        from wsrplib._faults import OperationFailed
-        from wsrplib._namespaces import WSRP_TYPES_NAMESPACE
+        from wsrplib.datatypes import RegistrationContext
+        from wsrplib.datatypes import StringSeq
+        from wsrplib.faults import AccessDenied
+        from wsrplib.faults import InvalidRegistration
+        from wsrplib.faults import MissingParameters
+        from wsrplib.faults import OperationFailed
+        from wsrplib.namespaces import WSRP_TYPES_NAMESPACE
         instance = self._makeOne()
         descriptor = self._getDescriptor(instance, 'releaseSessions')
         self.failUnless(isinstance(descriptor, MethodDescriptor))

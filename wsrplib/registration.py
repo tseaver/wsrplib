@@ -1,13 +1,13 @@
 from soaplib.service import DefinitionBase
 from soaplib.service import document
 
-from wsrplib._datatypes import RegistrationContext
-from wsrplib._datatypes import RegistrationData
-from wsrplib._datatypes import RegistrationState
-from wsrplib._faults import InvalidRegistration
-from wsrplib._faults import MissingParameters
-from wsrplib._faults import OperationFailed
-from wsrplib._namespaces import WSRP_TYPES_NAMESPACE
+from wsrplib.datatypes import RegistrationContext
+from wsrplib.datatypes import RegistrationData
+from wsrplib.datatypes import RegistrationState
+from wsrplib.faults import InvalidRegistration
+from wsrplib.faults import MissingParameters
+from wsrplib.faults import OperationFailed
+from wsrplib.namespaces import WSRP_TYPES_NAMESPACE
 
 
 class WSRP_v1_Registration(DefinitionBase):

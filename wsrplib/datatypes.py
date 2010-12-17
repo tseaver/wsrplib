@@ -12,7 +12,7 @@ from soaplib.model.clazz import ClassSerializer
 from soaplib.model.clazz import XMLAttribute
 from soaplib.model.clazz import XMLAttributeRef
 
-from wsrplib._namespaces import WSRP_TYPES_NAMESPACE
+from wsrplib.namespaces import WSRP_TYPES_NAMESPACE
 
 def _makeSeq(cls):
     return cls.customize(min_occurs=0, max_occurs="unbounded", nillable=False)

@@ -5,17 +5,17 @@ from zope.component import getUtility
 
 from wsrplib.interfaces import IPortlet
 from wsrplib.interfaces import IServiceDescriptionInfo
-from wsrplib._datatypes import LocalizedString
-from wsrplib._datatypes import MarkupType
-from wsrplib._datatypes import ModelDescription
-from wsrplib._datatypes import ModelTypes
-from wsrplib._datatypes import PortletDescription
-from wsrplib._datatypes import RegistrationContext
-from wsrplib._datatypes import ServiceDescription
-from wsrplib._datatypes import StringSeq
-from wsrplib._faults import InvalidRegistration
-from wsrplib._faults import OperationFailed
-from wsrplib._namespaces import WSRP_TYPES_NAMESPACE
+from wsrplib.datatypes import LocalizedString
+from wsrplib.datatypes import MarkupType
+from wsrplib.datatypes import ModelDescription
+from wsrplib.datatypes import ModelTypes
+from wsrplib.datatypes import PortletDescription
+from wsrplib.datatypes import RegistrationContext
+from wsrplib.datatypes import ServiceDescription
+from wsrplib.datatypes import StringSeq
+from wsrplib.faults import InvalidRegistration
+from wsrplib.faults import OperationFailed
+from wsrplib.namespaces import WSRP_TYPES_NAMESPACE
 
 
 def _localized(name, value):

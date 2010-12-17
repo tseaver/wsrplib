@@ -26,11 +26,11 @@ from paste.urlparser import StaticURLParser
 from wsrplib.interfaces import IMarkupType
 from wsrplib.interfaces import IPortlet
 from wsrplib.interfaces import IServiceDescriptionInfo
-from wsrplib._datatypes import MarkupContext
-from wsrplib._markup import WSRP_v1_Markup
-from wsrplib._service_description import WSRP_v1_ServiceDescription
-from wsrplib._registration import WSRP_v1_Registration
-from wsrplib._portlet_management import WSRP_v1_PortletManagement
+from wsrplib.datatypes import MarkupContext
+from wsrplib.markup import WSRP_v1_Markup
+from wsrplib.service_description import WSRP_v1_ServiceDescription
+from wsrplib.registration import WSRP_v1_Registration
+from wsrplib.portlet_management import WSRP_v1_PortletManagement
 
 class DummyMarkupType(object):
     implements(IMarkupType)

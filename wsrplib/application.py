@@ -6,10 +6,10 @@ from soaplib import Application as _Application
 from soaplib import ns_wsdl
 from soaplib import ns_soap
 
-from wsrplib._namespaces import WSRP_BIND_NAMESPACE
-from wsrplib._namespaces import WSRP_INTF_NAMESPACE
-from wsrplib._namespaces import WSRP_TYPES_NAMESPACE
-from wsrplib._namespaces import WSRP_WSDL_NAMESPACE
+from wsrplib.namespaces import WSRP_BIND_NAMESPACE
+from wsrplib.namespaces import WSRP_INTF_NAMESPACE
+from wsrplib.namespaces import WSRP_TYPES_NAMESPACE
+from wsrplib.namespaces import WSRP_WSDL_NAMESPACE
 
 #_WSRP_BASE_URL = 'http://www.oasis-open.org/committees/wsrp/specifications'
 #_WSRP_BIND_URL = '%s/version1/wsrp_v1_bindings.wsdl' % _WSRP_BASE_URL

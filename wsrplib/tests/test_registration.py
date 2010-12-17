@@ -3,7 +3,7 @@ import unittest
 class WSRP_v1_RegistrationTests(unittest.TestCase):
 
     def _getTargetClass(self):
-        from wsrplib._registration import WSRP_v1_Registration
+        from wsrplib.registration import WSRP_v1_Registration
         return WSRP_v1_Registration
 
     def _makeOne(self):
@@ -14,17 +14,17 @@ class WSRP_v1_RegistrationTests(unittest.TestCase):
         return method(clazz=self._getTargetClass(), _method_descriptor=1)
 
     def test_get_tns(self):
-        from wsrplib._namespaces import WSRP_TYPES_NAMESPACE
+        from wsrplib.namespaces import WSRP_TYPES_NAMESPACE
         cls = self._getTargetClass()
         self.assertEqual(cls.get_tns(), WSRP_TYPES_NAMESPACE)
 
     def test_register_descriptor(self):
         from soaplib.service import MethodDescriptor
-        from wsrplib._datatypes import RegistrationContext
-        from wsrplib._datatypes import RegistrationData
-        from wsrplib._faults import MissingParameters
-        from wsrplib._faults import OperationFailed
-        from wsrplib._namespaces import WSRP_TYPES_NAMESPACE
+        from wsrplib.datatypes import RegistrationContext
+        from wsrplib.datatypes import RegistrationData
+        from wsrplib.faults import MissingParameters
+        from wsrplib.faults import OperationFailed
+        from wsrplib.namespaces import WSRP_TYPES_NAMESPACE
         instance = self._makeOne()
         descriptor = self._getDescriptor(instance, 'register')
         self.failUnless(isinstance(descriptor, MethodDescriptor))
@@ -55,13 +55,13 @@ class WSRP_v1_RegistrationTests(unittest.TestCase):
 
     def test_modifyRegistration_descriptor(self):
         from soaplib.service import MethodDescriptor
-        from wsrplib._datatypes import RegistrationContext
-        from wsrplib._datatypes import RegistrationData
-        from wsrplib._datatypes import RegistrationState
-        from wsrplib._faults import InvalidRegistration
-        from wsrplib._faults import MissingParameters
-        from wsrplib._faults import OperationFailed
-        from wsrplib._namespaces import WSRP_TYPES_NAMESPACE
+        from wsrplib.datatypes import RegistrationContext
+        from wsrplib.datatypes import RegistrationData
+        from wsrplib.datatypes import RegistrationState
+        from wsrplib.faults import InvalidRegistration
+        from wsrplib.faults import MissingParameters
+        from wsrplib.faults import OperationFailed
+        from wsrplib.namespaces import WSRP_TYPES_NAMESPACE
         instance = self._makeOne()
         descriptor = self._getDescriptor(instance, 'modifyRegistration')
         self.failUnless(isinstance(descriptor, MethodDescriptor))
@@ -94,10 +94,10 @@ class WSRP_v1_RegistrationTests(unittest.TestCase):
 
     def test_deregister_descriptor(self):
         from soaplib.service import MethodDescriptor
-        from wsrplib._datatypes import RegistrationContext
-        from wsrplib._faults import InvalidRegistration
-        from wsrplib._faults import OperationFailed
-        from wsrplib._namespaces import WSRP_TYPES_NAMESPACE
+        from wsrplib.datatypes import RegistrationContext
+        from wsrplib.faults import InvalidRegistration
+        from wsrplib.faults import OperationFailed
+        from wsrplib.namespaces import WSRP_TYPES_NAMESPACE
         instance = self._makeOne()
         descriptor = self._getDescriptor(instance, 'deregister')
         self.failUnless(isinstance(descriptor, MethodDescriptor))

@@ -3,11 +3,11 @@ import unittest
 class WSRP_v1_PortletManagementTests(unittest.TestCase):
 
     def _getTargetClass(self):
-        from wsrplib._portlet_management import WSRP_v1_PortletManagement
+        from wsrplib.portlet_management import WSRP_v1_PortletManagement
         return WSRP_v1_PortletManagement
 
     def test_get_tns(self):
-        from wsrplib._namespaces import WSRP_TYPES_NAMESPACE
+        from wsrplib.namespaces import WSRP_TYPES_NAMESPACE
         cls = self._getTargetClass()
         self.assertEqual(cls.get_tns(), WSRP_TYPES_NAMESPACE)
 
@@ -20,19 +20,19 @@ class WSRP_v1_PortletManagementTests(unittest.TestCase):
 
     def test_getPortletDescription_descriptor(self):
         from soaplib.service import MethodDescriptor
-        from wsrplib._datatypes import PortletContext
-        from wsrplib._datatypes import PortletDescriptionResponse
-        from wsrplib._datatypes import RegistrationContext
-        from wsrplib._datatypes import StringSeq
-        from wsrplib._datatypes import UserContext
-        from wsrplib._faults import AccessDenied
-        from wsrplib._faults import InconsistentParameters
-        from wsrplib._faults import InvalidHandle
-        from wsrplib._faults import InvalidRegistration
-        from wsrplib._faults import InvalidUserCategory
-        from wsrplib._faults import MissingParameters
-        from wsrplib._faults import OperationFailed
-        from wsrplib._namespaces import WSRP_TYPES_NAMESPACE
+        from wsrplib.datatypes import PortletContext
+        from wsrplib.datatypes import PortletDescriptionResponse
+        from wsrplib.datatypes import RegistrationContext
+        from wsrplib.datatypes import StringSeq
+        from wsrplib.datatypes import UserContext
+        from wsrplib.faults import AccessDenied
+        from wsrplib.faults import InconsistentParameters
+        from wsrplib.faults import InvalidHandle
+        from wsrplib.faults import InvalidRegistration
+        from wsrplib.faults import InvalidUserCategory
+        from wsrplib.faults import MissingParameters
+        from wsrplib.faults import OperationFailed
+        from wsrplib.namespaces import WSRP_TYPES_NAMESPACE
         instance = self._makeOne()
         descriptor = self._getDescriptor(instance, 'getPortletDescription')
         self.failUnless(isinstance(descriptor, MethodDescriptor))
@@ -71,17 +71,17 @@ class WSRP_v1_PortletManagementTests(unittest.TestCase):
 
     def test_clonePortlet_descriptor(self):
         from soaplib.service import MethodDescriptor
-        from wsrplib._datatypes import PortletContext
-        from wsrplib._datatypes import RegistrationContext
-        from wsrplib._datatypes import UserContext
-        from wsrplib._faults import AccessDenied
-        from wsrplib._faults import InconsistentParameters
-        from wsrplib._faults import InvalidHandle
-        from wsrplib._faults import InvalidRegistration
-        from wsrplib._faults import InvalidUserCategory
-        from wsrplib._faults import MissingParameters
-        from wsrplib._faults import OperationFailed
-        from wsrplib._namespaces import WSRP_TYPES_NAMESPACE
+        from wsrplib.datatypes import PortletContext
+        from wsrplib.datatypes import RegistrationContext
+        from wsrplib.datatypes import UserContext
+        from wsrplib.faults import AccessDenied
+        from wsrplib.faults import InconsistentParameters
+        from wsrplib.faults import InvalidHandle
+        from wsrplib.faults import InvalidRegistration
+        from wsrplib.faults import InvalidUserCategory
+        from wsrplib.faults import MissingParameters
+        from wsrplib.faults import OperationFailed
+        from wsrplib.namespaces import WSRP_TYPES_NAMESPACE
         instance = self._makeOne()
         descriptor = self._getDescriptor(instance, 'clonePortlet')
         self.failUnless(isinstance(descriptor, MethodDescriptor))
@@ -119,14 +119,14 @@ class WSRP_v1_PortletManagementTests(unittest.TestCase):
 
     def test_destroyPortlets_descriptor(self):
         from soaplib.service import MethodDescriptor
-        from wsrplib._datatypes import DestroyPortletsResponse
-        from wsrplib._datatypes import RegistrationContext
-        from wsrplib._datatypes import StringSeq
-        from wsrplib._faults import InconsistentParameters
-        from wsrplib._faults import InvalidRegistration
-        from wsrplib._faults import MissingParameters
-        from wsrplib._faults import OperationFailed
-        from wsrplib._namespaces import WSRP_TYPES_NAMESPACE
+        from wsrplib.datatypes import DestroyPortletsResponse
+        from wsrplib.datatypes import RegistrationContext
+        from wsrplib.datatypes import StringSeq
+        from wsrplib.faults import InconsistentParameters
+        from wsrplib.faults import InvalidRegistration
+        from wsrplib.faults import MissingParameters
+        from wsrplib.faults import OperationFailed
+        from wsrplib.namespaces import WSRP_TYPES_NAMESPACE
         instance = self._makeOne()
         descriptor = self._getDescriptor(instance, 'destroyPortlets')
         self.failUnless(isinstance(descriptor, MethodDescriptor))
@@ -160,18 +160,18 @@ class WSRP_v1_PortletManagementTests(unittest.TestCase):
 
     def test_setPortletProperties_descriptor(self):
         from soaplib.service import MethodDescriptor
-        from wsrplib._datatypes import PortletContext
-        from wsrplib._datatypes import RegistrationContext
-        from wsrplib._datatypes import PropertyList
-        from wsrplib._datatypes import UserContext
-        from wsrplib._faults import AccessDenied
-        from wsrplib._faults import InconsistentParameters
-        from wsrplib._faults import InvalidHandle
-        from wsrplib._faults import InvalidRegistration
-        from wsrplib._faults import InvalidUserCategory
-        from wsrplib._faults import MissingParameters
-        from wsrplib._faults import OperationFailed
-        from wsrplib._namespaces import WSRP_TYPES_NAMESPACE
+        from wsrplib.datatypes import PortletContext
+        from wsrplib.datatypes import RegistrationContext
+        from wsrplib.datatypes import PropertyList
+        from wsrplib.datatypes import UserContext
+        from wsrplib.faults import AccessDenied
+        from wsrplib.faults import InconsistentParameters
+        from wsrplib.faults import InvalidHandle
+        from wsrplib.faults import InvalidRegistration
+        from wsrplib.faults import InvalidUserCategory
+        from wsrplib.faults import MissingParameters
+        from wsrplib.faults import OperationFailed
+        from wsrplib.namespaces import WSRP_TYPES_NAMESPACE
         instance = self._makeOne()
         descriptor = self._getDescriptor(instance, 'setPortletProperties')
         self.failUnless(isinstance(descriptor, MethodDescriptor))
@@ -210,19 +210,19 @@ class WSRP_v1_PortletManagementTests(unittest.TestCase):
 
     def test_getPortletProperties_descriptor(self):
         from soaplib.service import MethodDescriptor
-        from wsrplib._datatypes import PortletContext
-        from wsrplib._datatypes import PropertyList
-        from wsrplib._datatypes import RegistrationContext
-        from wsrplib._datatypes import StringSeq
-        from wsrplib._datatypes import UserContext
-        from wsrplib._faults import AccessDenied
-        from wsrplib._faults import InconsistentParameters
-        from wsrplib._faults import InvalidHandle
-        from wsrplib._faults import InvalidRegistration
-        from wsrplib._faults import InvalidUserCategory
-        from wsrplib._faults import MissingParameters
-        from wsrplib._faults import OperationFailed
-        from wsrplib._namespaces import WSRP_TYPES_NAMESPACE
+        from wsrplib.datatypes import PortletContext
+        from wsrplib.datatypes import PropertyList
+        from wsrplib.datatypes import RegistrationContext
+        from wsrplib.datatypes import StringSeq
+        from wsrplib.datatypes import UserContext
+        from wsrplib.faults import AccessDenied
+        from wsrplib.faults import InconsistentParameters
+        from wsrplib.faults import InvalidHandle
+        from wsrplib.faults import InvalidRegistration
+        from wsrplib.faults import InvalidUserCategory
+        from wsrplib.faults import MissingParameters
+        from wsrplib.faults import OperationFailed
+        from wsrplib.namespaces import WSRP_TYPES_NAMESPACE
         instance = self._makeOne()
         descriptor = self._getDescriptor(instance, 'getPortletProperties')
         self.failUnless(isinstance(descriptor, MethodDescriptor))
@@ -261,19 +261,19 @@ class WSRP_v1_PortletManagementTests(unittest.TestCase):
 
     def test_getPortletPropertyDescription_descriptor(self):
         from soaplib.service import MethodDescriptor
-        from wsrplib._datatypes import PortletContext
-        from wsrplib._datatypes import PortletPropertyDescriptionResponse
-        from wsrplib._datatypes import RegistrationContext
-        from wsrplib._datatypes import StringSeq
-        from wsrplib._datatypes import UserContext
-        from wsrplib._faults import AccessDenied
-        from wsrplib._faults import InconsistentParameters
-        from wsrplib._faults import InvalidHandle
-        from wsrplib._faults import InvalidRegistration
-        from wsrplib._faults import InvalidUserCategory
-        from wsrplib._faults import MissingParameters
-        from wsrplib._faults import OperationFailed
-        from wsrplib._namespaces import WSRP_TYPES_NAMESPACE
+        from wsrplib.datatypes import PortletContext
+        from wsrplib.datatypes import PortletPropertyDescriptionResponse
+        from wsrplib.datatypes import RegistrationContext
+        from wsrplib.datatypes import StringSeq
+        from wsrplib.datatypes import UserContext
+        from wsrplib.faults import AccessDenied
+        from wsrplib.faults import InconsistentParameters
+        from wsrplib.faults import InvalidHandle
+        from wsrplib.faults import InvalidRegistration
+        from wsrplib.faults import InvalidUserCategory
+        from wsrplib.faults import MissingParameters
+        from wsrplib.faults import OperationFailed
+        from wsrplib.namespaces import WSRP_TYPES_NAMESPACE
         instance = self._makeOne()
         descriptor = self._getDescriptor(instance,
                                          'getPortletPropertyDescription')

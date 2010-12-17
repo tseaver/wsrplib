@@ -1,6 +1,6 @@
 from soaplib.model.exception import Fault
 
-from wsrplib._namespaces import WSRP_TYPES_NAMESPACE
+from wsrplib.namespaces import WSRP_TYPES_NAMESPACE
 
 class _WSRPFault(Fault):
     __namespace__ = WSRP_TYPES_NAMESPACE
