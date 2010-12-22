@@ -29,12 +29,10 @@ from wsrplib.faults import UnsupportedMode
 from wsrplib.faults import UnsupportedWindowState
 from wsrplib.namespaces import WSRP_TYPES_NAMESPACE
 
-SERVICE_INTERFACE = 'WSRP_v1_Markup'
-PORT_TYPE = '%s_PortType' % SERVICE_INTERFACE
+PORT_TYPE = 'WSRP_v1_Markup_PortType'
 
 class WSRP_v1_Markup(DefinitionBase):
     __namespace__ = WSRP_TYPES_NAMESPACE
-    __service_interface__ = SERVICE_INTERFACE
     __port_types__ = (PORT_TYPE,)
 
     @classmethod

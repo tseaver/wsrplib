@@ -10,12 +10,10 @@ from wsrplib.faults import MissingParameters
 from wsrplib.faults import OperationFailed
 from wsrplib.namespaces import WSRP_TYPES_NAMESPACE
 
-SERVICE_INTERFACE = 'WSRP_v1_Registration'
-PORT_TYPE = '%s_PortType' % SERVICE_INTERFACE
+PORT_TYPE = 'WSRP_v1_Registration_PortType'
 
 class WSRP_v1_Registration(DefinitionBase):
     __namespace__ = WSRP_TYPES_NAMESPACE
-    __service_interface__ = SERVICE_INTERFACE
     __port_types__ = (PORT_TYPE,)
 
     @classmethod

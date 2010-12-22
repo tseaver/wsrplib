@@ -18,8 +18,7 @@ from wsrplib.faults import InvalidRegistration
 from wsrplib.faults import OperationFailed
 from wsrplib.namespaces import WSRP_TYPES_NAMESPACE
 
-SERVICE_INTERFACE = 'WSRP_v1_ServiceDescription'
-PORT_TYPE = '%s_PortType' % SERVICE_INTERFACE
+PORT_TYPE = 'WSRP_v1_ServiceDescription_PortType'
 
 def _localized(name, value):
     ls = LocalizedString()
@@ -30,7 +29,6 @@ def _localized(name, value):
 
 class WSRP_v1_ServiceDescription(DefinitionBase):
     __namespace__ = WSRP_TYPES_NAMESPACE
-    __service_interface__ = SERVICE_INTERFACE
     __port_types__ = (PORT_TYPE,)
 
     @classmethod
