@@ -19,9 +19,13 @@ from wsrplib.faults import MissingParameters
 from wsrplib.faults import OperationFailed
 from wsrplib.namespaces import WSRP_TYPES_NAMESPACE
 
+SERVICE_INTERFACE = 'WSRP_v1_PortletManagement'
+PORT_TYPE = '%s_PortType' % SERVICE_INTERFACE
 
 class WSRP_v1_PortletManagement(DefinitionBase):
     __namespace__ = WSRP_TYPES_NAMESPACE
+    __service_interface__ = SERVICE_INTERFACE
+    __port_types__ = (PORT_TYPE,)
 
     @classmethod
     def get_tns(cls):
@@ -42,6 +46,7 @@ class WSRP_v1_PortletManagement(DefinitionBase):
                   ],
           _returns=PortletDescriptionResponse,
           _style=DOC_STYLE,
+          _port_type=PORT_TYPE,
          )
     def getPortletDescription(self,
         registrationContext,
@@ -66,6 +71,7 @@ class WSRP_v1_PortletManagement(DefinitionBase):
                   ],
           _returns=PortletContext,
           _style=DOC_STYLE,
+          _port_type=PORT_TYPE,
          )
     def clonePortlet(self,
         registrationContext,
@@ -85,6 +91,7 @@ class WSRP_v1_PortletManagement(DefinitionBase):
                   ],
           _returns=DestroyPortletsResponse,
           _style=DOC_STYLE,
+          _port_type=PORT_TYPE,
          )
     def destroyPortlets(self,
         registrationContext,
@@ -108,6 +115,7 @@ class WSRP_v1_PortletManagement(DefinitionBase):
                   ],
           _returns=PortletContext,
           _style=DOC_STYLE,
+          _port_type=PORT_TYPE,
          )
     def setPortletProperties(self,
         registrationContext,
@@ -133,6 +141,7 @@ class WSRP_v1_PortletManagement(DefinitionBase):
                   ],
           _returns=PropertyList,
           _style=DOC_STYLE,
+          _port_type=PORT_TYPE,
          )
     def getPortletProperties(self,
         registrationContext,
@@ -158,6 +167,7 @@ class WSRP_v1_PortletManagement(DefinitionBase):
                   ],
           _returns=PortletPropertyDescriptionResponse,
           _style=DOC_STYLE,
+          _port_type=PORT_TYPE,
          )
     def getPortletPropertyDescription(self,
         registrationContext,

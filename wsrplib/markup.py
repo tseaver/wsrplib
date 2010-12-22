@@ -29,8 +29,13 @@ from wsrplib.faults import UnsupportedMode
 from wsrplib.faults import UnsupportedWindowState
 from wsrplib.namespaces import WSRP_TYPES_NAMESPACE
 
+SERVICE_INTERFACE = 'WSRP_v1_Markup'
+PORT_TYPE = '%s_PortType' % SERVICE_INTERFACE
+
 class WSRP_v1_Markup(DefinitionBase):
     __namespace__ = WSRP_TYPES_NAMESPACE
+    __service_interface__ = SERVICE_INTERFACE
+    __port_types__ = (PORT_TYPE,)
 
     @classmethod
     def get_tns(cls):
@@ -58,6 +63,7 @@ class WSRP_v1_Markup(DefinitionBase):
                   ],
           _returns=MarkupResponse,
           _style=DOC_STYLE,
+          _port_type=PORT_TYPE,
          )
     def getMarkup(self,
         registrationContext,
@@ -109,6 +115,7 @@ class WSRP_v1_Markup(DefinitionBase):
                   ],
           _returns=BlockingInteractionResponse,
           _style=DOC_STYLE,
+          _port_type=PORT_TYPE,
          )
     def performBlockingInteraction(self,
         registrationContext,
@@ -128,6 +135,7 @@ class WSRP_v1_Markup(DefinitionBase):
                    OperationFailed,
                   ],
           _style=DOC_STYLE,
+          _port_type=PORT_TYPE,
          )
     def initCookie(self,
         registrationContext,
@@ -144,6 +152,7 @@ class WSRP_v1_Markup(DefinitionBase):
                    OperationFailed,
                   ],
           _style=DOC_STYLE,
+          _port_type=PORT_TYPE,
          )
     def releaseSessions(self,
         registrationContext,

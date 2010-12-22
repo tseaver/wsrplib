@@ -18,6 +18,8 @@ from wsrplib.faults import InvalidRegistration
 from wsrplib.faults import OperationFailed
 from wsrplib.namespaces import WSRP_TYPES_NAMESPACE
 
+SERVICE_INTERFACE = 'WSRP_v1_ServiceDescription'
+PORT_TYPE = '%s_PortType' % SERVICE_INTERFACE
 
 def _localized(name, value):
     ls = LocalizedString()
@@ -28,6 +30,8 @@ def _localized(name, value):
 
 class WSRP_v1_ServiceDescription(DefinitionBase):
     __namespace__ = WSRP_TYPES_NAMESPACE
+    __service_interface__ = SERVICE_INTERFACE
+    __port_types__ = (PORT_TYPE,)
 
     @classmethod
     def get_tns(cls):
@@ -40,7 +44,8 @@ class WSRP_v1_ServiceDescription(DefinitionBase):
                    OperationFailed,
                   ],
           _returns=ServiceDescription,
-          _style=DOC_STYLE
+          _style=DOC_STYLE,
+          _port_type=PORT_TYPE,
          )
     def getServiceDescription(self,
         registrationContext,
