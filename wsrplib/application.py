@@ -5,6 +5,7 @@ from lxml.etree import tostring
 from soaplib import Application as _Application
 from soaplib import ns_wsdl
 from soaplib import ns_soap
+from soaplib.wsdl import WSDL
 
 from wsrplib.namespaces import WSRP_BIND_NAMESPACE
 from wsrplib.namespaces import WSRP_INTF_NAMESPACE
@@ -27,7 +28,19 @@ _NS_MAP = {
     'wsrp': WSRP_WSDL_NAMESPACE,
 }
 
+class WSRP_WSDL(WSDL):
+
+    def _get_binding_name(self, port_type_name):
+        if port_type_name.endswith('_PortType'):
+            return '%s_Binding_SOAP' % port_type_name[:-len('_PortType')]
+
+    def _get_port_name(self, port_type_name):
+        if port_type_name.endswith('_PortType'):
+            return port_type_name[:-len('_PortType')]
+
 class Application(_Application):
+
+    __name = 'WSRP_v1_Service_Service'
 
     def __init__(self, services, tns, name=None,
                  _with_partnerlink=False,
@@ -46,6 +59,9 @@ class Application(_Application):
         # Rebuild after updating namespaces.
         self.call_routes = {}
         self.build_schema()
+
+    def _WSDL_factory(self):
+        return WSRP_WSDL
 
     def get_wsdl(self, url):
         """ Override to import standard WSDL rather than introspect.
