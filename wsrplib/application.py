@@ -47,7 +47,7 @@ class Application(_Application):
         self.call_routes = {}
         self.build_schema()
 
-    def __build_wsdl(self, url):
+    def get_wsdl(self, url):
         """ Override to import standard WSDL rather than introspect.
         """
         if self._endpoint_url is not None:
@@ -59,7 +59,7 @@ class Application(_Application):
         if self._wsdl_generation == 'static':
             return self._build_static_wsdl(url)
 
-        return super(Application, self).__build_wsdl(url)
+        return super(Application, self).get_wsdl(url)
 
     def _build_dynamic_wsdl(self, url):
         #return super(Application, self).__build_wsdl(url)
