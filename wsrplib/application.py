@@ -5,7 +5,7 @@ from lxml.etree import tostring
 from soaplib import Application as _Application
 from soaplib import ns_wsdl
 from soaplib import ns_soap
-from soaplib.wsdl import WSDL
+from soaplib.core.wsdl import WSDL
 
 from wsrplib.namespaces import WSRP_BIND_NAMESPACE
 from wsrplib.namespaces import WSRP_INTF_NAMESPACE

@@ -1,4 +1,4 @@
-from soaplib.model.exception import Fault
+from soaplib.core.model.exception import Fault
 
 from wsrplib.namespaces import WSRP_TYPES_NAMESPACE
 

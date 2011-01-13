@@ -1,6 +1,6 @@
-from soaplib.service import DefinitionBase
-from soaplib import DOC_STYLE
-from soaplib.service import soap
+from soaplib.core.service import DefinitionBase
+from soaplib.core.service import soap
+from soaplib.core.styles import DOC_STYLE
 
 from wsrplib.datatypes import RegistrationContext
 from wsrplib.datatypes import RegistrationData

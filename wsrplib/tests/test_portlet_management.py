@@ -19,7 +19,7 @@ class WSRP_v1_PortletManagementTests(unittest.TestCase):
         return method(clazz=self._getTargetClass(), _method_descriptor=1)
 
     def test_getPortletDescription_descriptor(self):
-        from soaplib.service import MethodDescriptor
+        from soaplib.core.service import MethodDescriptor
         from wsrplib.datatypes import PortletContext
         from wsrplib.datatypes import PortletDescriptionResponse
         from wsrplib.datatypes import RegistrationContext
@@ -40,7 +40,7 @@ class WSRP_v1_PortletManagementTests(unittest.TestCase):
         self.assertEqual(descriptor.public_name, 'getPortletDescription')
         in_message = descriptor.in_message
         self.assertEqual(in_message.__type_name__, 'getPortletDescription')
-        self.assertEqual(in_message.namespace, WSRP_TYPES_NAMESPACE)
+        self.assertEqual(in_message.__namespace__, WSRP_TYPES_NAMESPACE)
         self.assertEqual(len(in_message._type_info), 4)
         self.failUnless(in_message._type_info[0] is RegistrationContext)
         self.failUnless(in_message._type_info[1] is PortletContext)
@@ -49,7 +49,7 @@ class WSRP_v1_PortletManagementTests(unittest.TestCase):
         out_message = descriptor.out_message
         self.assertEqual(out_message.__type_name__,
                          'getPortletDescriptionResponse')
-        self.assertEqual(out_message.namespace, WSRP_TYPES_NAMESPACE)
+        self.assertEqual(out_message.__namespace__, WSRP_TYPES_NAMESPACE)
         self.assertEqual(out_message._type_info,
                          PortletDescriptionResponse._type_info)
         self.failUnless('WSRP' in descriptor.doc)
@@ -70,7 +70,7 @@ class WSRP_v1_PortletManagementTests(unittest.TestCase):
         self.assertEqual(descriptor.body_style, 'document')
 
     def test_clonePortlet_descriptor(self):
-        from soaplib.service import MethodDescriptor
+        from soaplib.core.service import MethodDescriptor
         from wsrplib.datatypes import PortletContext
         from wsrplib.datatypes import RegistrationContext
         from wsrplib.datatypes import UserContext
@@ -89,7 +89,7 @@ class WSRP_v1_PortletManagementTests(unittest.TestCase):
         self.assertEqual(descriptor.public_name, 'clonePortlet')
         in_message = descriptor.in_message
         self.assertEqual(in_message.__type_name__, 'clonePortlet')
-        self.assertEqual(in_message.namespace, WSRP_TYPES_NAMESPACE)
+        self.assertEqual(in_message.__namespace__, WSRP_TYPES_NAMESPACE)
         self.assertEqual(len(in_message._type_info), 3)
         self.failUnless(in_message._type_info[0] is RegistrationContext)
         self.failUnless(in_message._type_info[1] is PortletContext)
@@ -97,7 +97,7 @@ class WSRP_v1_PortletManagementTests(unittest.TestCase):
         out_message = descriptor.out_message
         self.assertEqual(out_message.__type_name__,
                          'clonePortletResponse')
-        self.assertEqual(out_message.namespace, WSRP_TYPES_NAMESPACE)
+        self.assertEqual(out_message.__namespace__, WSRP_TYPES_NAMESPACE)
         self.assertEqual(out_message._type_info,
                          PortletContext._type_info)
         self.failUnless('WSRP' in descriptor.doc)
@@ -118,7 +118,7 @@ class WSRP_v1_PortletManagementTests(unittest.TestCase):
         self.assertEqual(descriptor.body_style, 'document')
 
     def test_destroyPortlets_descriptor(self):
-        from soaplib.service import MethodDescriptor
+        from soaplib.core.service import MethodDescriptor
         from wsrplib.datatypes import DestroyPortletsResponse
         from wsrplib.datatypes import RegistrationContext
         from wsrplib.datatypes import StringSeq
@@ -134,14 +134,14 @@ class WSRP_v1_PortletManagementTests(unittest.TestCase):
         self.assertEqual(descriptor.public_name, 'destroyPortlets')
         in_message = descriptor.in_message
         self.assertEqual(in_message.__type_name__, 'destroyPortlets')
-        self.assertEqual(in_message.namespace, WSRP_TYPES_NAMESPACE)
+        self.assertEqual(in_message.__namespace__, WSRP_TYPES_NAMESPACE)
         self.assertEqual(len(in_message._type_info), 2)
         self.failUnless(in_message._type_info[0] is RegistrationContext)
         self.failUnless(in_message._type_info[1] is StringSeq)
         out_message = descriptor.out_message
         self.assertEqual(out_message.__type_name__,
                          'destroyPortletsResponse')
-        self.assertEqual(out_message.namespace, WSRP_TYPES_NAMESPACE)
+        self.assertEqual(out_message.__namespace__, WSRP_TYPES_NAMESPACE)
         self.assertEqual(out_message._type_info,
                          DestroyPortletsResponse._type_info)
         self.failUnless('WSRP' in descriptor.doc)
@@ -159,7 +159,7 @@ class WSRP_v1_PortletManagementTests(unittest.TestCase):
         self.assertEqual(descriptor.body_style, 'document')
 
     def test_setPortletProperties_descriptor(self):
-        from soaplib.service import MethodDescriptor
+        from soaplib.core.service import MethodDescriptor
         from wsrplib.datatypes import PortletContext
         from wsrplib.datatypes import RegistrationContext
         from wsrplib.datatypes import PropertyList
@@ -179,7 +179,7 @@ class WSRP_v1_PortletManagementTests(unittest.TestCase):
         self.assertEqual(descriptor.public_name, 'setPortletProperties')
         in_message = descriptor.in_message
         self.assertEqual(in_message.__type_name__, 'setPortletProperties')
-        self.assertEqual(in_message.namespace, WSRP_TYPES_NAMESPACE)
+        self.assertEqual(in_message.__namespace__, WSRP_TYPES_NAMESPACE)
         self.assertEqual(len(in_message._type_info), 4)
         self.failUnless(in_message._type_info[0] is RegistrationContext)
         self.failUnless(in_message._type_info[1] is PortletContext)
@@ -188,7 +188,7 @@ class WSRP_v1_PortletManagementTests(unittest.TestCase):
         out_message = descriptor.out_message
         self.assertEqual(out_message.__type_name__,
                          'setPortletPropertiesResponse')
-        self.assertEqual(out_message.namespace, WSRP_TYPES_NAMESPACE)
+        self.assertEqual(out_message.__namespace__, WSRP_TYPES_NAMESPACE)
         self.assertEqual(out_message._type_info,
                          PortletContext._type_info)
         self.failUnless('WSRP' in descriptor.doc)
@@ -209,7 +209,7 @@ class WSRP_v1_PortletManagementTests(unittest.TestCase):
         self.assertEqual(descriptor.body_style, 'document')
 
     def test_getPortletProperties_descriptor(self):
-        from soaplib.service import MethodDescriptor
+        from soaplib.core.service import MethodDescriptor
         from wsrplib.datatypes import PortletContext
         from wsrplib.datatypes import PropertyList
         from wsrplib.datatypes import RegistrationContext
@@ -230,7 +230,7 @@ class WSRP_v1_PortletManagementTests(unittest.TestCase):
         self.assertEqual(descriptor.public_name, 'getPortletProperties')
         in_message = descriptor.in_message
         self.assertEqual(in_message.__type_name__, 'getPortletProperties')
-        self.assertEqual(in_message.namespace, WSRP_TYPES_NAMESPACE)
+        self.assertEqual(in_message.__namespace__, WSRP_TYPES_NAMESPACE)
         self.assertEqual(len(in_message._type_info), 4)
         self.failUnless(in_message._type_info[0] is RegistrationContext)
         self.failUnless(in_message._type_info[1] is PortletContext)
@@ -239,7 +239,7 @@ class WSRP_v1_PortletManagementTests(unittest.TestCase):
         out_message = descriptor.out_message
         self.assertEqual(out_message.__type_name__,
                          'getPortletPropertiesResponse')
-        self.assertEqual(out_message.namespace, WSRP_TYPES_NAMESPACE)
+        self.assertEqual(out_message.__namespace__, WSRP_TYPES_NAMESPACE)
         self.assertEqual(out_message._type_info,
                          PropertyList._type_info)
         self.failUnless('WSRP' in descriptor.doc)
@@ -260,7 +260,7 @@ class WSRP_v1_PortletManagementTests(unittest.TestCase):
         self.assertEqual(descriptor.body_style, 'document')
 
     def test_getPortletPropertyDescription_descriptor(self):
-        from soaplib.service import MethodDescriptor
+        from soaplib.core.service import MethodDescriptor
         from wsrplib.datatypes import PortletContext
         from wsrplib.datatypes import PortletPropertyDescriptionResponse
         from wsrplib.datatypes import RegistrationContext
@@ -284,7 +284,7 @@ class WSRP_v1_PortletManagementTests(unittest.TestCase):
         in_message = descriptor.in_message
         self.assertEqual(in_message.__type_name__,
                          'getPortletPropertyDescription')
-        self.assertEqual(in_message.namespace, WSRP_TYPES_NAMESPACE)
+        self.assertEqual(in_message.__namespace__, WSRP_TYPES_NAMESPACE)
         self.assertEqual(len(in_message._type_info), 4)
         self.failUnless(in_message._type_info[0] is RegistrationContext)
         self.failUnless(in_message._type_info[1] is PortletContext)
@@ -293,7 +293,7 @@ class WSRP_v1_PortletManagementTests(unittest.TestCase):
         out_message = descriptor.out_message
         self.assertEqual(out_message.__type_name__,
                          'getPortletPropertyDescriptionResponse')
-        self.assertEqual(out_message.namespace, WSRP_TYPES_NAMESPACE)
+        self.assertEqual(out_message.__namespace__, WSRP_TYPES_NAMESPACE)
         self.assertEqual(out_message._type_info,
                          PortletPropertyDescriptionResponse._type_info)
         self.failUnless('WSRP' in descriptor.doc)

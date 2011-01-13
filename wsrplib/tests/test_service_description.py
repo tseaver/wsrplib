@@ -19,7 +19,7 @@ class WSRP_v1_ServiceDescriptionTests(unittest.TestCase):
         self.assertEqual(cls.get_tns(), WSRP_TYPES_NAMESPACE)
 
     def test_getServiceDescription_descriptor(self):
-        from soaplib.service import MethodDescriptor
+        from soaplib.core.service import MethodDescriptor
         from wsrplib.datatypes import RegistrationContext
         from wsrplib.datatypes import ServiceDescription
         from wsrplib.datatypes import StringSeq
@@ -33,14 +33,14 @@ class WSRP_v1_ServiceDescriptionTests(unittest.TestCase):
         self.assertEqual(descriptor.public_name, 'getServiceDescription')
         in_message = descriptor.in_message
         self.assertEqual(in_message.__type_name__, 'getServiceDescription')
-        self.assertEqual(in_message.namespace, WSRP_TYPES_NAMESPACE)
+        self.assertEqual(in_message.__namespace__, WSRP_TYPES_NAMESPACE)
         self.assertEqual(len(in_message._type_info), 2)
         self.failUnless(in_message._type_info[0] is RegistrationContext)
         self.failUnless(in_message._type_info[1] is StringSeq)
         out_message = descriptor.out_message
         self.assertEqual(out_message.__type_name__,
                          'getServiceDescriptionResponse')
-        self.assertEqual(out_message.namespace, WSRP_TYPES_NAMESPACE)
+        self.assertEqual(out_message.__namespace__, WSRP_TYPES_NAMESPACE)
         self.assertEqual(out_message._type_info, ServiceDescription._type_info)
         self.failUnless('WSRP' in descriptor.doc)
         self.failIf(descriptor.is_callback)

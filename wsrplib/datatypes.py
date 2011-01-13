@@ -1,16 +1,16 @@
 # WSRP datatypes
 
-from soaplib.model import SimpleType
-from soaplib.model.binary import Attachment
-from soaplib.model.enum import Enum
-from soaplib.model.primitive import Any  # AnyAsDict?
-from soaplib.model.primitive import Boolean
-from soaplib.model.primitive import Date
-from soaplib.model.primitive import Integer
-from soaplib.model.primitive import String
-from soaplib.model.clazz import ClassModel
-from soaplib.model.clazz import XMLAttribute
-from soaplib.model.clazz import XMLAttributeRef
+from soaplib.core.model import SimpleType
+from soaplib.core.model.binary import Attachment
+from soaplib.core.model.enum import Enum
+from soaplib.core.model.primitive import Any  # AnyAsDict?
+from soaplib.core.model.primitive import Boolean
+from soaplib.core.model.primitive import Date
+from soaplib.core.model.primitive import Integer
+from soaplib.core.model.primitive import String
+from soaplib.core.model.clazz import ClassModel
+from soaplib.core.model.clazz import XMLAttribute
+from soaplib.core.model.clazz import XMLAttributeRef
 
 from wsrplib.namespaces import WSRP_TYPES_NAMESPACE
 

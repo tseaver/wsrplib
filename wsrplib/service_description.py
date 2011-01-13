@@ -1,6 +1,6 @@
-from soaplib import DOC_STYLE
-from soaplib.service import DefinitionBase
-from soaplib.service import soap
+from soaplib.core.service import DefinitionBase
+from soaplib.core.service import soap
+from soaplib.core.styles import DOC_STYLE
 from zope.component import getUtilitiesFor
 from zope.component import getUtility
 
