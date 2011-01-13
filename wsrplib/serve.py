@@ -87,7 +87,7 @@ def main():
     from wsgiref.simple_server import make_server
 
     from zope.component import provideUtility
-    from soaplib.server import wsgi
+    from soaplib.core.server import wsgi
     from wsrplib.application import Application
     from wsrplib.namespaces import WSRP_TYPES_NAMESPACE
     wsdl_generation = None
