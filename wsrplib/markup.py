@@ -78,7 +78,8 @@ class WSRP_v1_Markup(DefinitionBase):
             return InvalidHandle('No such portlet: %s' % p_handle)
         m_response = MarkupResponse()
         try:
-            m_response.markupContext = portlet.GET(registrationContext,
+            m_response.markupContext = portlet.GET(self.environ,
+                                                   registrationContext,
                                                    portletContext,
                                                    runtimeContext,
                                                    userContext,

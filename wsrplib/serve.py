@@ -54,7 +54,8 @@ class DummyPortlet(object):
     templatesStoredInSession = False
     hasUserSpecificState = False
     doesUrlTemplateProcessing = False
-    def GET(self, registration_context, portlet_context, runtime_context,
+    def GET(self, request_environ,
+            registration_context, portlet_context, runtime_context,
             user_context, markup_params):
         """ See IPortlet.
         """
