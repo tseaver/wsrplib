@@ -55,7 +55,8 @@ class _WSRPMandatoryString(String):
 
 
 class Handle(_WSRPString):
-    # See WSRP 1.0 spec. 5.1.2
+    """ See WSRP 1.0 spec. 5.1.2
+    """
     __type_name__ = 'Handle'
     class Attributes(String.Attributes):
         min_len = 1
@@ -63,7 +64,8 @@ class Handle(_WSRPString):
 
 
 class Key(_WSRPString):
-    # See WSRP 1.0 spec. 5.1.3
+    """ See WSRP 1.0 spec. 5.1.3
+    """
     __type_name__ = 'Key'
     class Attributes(String.Attributes):
         min_len = 1
@@ -71,7 +73,8 @@ class Key(_WSRPString):
 
 
 class ID(_WSRPString):
-    # See WSRP 1.0 spec. 5.1.4
+    """ See WSRP 1.0 spec. 5.1.4
+    """
     __type_name__ = 'ID'
     class Attributes(String.Attributes):
         min_len = 1
@@ -84,7 +87,8 @@ class ID(_WSRPString):
 
 
 class LocalizedString(_WSRPSerializer):
-    # See WSRP 1.0 spec. 5.1.5
+    """ See WSRP 1.0 spec. 5.1.5
+    """
     xmlLang = XMLAttributeRef('xml:lang', use='required')
     value = _WSRPMandatoryString
     resourceName = XMLAttribute('xs:string')
@@ -93,7 +97,8 @@ LocalizedStringSeq = _makeSeq(LocalizedString)
 
 
 class ResourceValue(_WSRPSerializer):
-    # See WSRP 1.0 spec. 5.1.6
+    """ See WSRP 1.0 spec. 5.1.6
+    """
     xmlLang = XMLAttributeRef('xml:lang', use='required')
     value = _WSRPMandatoryString
     #extensions = ExtensionSeq
@@ -102,7 +107,8 @@ ResourceValueSeq = _makeSeq(ResourceValue)
 
 
 class Resource(_WSRPSerializer):
-    # See WSRP 1.0 spec. 5.1.7
+    """ See WSRP 1.0 spec. 5.1.7
+    """
     resourceName = XMLAttribute('xs:string', use='required')
     values = ResourceValueSeq
     #extensions = ExtensionSeq
@@ -111,7 +117,8 @@ ResourceSeq = _makeSeq(Resource)
 
 
 class ResourceList(_WSRPSerializer):
-    # See WSRP 1.0 spec. 5.1.8
+    """ See WSRP 1.0 spec. 5.1.8
+    """
     resources = ResourceSeq
     #extensions = ExtensionSeq
 
@@ -119,7 +126,8 @@ ResourceListNotNillable = _makeNotNillable(ResourceList)
 
 class ItemDescription(_WSRPSerializer):
     # See WSRP 1.0 spec. 5.1.9
-    itemName = XMLAttribute('xs:string', use='required')
+    """temName = XMLAttribute('xs:string', use='required')
+    """
     description = LocalizedString
     #extensions = ExtensionSeq
 
@@ -127,7 +135,8 @@ ItemDescriptionSeq = _makeSeq(ItemDescription)
 
 
 class MarkupType(_WSRPSerializer):
-    # See WSRP 1.0 spec. 5.1.10
+    """ See WSRP 1.0 spec. 5.1.10
+    """
     mimeType = _WSRPMandatoryString
     modes = StringSeqNotEmpty
     windowStates = StringSeqNotEmpty
@@ -138,7 +147,8 @@ MarkupTypeSeq = _makeSeq(MarkupType)
 
 
 class PortletDescription(_WSRPSerializer):
-    # See WSRP 1.0 spec. 5.1.11
+    """ See WSRP 1.0 spec. 5.1.11
+    """
     portletHandle = Handle
     markupTypes = MarkupTypeSeq
     groupID = ID
@@ -162,7 +172,8 @@ PortletDescriptionSeq = _makeSeq(PortletDescription)
 
 
 class Property(_WSRPSerializer):
-    # See WSRP 1.0 spec. 5.1.12
+    """ See WSRP 1.0 spec. 5.1.12
+    """
     name = XMLAttribute('xs:string', use='required')
     xmlLang = XMLAttributeRef('xml:lang', use='required')
     stringValue = StringSeq
@@ -172,21 +183,24 @@ PropertySeq = _makeSeq(Property)
 
 
 class ResetProperty(_WSRPSerializer):
-    # See WSRP 1.0 spec. 5.1.13
+    """ See WSRP 1.0 spec. 5.1.13
+    """
     name = XMLAttribute('xs:string', use='required')
 
 ResetPropertySeq = _makeSeq(ResetProperty)
 
 
 class PropertyList(_WSRPSerializer):
-    # See WSRP 1.0 spec. 5.1.14
+    """ See WSRP 1.0 spec. 5.1.14
+    """
     properties = PropertySeq
     resetProperties = ResetPropertySeq
     #extensions = ExtensionSeq
 
 
 class PropertyDescription(_WSRPSerializer):
-    # See WSRP 1.0 spec. 5.1.15
+    """ See WSRP 1.0 spec. 5.1.15
+    """
     name = XMLAttribute('xs:string', use='required')
     type = XMLAttribute('xs:QName', use='required')
     label = LocalizedString
@@ -197,26 +211,30 @@ PropertyDescriptionSeq = _makeSeq(PropertyDescription)
 
 
 class ModelTypes(_WSRPSerializer):
-    # See WSRP 1.0 spec. 5.1.16
+    """ See WSRP 1.0 spec. 5.1.16
+    """
     any = AnySeq
 
 
 class ModelDescription(_WSRPSerializer):
-    # See WSRP 1.0 spec. 5.1.17
+    """ See WSRP 1.0 spec. 5.1.17
+    """
     propertyDescriptions = PropertyDescriptionSeq
     modelTypes = ModelTypes
     #extensions = ExtensionSeq
 
 ModelDescriptionNotNillable = _makeNotNillable(ModelDescription)
 
-# See WSRP 1.0 spec. 5.1.18
-CookieProtocol = Enum('none', 'perUser', 'perGroup', type_name='CookieProtocol')
+
+CookieProtocol = Enum('none', 'perUser', 'perGroup',
+                      type_name='CookieProtocol',
+                      __doc__ = "See WSRP 1.0 spec. 5.1.18")
 CookieProtocol.__namespace__ = WSRP_TYPES_NAMESPACE
 
 
-
 class ServiceDescription(_WSRPSerializer):
-    # See WSRP 1.0 spec. 5.1.19
+    """ See WSRP 1.0 spec. 5.1.19
+    """
     requiresRegistration = Boolean
     offeredPortlets = PortletDescriptionSeq
     userCategoryDescriptions = ItemDescriptionSeq
@@ -231,13 +249,15 @@ class ServiceDescription(_WSRPSerializer):
 
 
 class RegistrationState(_WSRPSerializer):
-    # See WSRP 1.0 spec. 5.1.20
+    """ See WSRP 1.0 spec. 5.1.20
+    """
     registrationState = Attachment
     #extensions = ExtensionSeq
 
 
 class RegistrationContext(_WSRPSerializer):
-    # See WSRP 1.0 spec. 5.1.21
+    """ See WSRP 1.0 spec. 5.1.21
+    """
     registrationHandle = Handle
     registrationState = Attachment
     #extensions = ExtensionSeq
@@ -250,14 +270,16 @@ class RegistrationContext(_WSRPSerializer):
 
 
 class SessionContext(_WSRPSerializer):
-    # See WSRP 1.0 spec. 6.1.1
+    """ See WSRP 1.0 spec. 6.1.1
+    """
     sessionID = ID
     expires = Integer
     #extensions = ExtensionSeq
 
 
 class Templates(_WSRPSerializer):
-    # See WSRP 1.0 spec. 6.1.6
+    """ See WSRP 1.0 spec. 6.1.6
+    """
     defaultTemplate = String
     blockingActionTemplate = String
     renderTemplate = String
@@ -270,7 +292,8 @@ class Templates(_WSRPSerializer):
 
 
 class RuntimeContext(_WSRPSerializer):
-    # See WSRP 1.0 spec. 6.1.2
+    """ See WSRP 1.0 spec. 6.1.2
+    """
     userAuthentication = _WSRPMandatoryString
     portletInstanceKey = Key
     namespacePrefix = String
@@ -280,7 +303,8 @@ class RuntimeContext(_WSRPSerializer):
 
 
 class PortletContext(_WSRPSerializer):
-    # See WSRP 1.0 spec. 6.1.3
+    """ See WSRP 1.0 spec. 6.1.3
+    """
     portletHandle = Handle
     portletState = Attachment
     #extensions = ExtensionSeq
@@ -290,7 +314,8 @@ class PortletContext(_WSRPSerializer):
 
 
 class CacheControl(_WSRPSerializer):
-    # See WSRP 1.0 spec. 6.1.6
+    """ See WSRP 1.0 spec. 6.1.6
+    """
     expires = _WSRPMandatoryString
     userScope = _WSRPMandatoryString
     validateTag = String
@@ -301,13 +326,15 @@ class CacheControl(_WSRPSerializer):
 
 
 class ClientData(_WSRPSerializer):
-    # See WSRP 1.0 spec. 6.1.7
+    """ See WSRP 1.0 spec. 6.1.7
+    """
     userAgent = String
     #extensions = ExtensionSeq
 
 
 class NamedString(_WSRPSerializer):
-    # See WSRP 1.0 spec. 6.1.8
+    """ See WSRP 1.0 spec. 6.1.8
+    """
     name = XMLAttribute('xs:string', use='required')
     value = _WSRPMandatoryString
 
@@ -315,7 +342,8 @@ NamedStringSeq = _makeSeq(NamedString)
 
 
 class MarkupParams(_WSRPSerializer):
-    # See WSRP 1.0 spec. 6.1.9
+    """ See WSRP 1.0 spec. 6.1.9
+    """
     secureClientCommunication = Boolean         # XXX required
     locales = StringSeq
     mimeTypes = StringSeqNotEmpty
@@ -331,7 +359,8 @@ class MarkupParams(_WSRPSerializer):
 
 
 class MarkupContext(_WSRPSerializer):
-    # See WSRP 1.0 spec. 6.1.10
+    """ See WSRP 1.0 spec. 6.1.10
+    """
     useCachedMarkup = Boolean
     mimeType = String
     markupString = String
@@ -344,7 +373,8 @@ class MarkupContext(_WSRPSerializer):
 
 
 class MarkupResponse(_WSRPSerializer):
-    # See WSRP 1.0 spec. 6.1.11
+    """ See WSRP 1.0 spec. 6.1.11
+    """
     markupContext = MarkupContext
     sessionContext = SessionContext
     #extensions = ExtensionSeq
@@ -361,20 +391,22 @@ class UpdateResponse(_WSRPSerializer):
 
 
 class BlockingInteractionResponse(_WSRPSerializer):
-    # See WSRP 1.0 spec. 6.1.13
+    """ See WSRP 1.0 spec. 6.1.13
+    """
     updateResponse = UpdateResponse
     redirectURL = String
     #extensions = ExtensionSeq
 
 
-# See WSRP 1.0 spec. 6.1.14
 StateChange = Enum('readWrite', 'cloneBeforeWrite', 'readOnly',
-                   type_name='StateChange')
+                   type_name='StateChange',
+                   __doc__ = "See WSRP 1.0 spec. 6.1.14")
 StateChange.__namespace__ = WSRP_TYPES_NAMESPACE
 
 
 class UploadContext(_WSRPSerializer):
-    # See WSRP 1.0 spec. 6.1.15
+    """ See WSRP 1.0 spec. 6.1.15
+    """
     mimeType = _WSRPMandatoryString
     uploadData = Attachment
     mimeAttributes = NamedStringSeq
@@ -384,7 +416,8 @@ UploadContextSeq = _makeSeq(UploadContext)
 
 
 class InteractionParams(_WSRPSerializer):
-    # See WSRP 1.0 spec. 6.1.16
+    """ See WSRP 1.0 spec. 6.1.16
+    """
     stateChange = StateChange                   # XXX required
     interactionState = String
     formParameters = NamedStringSeq
@@ -393,7 +426,8 @@ class InteractionParams(_WSRPSerializer):
 
 
 class PersonName(_WSRPSerializer):
-    # See WSRP 1.0 spec. 6.1.17.1
+    """ See WSRP 1.0 spec. 6.1.17.1
+    """
     prefix = String
     given = String
     family = String
@@ -404,7 +438,8 @@ class PersonName(_WSRPSerializer):
 
 
 class EmployerInfo(_WSRPSerializer):
-    # See WSRP 1.0 spec. 6.1.17.2
+    """ See WSRP 1.0 spec. 6.1.17.2
+    """
     employer = String
     department = String
     jobTitle = String
@@ -412,7 +447,8 @@ class EmployerInfo(_WSRPSerializer):
 
 
 class TelephoneNum(_WSRPSerializer):
-    # See WSRP 1.0 spec. 6.1.17.3
+    """ See WSRP 1.0 spec. 6.1.17.3
+    """
     intcode = String
     loccode = String
     number = String
@@ -422,7 +458,8 @@ class TelephoneNum(_WSRPSerializer):
 
 
 class Telecom(_WSRPSerializer):
-    # See WSRP 1.0 spec. 6.1.17.4
+    """ See WSRP 1.0 spec. 6.1.17.4
+    """
     telephone = TelephoneNum
     fax = TelephoneNum
     mobile = TelephoneNum
@@ -431,14 +468,16 @@ class Telecom(_WSRPSerializer):
 
 
 class Online(_WSRPSerializer):
-    # See WSRP 1.0 spec. 6.1.17.5
+    """ See WSRP 1.0 spec. 6.1.17.5
+    """
     email = String
     uri = String
     #extensions = ExtensionSeq
 
 
 class Postal(_WSRPSerializer):
-    # See WSRP 1.0 spec. 6.1.17.6
+    """ See WSRP 1.0 spec. 6.1.17.6
+    """
     name = String
     steet = String
     city = String
@@ -449,7 +488,8 @@ class Postal(_WSRPSerializer):
 
 
 class Contact(_WSRPSerializer):
-    # See WSRP 1.0 spec. 6.1.17.7
+    """ See WSRP 1.0 spec. 6.1.17.7
+    """
     postal = Postal
     telecom = Telecom
     online = Online
@@ -457,7 +497,8 @@ class Contact(_WSRPSerializer):
 
 
 class UserProfile(_WSRPSerializer):
-    # See WSRP 1.0 spec. 6.1.17
+    """ See WSRP 1.0 spec. 6.1.17
+    """
     name = PersonName
     bdate = Date
     gender = String
@@ -468,7 +509,8 @@ class UserProfile(_WSRPSerializer):
 
 
 class UserContext(_WSRPSerializer):
-    # See WSRP 1.0 spec. 6.1.18
+    """ See WSRP 1.0 spec. 6.1.18
+    """
     userContextKey = Key
     userCategories = StringSeq
     profile = UserProfile
@@ -482,7 +524,8 @@ class UserContext(_WSRPSerializer):
 
 
 class RegistrationData(_WSRPSerializer):
-    # See WSRP 1.0 spec. 7.1.1
+    """ See WSRP 1.0 spec. 7.1.1
+    """
     consumerName = _WSRPMandatoryString
     consumerAgent = _WSRPMandatoryString
     methodGetSupported = Boolean            # XXX required
@@ -500,7 +543,8 @@ class RegistrationData(_WSRPSerializer):
 
 
 class DestroyFailed(_WSRPSerializer):
-    # See WSRP 1.0 spec. 8.1.1
+    """ See WSRP 1.0 spec. 8.1.1
+    """
     portletHandle = Handle                  # XXX required
     reason = String                         # XXX required
 
@@ -508,20 +552,23 @@ DestroyFailedSeq = _makeSeq(DestroyFailed)
 
 
 class DestroyPortletsResponse(_WSRPSerializer):
-    # See WSRP 1.0 spec. 8.1.2
+    """ See WSRP 1.0 spec. 8.1.2
+    """
     destroyFailed = DestroyFailedSeq
     #extensions = ExtensionSeq
 
 
 class PortletDescriptionResponse(_WSRPSerializer):
-    # See WSRP 1.0 spec. 8.1.3
+    """ See WSRP 1.0 spec. 8.1.3
+    """
     portletDescription = PortletDescription
     resourceList = ResourceList
     #extensions = ExtensionSeq
 
 
 class PortletPropertyDescriptionResponse(_WSRPSerializer):
-    # See WSRP 1.0 spec. 8.1.4
+    """ See WSRP 1.0 spec. 8.1.4
+    """
     modelDescription = ModelDescription
     resourceList = ResourceList
     #extensions = ExtensionSeq
