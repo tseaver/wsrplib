@@ -19,61 +19,17 @@ Options
 import os
 import sys
 
-from zope.interface import implements
 from paste.urlmap import URLMap
 from paste.urlparser import StaticURLParser
 
-from wsrplib.interfaces import IMarkupType
+from wsrplib.dummy import DummyPortlet
+from wsrplib.dummy import DummyServiceDescriptionInfo
 from wsrplib.interfaces import IPortlet
 from wsrplib.interfaces import IServiceDescriptionInfo
-from wsrplib.datatypes import MarkupContext
 from wsrplib.markup import WSRP_v1_Markup
 from wsrplib.service_description import WSRP_v1_ServiceDescription
 from wsrplib.registration import WSRP_v1_Registration
 from wsrplib.portlet_management import WSRP_v1_PortletManagement
-
-class DummyMarkupType(object):
-    implements(IMarkupType)
-    mimeType = 'text/plain'
-    modes = ('wsrp:view',)
-    windowStates = ('wsrp:normal',)
-    locales = ('en',)
-
-class DummyPortlet(object):
-    implements(IPortlet)
-    markupTypes = (DummyMarkupType(),)
-    groupID = 'Dummy Group'
-    title = shortTitle = displayName = 'Dummy Portlet'
-    description = 'Portlet registered to test portlet definition exchange.'
-    keywords = ('dummy', 'testing')
-    userCategories = userProfileItems = ()
-    usesMethodGet = False
-    defaultMarkupSecure = False
-    onlySecure = False
-    userContextStoredInSession = False
-    templatesStoredInSession = False
-    hasUserSpecificState = False
-    doesUrlTemplateProcessing = False
-    def GET(self, request_environ,
-            registration_context, portlet_context, runtime_context,
-            user_context, markup_params):
-        """ See IPortlet.
-        """
-        response = MarkupContext()
-        response.useCachedMarkup = False
-        response.mimeType = 'text/plain'
-        response.markupString = 'Hello, world!'
-        response.locale = 'en'
-        response.requiresUrlRewriting = False
-        response.cacheControl = None
-        response.preferredTitle = 'Demo Portlet'
-        return response
-
-class DummyServiceDescriptionInfo(object):
-    implements(IServiceDescriptionInfo)
-    requiresRegistration = False
-    requiresInitCookie = 'none'
-    locales = ['en']
 
 def usage(message='', rc=1):
     print >>sys.stderr, __doc__ % sys.argv[0]
