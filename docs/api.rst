@@ -8,12 +8,15 @@ Interfaces
 
   .. autointerface:: IPortlet
      :members:
+     :member-order: alphabetical
 
   .. autointerface:: IMarkupType
      :members:
+     :member-order: alphabetical
 
   .. autointerface:: IServiceDescriptionInfo
      :members:
+     :member-order: alphabetical
 
 WSRP Datatypes
 --------------
@@ -160,20 +163,41 @@ WSRP Ports
 .. automodule:: wsrplib.service_description
 
   .. autoclass:: WSRP_v1_ServiceDescription
-     :members:
+     
+    .. automethod:: getServiceDescription(RegistrationContext, desiredLocales) -> ServiceDescription
 
 .. automodule:: wsrplib.markup
 
   .. autoclass:: WSRP_v1_Markup
-     :members:
+
+    .. automethod:: getMarkup(RegistrationContext, PortletContext, RuntimeContext, UserContext, MarkupParams) -> MarkupResponse
+
+    .. automethod:: performBlockingInteraction(RegistrationContext, PortletContext, RuntimeContext, UserContext, MarkupParams, InteractionParams) -> BlockingInterationResponse
+
+    .. automethod:: initCookie(RegistrationContext)
+
+    .. automethod:: releaseSessions(RegistrationContext, sessionIDs)
 
 .. automodule:: wsrplib.registration
 
   .. autoclass:: WSRP_v1_Registration
-     :members:
+
+    .. automethod:: register(RegistrationData) -> RegistrationContext
+
+    .. automethod:: modifyRegistration(RegistrationContext, RegistrationData) -> RegistrationState
+
+    .. automethod:: deregister(RegistrationContext)
 
 .. automodule:: wsrplib.portlet_management
 
   .. autoclass:: WSRP_v1_PortletManagement
-     :members:
 
+    .. automethod:: getPortletDescription(RegistrationContext, PortletContext, UserContext, desiredLocales) -> PortletDescriptionResponse
+
+    .. automethod:: clonePortlet(RegistrationContext, PortletContext, UserContext) -> PortletContext
+
+    .. automethod:: destroyPortlets(RegistrationContext, portletHandles) -> DestroyPortletsResponse
+
+    .. automethod:: getPortletProperties(RegistrationContext, PortletContext, UserContext, propertyNames) -> PropertyList
+
+    .. automethod:: getPortletPropertyDescription(RegistrationContext, PortletContext, UserContext, desiredLocales) -> PortletPropertyDescriptionResponse

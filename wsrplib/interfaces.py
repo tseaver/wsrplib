@@ -2,6 +2,8 @@ from zope.interface import Attribute
 from zope.interface import Interface
 
 class IServiceDescriptionInfo(Interface):
+    """ Utility interface:  define global settings for a portlet service.
+    """
     requiresRegistration = Attribute(u"Does the service require registration?")
     requiresInitCookie = Attribute(u"Does the service require that "
                                     "'initCookie' be called?")
@@ -9,7 +11,7 @@ class IServiceDescriptionInfo(Interface):
 
 
 class IMarkupType(Interface):
-    """ Define how portlet can be queried for markup.
+    """ Define a way that a given portlet can be queried for markup.
     """
     mimeType = Attribute(u'MIME type of portlet markup')
     modes = Attribute(u'List of supported mode names')
