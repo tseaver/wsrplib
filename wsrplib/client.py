@@ -5,9 +5,12 @@ def _maybeEmpty(x, attr):
     return getattr(x, attr, ())
 
 def main():
+    names = ()
     url = 'http://localhost:7789/?wsdl'
     if len(sys.argv) > 1:
         url = sys.argv[1]
+    if len(sys.argv) > 2:
+        names = sys.argv[2:]
     client = Client(url, cache=None)
     sd_port = client.service['WSRP_v1_ServiceDescription']
     markup_port = client.service['WSRP_v1_Markup']
@@ -20,7 +23,12 @@ def main():
     print 'Requires init cookie:', sd.requiresInitCookie
     print 'Locales:', ', '.join(_maybeEmpty(sd, 'locales'))
 
+    names = set(names)
+    shown = set()
     for portlet in _maybeEmpty(sd, 'offeredPortlets'):
+        if names and portlet.portletHandle not in names:
+            continue
+        shown.add(portlet.portletHandle)
         print
         print ' Portlet'
         print ' ======='
@@ -70,6 +78,10 @@ def main():
         print '  Requires URL Rewriting?', m_context.requiresUrlRewriting
         print '  Cache control:', m_context.cacheControl
         print '  Preferred Title:', m_context.preferredTitle
+
+    missed = names - shown
+    for name in missed:
+        print 'No such portlet:', name
 
 if __name__ == '__main__':
     main()
