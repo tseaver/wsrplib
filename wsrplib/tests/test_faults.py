@@ -18,6 +18,10 @@ class _API(object):
         cls = self._getTargetClass()
         self.assertEqual(cls.__namespace__, WSRP_TYPES_NAMESPACE)
 
+    def test_get_type_name(self):
+        cls = self._getTargetClass()
+        self.assertEqual(cls.get_type_name(), cls.__name__)
+
 
 class AccessDeniedTests(_ByName, _API):
     pass
