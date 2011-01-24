@@ -40,11 +40,11 @@ URL Generation
 
       * Document using the API in portlet implementations.
 
-- [_] Implement API for generating URLs based on templates provided by portal.
+- [X] Implement API for generating URLs based on templates provided by portal.
 
-      o Spec in WSRP v1, 10.2.2.
+      * Spec in WSRP v1, 10.2.2.
 
-      o Document using the API in portlet implementations.
+      * Document using the API in portlet implementations.
 
 
 Sample Client
