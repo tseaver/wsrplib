@@ -1,0 +1,142 @@
+``wsrplib`` TODOs
+=================
+
+Types
+-----
+
+- [X] Map WSPR v1 datatypes onto ``soaplib`` binding classes.
+
+      * Include sequence wrappers for types used as sequences.
+
+- [X] Map WSPR v1 faults onto ``soaplib`` binding classes.
+
+
+Sample WSGI Application
+-----------------------
+
+- [X] Override WSDL generation to match WSRP v1 spec:
+
+      * Override binding names.
+
+      * Override port names.
+
+- [X] Allow override of endpoint URLs in generated WSDL
+
+      * Facilitates testing via WSRP conformance proxy.
+
+- [X] Optionally serve static WSDL from disk.
+
+      * Only needed now for testing.
+
+- [X] Install test server as a console script, ``wsrp_serve``.
+
+
+URL Generation
+--------------
+
+- [_] Implement API for generating URLs to be rewritten by the portal.
+
+      o Spec in WSRP v1, 10.2.1.
+
+      o Document using the API in portlet implementations.
+
+- [_] Implement API for generating URLs based on templates provided by portal.
+
+      o Spec in WSRP v1, 10.2.2.
+
+      o Document using the API in portlet implementations.
+
+
+Sample Client
+-------------
+
+- [X] Introspect ``getServiceDescription`` via ``suds``.
+
+      * Dump properties to standard output.
+
+- [X] For each portlet, attempt to call ``getMarkup`` via suds and show
+
+      * Dump markup to standard output.
+
+- [X] Install test client as a console script, ``wsrp_client``.
+
+
+``WSRP_v1_ServiceDescription``
+------------------------------
+
+- [/] Implement ``getServiceDescription``.
+
+      * Configure required service properties via a ZCA utility.
+
+      o Configure optional service properties via a ZCA utility. 
+      
+        - See XXX comments for remaining properties.
+
+      * Configure portlet info via portlets as named ZCA utilities.
+
+      * Test with suds client.
+
+      * Test with liferay portal server.
+
+      o Document implementing the portlet utility as used for introspection.
+
+      o Document implementing the service information utility.
+
+
+``WSRP_v1_Markup``
+------------------
+
+- [/] Implement ``getMarkup``.
+
+      * Look up portlet, mapping handle as name of ZCA utility.
+
+      * Call its ``GET`` method to get the result.
+
+      * Test with suds client.
+
+      * Test with liferay portal server.
+
+      o Document implementing the portlet utility as used by ``getMarkup``.
+
+- [_] Implement ``performBlockingInteraction``.
+
+      o Look up portlet, mapping handle as name of ZCA utility.
+
+      o Call its ``POST`` method to get the result.
+
+      o Test with suds client.
+
+      o Test with liferay portal server.
+
+      o Document implementing the portlet utility as used by
+        ``performBlockingInteraction``.
+
+- [_] Implement ``initCookie``.
+
+- [_] Implement ``releaseSessions``.
+
+
+``WSRP_v1_Registration``
+------------------------
+
+- [_] Implement ``register``.
+
+- [_] Implement ``modifyRegistration``.
+
+- [_] Implement ``deregister``.
+
+
+``WSRP_v1_PortletManagement``
+-----------------------------
+
+- [_] Implement ``getPortletDescription``
+
+- [_] Implement ``clonePortlet``
+
+- [_] Implement ``destroyPortlets``
+
+- [_] Implement ``setPortletProperties``
+
+- [_] Implement ``getPortletProperties``
+
+- [_] Implement ``getPortletPropertyDescription``
