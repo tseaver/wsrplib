@@ -2,6 +2,14 @@ import unittest
 
 class WSRP_v1_MarkupTests(unittest.TestCase):
 
+    def setUp(self):
+        from zope.component.testing import setUp
+        setUp()
+
+    def tearDown(self):
+        from zope.component.testing import tearDown
+        tearDown()
+
     def _getTargetClass(self):
         from wsrplib.markup import WSRP_v1_Markup
         return WSRP_v1_Markup
@@ -12,6 +20,13 @@ class WSRP_v1_MarkupTests(unittest.TestCase):
     def _getDescriptor(self, instance, name):
         method = getattr(instance, name)
         return method(clazz=self._getTargetClass(), _method_descriptor=1)
+
+    def _registerPortlet(self, name, portlet):
+        from zope.component import provideUtility
+        from zope.interface import directlyProvides
+        from wsrplib.interfaces import IPortlet
+        directlyProvides(portlet, IPortlet)
+        provideUtility(portlet, IPortlet, name)
 
     def test_get_tns(self):
         from wsrplib.namespaces import WSRP_TYPES_NAMESPACE
@@ -224,3 +239,71 @@ class WSRP_v1_MarkupTests(unittest.TestCase):
         self.failUnless(MissingParameters in faults)
         self.failUnless(OperationFailed in faults)
         self.assertEqual(descriptor.body_style, 'document')
+
+    def test_getMarkup_unknown_portlet(self):
+        from wsrplib.faults import InvalidHandle
+        instance = self._makeOne()
+        reg_ctx = Dummy()
+        portlet_ctx = Dummy(portletHandle='nonesuch')
+        runtime_ctx = Dummy()
+        user_ctx = Dummy()
+        markup_parms = Dummy()
+        result = instance.getMarkup(reg_ctx,
+                                    portlet_ctx,
+                                    runtime_ctx,
+                                    user_ctx,
+                                    markup_parms)
+        self.failUnless(isinstance(result, InvalidHandle))
+
+    def test_getMarkup_w_portlet_raises(self):
+        from wsrplib.faults import OperationFailed
+        def _GET(*args, **kw):
+            raise ValueError('testing')
+        portlet = Dummy(GET=_GET)
+        self._registerPortlet('failing', portlet)
+        instance = self._makeOne()
+        reg_ctx = Dummy()
+        portlet_ctx = Dummy(portletHandle='failing')
+        runtime_ctx = Dummy()
+        user_ctx = Dummy()
+        markup_parms = Dummy()
+        result = instance.getMarkup(reg_ctx,
+                                    portlet_ctx,
+                                    runtime_ctx,
+                                    user_ctx,
+                                    markup_parms)
+        self.failUnless(isinstance(result, OperationFailed))
+
+    def test_getMarkup_w_portlet_no_raise(self):
+        from wsrplib.datatypes import MarkupResponse
+        _called_args = []
+        _response = object()
+        def _GET(*args):
+            _called_args.extend(args)
+            return _response
+        portlet = Dummy(GET=_GET)
+        self._registerPortlet('working', portlet)
+        instance = self._makeOne()
+        reg_ctx = Dummy()
+        portlet_ctx = Dummy(portletHandle='working')
+        runtime_ctx = Dummy()
+        user_ctx = Dummy()
+        markup_parms = Dummy()
+        result = instance.getMarkup(reg_ctx,
+                                    portlet_ctx,
+                                    runtime_ctx,
+                                    user_ctx,
+                                    markup_parms)
+        self.failUnless(isinstance(result, MarkupResponse))
+        self.failUnless(result.markupContext is _response)
+        self.assertEqual(_called_args, [instance.environ,
+                                        reg_ctx,
+                                        portlet_ctx,
+                                        runtime_ctx,
+                                        user_ctx,
+                                        markup_parms])
+
+
+class Dummy(object):
+    def __init__(self, **kw):
+        self.__dict__.update(kw)
