@@ -60,7 +60,7 @@ class WSRP_v1_ServiceDescription(DefinitionBase):
         result.customModeDescriptions = []              # XXX
         result.requiresInitCookie = info.requiresInitCookie
         regProps = ModelDescription()
-        regProps.propertyDescriptions = []
+        regProps.propertyDescriptions = []              # XXX
         modelTypes = ModelTypes()
         modelTypes.any = []
         regProps.modelTypes = modelTypes
