@@ -12,12 +12,8 @@ class Test_generateConsumerRewritableURL(unittest.TestCase):
         self.failUnless(url.startswith(PREFIX))
         self.failUnless(url.endswith(SUFFIX))
         qs = url[len(PREFIX):-len(SUFFIX)]
-        if '&amp;' in qs:
-            amp = '&amp;'
-        else:
-            amp = '&';
         result = {}
-        pairs = [x.split('=') for x in qs.split(amp)]
+        pairs = [x.split('=') for x in qs.split('&amp;')]
         self.assertEqual(pairs[0][0], 'wsrp-urlType')
         for name, value in pairs:
             self.failIf(name in result)

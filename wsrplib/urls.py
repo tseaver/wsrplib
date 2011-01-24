@@ -1,6 +1,10 @@
 """ Generate / parse rewritable URLs, per WSRP v1 section 10.2.
 """
-from urllib import urlencode
+from urllib import quote_plus
+
+
+def _quote(x):
+    return quote_plus(str(x))
 
 RENDER = 'render'
 BLOCKING_ACTION = 'blockingAction'
@@ -46,28 +50,31 @@ def generateConsumerRewritableURL(urlType,
 
     nvlist = [('wsrp-urlType', urlType)]
     if navigationalState is not None:
-        nvlist.append(('wsrp-navigationalState', navigationalState))
+        nvlist.append(('wsrp-navigationalState', _quote(navigationalState)))
 
     if interactionState is not None:
-        nvlist.append(('wsrp-interactionState', interactionState))
+        nvlist.append(('wsrp-interactionState', _quote(interactionState)))
 
     if mode is not None:
-        nvlist.append(('wsrp-mode', mode))
+        nvlist.append(('wsrp-mode', _quote(mode)))
 
     if windowState is not None:
-        nvlist.append(('wsrp-windowState', windowState))
+        nvlist.append(('wsrp-windowState', _quote(windowState)))
 
     if fragmentID is not None:
-        nvlist.append(('wsrp-fragmentID', fragmentID))
+        nvlist.append(('wsrp-fragmentID', _quote(fragmentID)))
 
     if secureURL is not None:
-        nvlist.append(('wsrp-secureURL', secureURL))
+        nvlist.append(('wsrp-secureURL', _quote(secureURL)))
 
-    if resourceURL is not None:
-        nvlist.append(('wsrp-resourceURL', resourceURL))
+    if urlType == RESOURCE:
 
-    if resourceRequiresRewrite is not None:
-        nvlist.append(('wsrp-resourceRequiresRewrite',
-                       resourceRequiresRewrite))
+        if resourceURL is not None:
+            nvlist.append(('wsrp-resourceURL', _quote(resourceURL)))
 
-    return 'wsrp_rewrite?%s/wsrp_rewrite' % urlencode(nvlist)
+        if resourceRequiresRewrite is not None:
+            nvlist.append(('wsrp-resourceRequiresRewrite',
+                          _quote(resourceRequiresRewrite)))
+
+    qs = '&amp;'.join(['='.join(nv)for nv in nvlist])
+    return 'wsrp_rewrite?%s/wsrp_rewrite' % qs
