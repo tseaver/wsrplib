@@ -277,7 +277,7 @@ class WSRP_v1_MarkupTests(unittest.TestCase):
     def test_getMarkup_w_portlet_no_raise(self):
         from wsrplib.datatypes import MarkupResponse
         _called_args = []
-        _response = object()
+        _response = MarkupResponse()
         def _GET(*args):
             _called_args.extend(args)
             return _response
@@ -294,14 +294,53 @@ class WSRP_v1_MarkupTests(unittest.TestCase):
                                     runtime_ctx,
                                     user_ctx,
                                     markup_parms)
-        self.failUnless(isinstance(result, MarkupResponse))
-        self.failUnless(result.markupContext is _response)
+        self.failUnless(result is _response)
         self.assertEqual(_called_args, [instance.environ,
                                         reg_ctx,
                                         portlet_ctx,
                                         runtime_ctx,
                                         user_ctx,
                                         markup_parms])
+
+    def test_performBlockingInteraction_unknown_portlet(self):
+        from wsrplib.faults import InvalidHandle
+        instance = self._makeOne()
+        reg_ctx = Dummy()
+        portlet_ctx = Dummy(portletHandle='nonesuch')
+        runtime_ctx = Dummy()
+        user_ctx = Dummy()
+        markup_parms = Dummy()
+        interaction_params = Dummy()
+        result = instance.performBlockingInteraction(
+                                    reg_ctx,
+                                    portlet_ctx,
+                                    runtime_ctx,
+                                    user_ctx,
+                                    markup_parms,
+                                    interaction_params)
+        self.failUnless(isinstance(result, InvalidHandle))
+
+    def test_performBlockingInteraction_w_portlet_raises(self):
+        from wsrplib.faults import OperationFailed
+        def _POST(*args, **kw):
+            raise ValueError('testing')
+        portlet = Dummy(POST=_POST)
+        self._registerPortlet('failing', portlet)
+        instance = self._makeOne()
+        reg_ctx = Dummy()
+        portlet_ctx = Dummy(portletHandle='failing')
+        runtime_ctx = Dummy()
+        user_ctx = Dummy()
+        markup_parms = Dummy()
+        interaction_params = Dummy()
+        result = instance.performBlockingInteraction(
+                                    reg_ctx,
+                                    portlet_ctx,
+                                    runtime_ctx,
+                                    user_ctx,
+                                    markup_parms,
+                                    interaction_params)
+        self.failUnless(isinstance(result, OperationFailed))
 
 
 class Dummy(object):
