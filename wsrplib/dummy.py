@@ -1,6 +1,7 @@
 from zope.interface import implements
 
 from wsrplib.datatypes import MarkupContext
+from wsrplib.datatypes import MarkupResponse
 from wsrplib.interfaces import IMarkupType
 from wsrplib.interfaces import IPortlet
 from wsrplib.interfaces import IServiceDescriptionInfo
@@ -27,19 +28,21 @@ class DummyPortlet(object):
     templatesStoredInSession = False
     hasUserSpecificState = False
     doesUrlTemplateProcessing = False
+
     def GET(self, request_environ,
             registration_context, portlet_context, runtime_context,
             user_context, markup_params):
         """ See IPortlet.
         """
-        response = MarkupContext()
-        response.useCachedMarkup = False
-        response.mimeType = 'text/plain'
-        response.markupString = 'Hello, world!'
-        response.locale = 'en'
-        response.requiresUrlRewriting = False
-        response.cacheControl = None
-        response.preferredTitle = 'Demo Portlet'
+        response = MarkupResponse()
+        payload = response.markupContext = MarkupContext()
+        payload.useCachedMarkup = False
+        payload.mimeType = 'text/plain'
+        payload.markupString = 'Hello, world!'
+        payload.locale = 'en'
+        payload.requiresUrlRewriting = False
+        payload.cacheControl = None
+        payload.preferredTitle = 'Demo Portlet'
         return response
 
 class DummyServiceDescriptionInfo(object):
