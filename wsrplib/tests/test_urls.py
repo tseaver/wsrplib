@@ -112,13 +112,19 @@ class Test_rewrittenURL(unittest.TestCase):
                      templates=templates,
                     )
 
-    def test_invalid_urlTYpe(self):
+    def test_invalid_urlType(self):
         self.assertRaises(ValueError, self._callFUT, 'nonesuch', False, None)
 
     def test_render_with_impossible_extra(self):
         from wsrplib.urls import RENDER
         self.assertRaises(ValueError, self._callFUT, RENDER, False, None,
                             resourceURL='http://example.com/resource.css')
+
+    def test_render_with_missing_templates(self):
+        from wsrplib.urls import RENDER
+        runtime_ctx = self._makeRuntimeContext()
+        self.assertRaises(ValueError,
+                          self._callFUT, RENDER, False, runtime_ctx)
 
     def test_render_w_explicit_template_not_secure_required_values(self):
         from wsrplib.urls import RENDER
