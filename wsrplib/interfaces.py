@@ -1,3 +1,7 @@
+# The following is necessary because we have both
+# a subpackage and a global package named 'zope'.
+from __future__ import absolute_import
+
 from zope.interface import Attribute
 from zope.interface import Interface
 

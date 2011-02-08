@@ -1,3 +1,7 @@
+# The following is necessary because we have both
+# a subpackage and a global package named 'zope'.
+from __future__ import absolute_import
+
 from soaplib.core.service import DefinitionBase
 from soaplib.core.service import soap
 from soaplib.core.styles import DOC_STYLE
