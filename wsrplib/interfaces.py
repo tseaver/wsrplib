@@ -58,3 +58,14 @@ class IPortlet(Interface):
            ):
         """ Return a MarkupResponse.
         """
+
+    def POST(request_environ,
+             registration_context,
+             portlet_context,
+             runtime_context,
+             user_context,
+             markup_params,
+             interaction_params,
+           ):
+        """ Return a BlockingInteractionResponse
+        """

@@ -80,20 +80,16 @@ class WSRP_v1_Markup(DefinitionBase):
         portlet = queryUtility(IPortlet, name=p_handle)
         if portlet is None:
             return InvalidHandle('No such portlet: %s' % p_handle)
-        m_response = MarkupResponse()
         try:
-            m_response.markupContext = portlet.GET(self.environ,
-                                                   registrationContext,
-                                                   portletContext,
-                                                   runtimeContext,
-                                                   userContext,
-                                                   markupParams,
-                                                  )
-            # XXX sessionContext in response?
+            return portlet.GET(self.environ,
+                               registrationContext,
+                               portletContext,
+                               runtimeContext,
+                               userContext,
+                               markupParams,
+                              )
         except Exception, e:
             return OperationFailed(str(e))
-        else:
-            return m_response
 
     @soap(RegistrationContext,
           PortletContext,
@@ -130,7 +126,22 @@ class WSRP_v1_Markup(DefinitionBase):
         ):
         """ See WSRP 1.0 spec. 6.3
         """
-        return OperationFailed()
+        p_handle = portletContext.portletHandle
+        portlet = queryUtility(IPortlet, name=p_handle)
+        if portlet is None:
+            return InvalidHandle('No such portlet: %s' % p_handle)
+        bi_response = BlockingInteractionResponse()
+        try:
+           return portlet.POST(self.environ,
+                               registrationContext,
+                               portletContext,
+                               runtimeContext,
+                               userContext,
+                               markupParams,
+                               interactionParams,
+                              )
+        except Exception, e:
+            return OperationFailed(str(e))
 
     @soap(RegistrationContext,
           _faults=[AccessDenied,
