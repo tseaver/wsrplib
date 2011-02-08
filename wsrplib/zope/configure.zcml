@@ -1,0 +1,112 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    i18n_domain="wsrplib"
+    >
+
+    <!-- ######################################################################
+         # A Portlet Manager within which the Content of Portlets is Displayed
+         #
+         # name=
+         #   used in portlet_demoview.pt to refer to this manager.  That page
+         #   template is to demonstrate portlets and in production would be
+         #   some Java code in a remote system.
+         #
+         # provides=
+         #   provides an arbitrary identifier to which viewlets can attach, by
+         #   this name.  See the manager= value in the browser:viewlet directive.
+         #
+         # class=
+         #   the Python module/class that implements the portlet manager.
+         #
+         # permission=
+         #   declare the permission needed to view the portlet manager, here
+         #   set to be publically viewable for this demo.  It should be
+         #   restricted for production deployment.
+         #
+         ###################################################################### -->
+
+<!--
+         <browser:viewletManager
+             name="jiva.PortletPane"
+             provides=".interfaces.IPortletManager"
+
+             class=".portletmgr.PortletManager"
+
+             permission="zope2.View"
+             />
+-->
+
+    <!-- ######################################################################
+         # A Viewlet/Portlet that Returns a Small Fragment of HTML, for Demo
+         #
+         # name=
+         #   a globally unique name but internal use but not otherwise used.
+         #
+         # for=
+         #   the interfaces on which the viewlet can be viewed, here set to
+         #   any.  Except in special cases, this in a good default.
+         #
+         # manager=
+         #   name of the portlet manager which which to display this fragment.
+         #
+         # class=
+         #   the Python module/class that implements the content generation.
+         #   We use a class here instead of a template= so we can generate the
+         #   content using DTML instead of PageTemplates.
+         #
+         # permission=
+         #   declare the permission needed to view the viewlet/portlet, here
+         #   set to be publically viewable for this demo.  It should be
+         #   restricted for production deployment.
+         #
+         ###################################################################### -->
+
+<!--
+         <browser:viewlet
+             name="jiva.statusinfo"
+             for="*"
+
+             manager=".interfaces.IPortletManager"
+             class=".myportlet.Portlet"
+
+             permission="zope2.View"
+             />
+-->
+
+
+    <!-- ######################################################################
+         # A Portlets Producer hanging off the Root Folder
+         #
+         # This view is hanging off the root folder as the URL:
+         #
+         #       http://localhost:9020/producer.html
+         #
+         # name=
+         #   the URL name of this view.
+         #
+         # for=
+         #   the type of content on which to hang this view, in this case the
+         #   root folder.
+         #
+         # template=
+         #   a trivial PageTemplate containing a directive to embed a portal
+         #   manager, given by name.
+         #
+         # permission=
+         #   declare the permission needed to view the page, here set to be
+         #   publically viewable for this demo.  It should be restricted for
+         #   production deployment.
+         #
+         ###################################################################### -->
+
+         <browser:page
+             name="producer.html"
+             for="zope.location.interfaces.IPossibleSite"
+
+             class=".producer.PortletsProducer"
+
+             permission="zope2.View"
+             />
+
+</configure>
